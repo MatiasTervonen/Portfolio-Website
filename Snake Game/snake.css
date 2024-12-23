@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#game-board {
+  background: linear-gradient(50deg, #000000, #333333);
+  border: white solid 2px;
+}

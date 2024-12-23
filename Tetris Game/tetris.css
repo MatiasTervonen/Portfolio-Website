@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.grid {
+  width: 200px;
+  height: 400px;
+  display: flex;
+  flex-wrap: wrap;
+  background: linear-gradient(50deg, #000000, #333333);
+  position: relative;
+  animation: glow 2s infinite;
+  box-shadow: 0 0 15px 5px transparent;
+  transition: box-shadow 0.5s ease;
+  outline: 2px solid white;
+}
+
+.grid div {
+  height: 20px;
+  width: 20px;
+}
+
+.tetromino {
+  background-color: blue;
+  border: 1px solid;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  border-radius: 2px;
+}
+
+.mini-grid {
+  margin-left: 50px;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  flex-wrap: wrap;
+  background: linear-gradient(50deg, #000000, #333333);
+  outline: 2px solid white;
+}
+
+.mini-grid div {
+  width: 20px;
+  height: 20px;
+}
+
+.leaderboard li {
+  padding: 10px;
+  font-weight: 500;
+}
