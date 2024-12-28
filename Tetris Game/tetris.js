@@ -1,3 +1,5 @@
+// Gameboard variables 
+
 const grid = document.querySelector(" .grid");
 
 let squares = Array.from(document.querySelectorAll(" .grid div"));
@@ -10,25 +12,33 @@ const width = 10;
 
 let nextRandom = 0;
 
-let timerId;
+// Score, Paused, Gameover
 
 let score = 0;
-
-const colors = ["orange", "red", "purple", "green", "blue"];
-
-const backgroundMusic = document.getElementById("background-music");
 
 let isPaused = false;
 
 let isGameOver = false;
 
+// Tetromino Colors
+
+const colors = ["orange", "red", "purple", "green", "blue"];
+
+// Music
+
+const backgroundMusic = document.getElementById("background-music");
+
 const volumeControl = document.getElementById("volumeControl");
 
 let savedVolume = localStorage.getItem("volume") || volumeControl.value;
 
+// Level
+
 const levelDisplay = document.getElementById("level");
 
 let level = 1;
+
+// Timer
 
 const timerDisplay = document.getElementById("timer");
 
@@ -36,7 +46,34 @@ let timeElapsed = 0;
 
 let timerInterval;
 
+let timerId;
+
 // Eventlisteners For mobile touch movements
+
+document.addEventListener('touchstart', handleTouchStart, false);
+document.addEventListener('touchend', handleTouchEnd, false);
+document.addEventListener('touchmove', handleTouchMove, false);
+
+function handleTouchStart(e) {
+  const touch = e.touches[0];
+  const halfWidth = window.innerWidth / 2;
+  const halfHeight = window.innerHeight / 2;
+  const touchX = touch.clientX;
+  const touchY = touch.clientY;
+
+  if (touchY > halfHeight) {
+      if (touchX < halfWidth) {
+          moveLeft();
+      } else {
+          moveRight();
+      }
+  } else {
+      if (touchX > halfWidth) {
+          rotate();
+      }
+  }
+}
+
 
 //Audio for game
 
