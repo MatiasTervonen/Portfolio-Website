@@ -50,7 +50,9 @@ let timerId;
 
 // Movement for mobile by touching
 
-let startX, startY;
+let startX,
+  startY,
+  isSwiping = false;
 
 function handleTouchStart(e) {
   startX = e.touches[0].clientX;
@@ -80,6 +82,8 @@ function handleTouchMove(e) {
       rotate();
     }
   }
+
+  e.preventDefault(); // Prevent scrolling or reloading
 }
 
 function handleTouchEnd(e) {
