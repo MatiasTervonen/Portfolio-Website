@@ -48,16 +48,20 @@ let timerInterval;
 
 let timerId;
 
-// Eventlisteners For mobile touch movements
+// Movement for mobile by touching
 
 let startX, startY;
 
 function handleTouchStart(e) {
   startX = e.touches[0].clientX;
   startY = e.touches[0].clientY;
+  isSwiping = true;
+  e.preventDefault(); // Prevent site realoadin when swiping down
 }
 
-function handleTouchEnd(e) {
+function handleTouchMove(e) {
+  if (!isSwiping) return;
+
   const moveX = e.changedTouches[0].clientX - startX;
   const moveY = e.changedTouches[0].clientY - startY;
 
@@ -78,8 +82,16 @@ function handleTouchEnd(e) {
   }
 }
 
-document.addEventListener("touchstart", handleTouchStart, false);
-document.addEventListener("touchend", handleTouchEnd, false);
+function handleTouchEnd(e) {
+  if (!isSwiping) return;
+
+  isSwiping = false; // Reset swiping back to false
+  e.preventDefault(); // Prevent any default end action, like clicking links
+}
+
+document.addEventListener("touchstart", handleTouchStart, { passive: false });
+document.addEventListener("touchmove", handleTouchMove, { passive: false });
+document.addEventListener("touchend", handleTouchEnd, { passive: false });
 
 //Audio for game
 
