@@ -36,6 +36,10 @@ let timeElapsed = 0;
 
 let timerInterval;
 
+// Eventlisteners For mobile touch movements
+
+//Audio for game
+
 const audio = [
   document.getElementById("background-music"),
   document.getElementById("full"),
