@@ -55,10 +55,18 @@ let startX,
   isSwiping = false;
 
 function handleTouchStart(e) {
-  startX = e.touches[0].clientX;
-  startY = e.touches[0].clientY;
-  isSwiping = true;
-  e.preventDefault(); // Prevent site realoadin when swiping down
+  const controlsArea = document.getElementById("gameControls");
+  const rect = controlsArea.getBoundingClientRect();
+  const touchY = e.touches[0].clientY;
+
+  // Check if the touch is within the controls area
+  if (touchY < rect.bottom) {
+    // Touch started within controls area, handle accordingly
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    isSwiping = true;
+    e.preventDefault();
+  }
 }
 
 function handleTouchMove(e) {
