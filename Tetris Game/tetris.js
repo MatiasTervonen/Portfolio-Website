@@ -1,4 +1,4 @@
-// Gameboard variables 
+// Gameboard variables
 
 const grid = document.querySelector(" .grid");
 
@@ -50,30 +50,36 @@ let timerId;
 
 // Eventlisteners For mobile touch movements
 
-document.addEventListener('touchstart', handleTouchStart, false);
-document.addEventListener('touchend', handleTouchEnd, false);
-document.addEventListener('touchmove', handleTouchMove, false);
+let startX, startY;
 
 function handleTouchStart(e) {
-  const touch = e.touches[0];
-  const halfWidth = window.innerWidth / 2;
-  const halfHeight = window.innerHeight / 2;
-  const touchX = touch.clientX;
-  const touchY = touch.clientY;
+  startX = e.touches[0].clientX;
+  startY = e.touches[0].clientY;
+}
 
-  if (touchY > halfHeight) {
-      if (touchX < halfWidth) {
-          moveLeft();
-      } else {
-          moveRight();
-      }
+function handleTouchEnd(e) {
+  const moveX = e.changedTouches[0].clientX - startX;
+  const moveY = e.changedTouches[0].clientY - startY;
+
+  if (Math.abs(moveX) > Math.abs(moveY)) {
+    // Horizontal movement
+    if (moveX > 0) {
+      moveRight();
+    } else {
+      moveLeft();
+    }
   } else {
-      if (touchX > halfWidth) {
-          rotate();
-      }
+    // Vertical movement
+    if (moveY > 0) {
+      moveDown();
+    } else {
+      rotate();
+    }
   }
 }
 
+document.addEventListener("touchstart", handleTouchStart, false);
+document.addEventListener("touchend", handleTouchEnd, false);
 
 //Audio for game
 
