@@ -50,60 +50,75 @@ let timerId;
 
 // Movement for mobile by touching
 
-let startX,
-  startY,
-  isSwiping = false;
+let startX = 0;
+let startY = 0;
 
-function handleTouchStart(e) {
-  const controlsArea = document.getElementById("gameControls");
-  const rect = controlsArea.getBoundingClientRect();
-  const touchY = e.touches[0].clientY;
+let touchStartTime = 0;
+let touchStartX = 0;
+let touchStartY = 0;
 
-  // Check if the touch is within the controls area
-  if (touchY < rect.bottom) {
-    // Touch started within controls area, handle accordingly
-    startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
-    isSwiping = true;
-    e.preventDefault();
-  }
-}
+// Tallenna alkukoordinaatit, kun kosketus alkaa
+grid.addEventListener("touchstart", (e) => {
+  e.preventDefault();
+  const touch = e.touches[0];
+  startX = touch.clientX;
+  startY = touch.clientY;
+  touchStartTime = new Date().getTime();
+  touchStartX = touch.clientX;
+  touchStartY = touch.clientY;
+});
 
-function handleTouchMove(e) {
-  if (!isSwiping) return;
+// Seuraa sormen liikettä
+grid.addEventListener("touchmove", (e) => {
+  const touch = e.touches[0];
+  const currentX = touch.clientX;
+  const currentY = touch.clientY;
 
-  const moveX = e.changedTouches[0].clientX - startX;
-  const moveY = e.changedTouches[0].clientY - startY;
+  // Lasketaan liikkeen suunta
+  const diffX = currentX - startX;
+  const diffY = currentY - startY;
 
-  if (Math.abs(moveX) > Math.abs(moveY)) {
-    // Horizontal movement
-    if (moveX > 0) {
+  // Tulkitaan liikkeen suunta
+  if (Math.abs(diffX) > Math.abs(diffY)) {
+    // Vaakasuuntainen liike
+    if (diffX > 30) {
       moveRight();
-    } else {
+      startX = currentX; // Päivitä aloituskohta
+    } else if (diffX < -30) {
       moveLeft();
+      startX = currentX; // Päivitä aloituskohta
     }
   } else {
-    // Vertical movement
-    if (moveY > 0) {
+    // Pystysuuntainen liike
+    if (diffY > 30) {
       moveDown();
-    } else {
-      rotate();
+      startY = currentY; // Päivitä aloituskohta
     }
   }
+});
 
-  e.preventDefault(); // Prevent scrolling or reloading
-}
+// Lopeta liikkeen seuranta, kun kosketus päättyy
+grid.addEventListener("touchend", () => {
+  // Halutessasi voit tehdä jotain kosketuksen päättyessä
+});
 
-function handleTouchEnd(e) {
-  if (!isSwiping) return;
+// Lisää tuplakosketus pyöräytykselle
+grid.addEventListener("touchend", (e) => {
+  const touchEndTime = new Date().getTime();
+  const touchDuration = touchEndTime - touchStartTime;
 
-  isSwiping = false; // Reset swiping back to false
-  e.preventDefault(); // Prevent any default end action, like clicking links
-}
+  const touch = e.changedTouches[0];
+  const touchEndX = touch.clientX;
+  const touchEndY = touch.clientY;
 
-document.addEventListener("touchstart", handleTouchStart, { passive: false });
-document.addEventListener("touchmove", handleTouchMove, { passive: false });
-document.addEventListener("touchend", handleTouchEnd, { passive: false });
+  const diffX = Math.abs(touchEndX - touchStartX);
+  const diffY = Math.abs(touchEndY - touchStartY);
+
+  // Jos kosketus on lyhyt ja liike pieni, se tulkitaan pyöräytykseksi
+  if (touchDuration < 200 && diffX < 10 && diffY < 10) {
+    rotate();
+  }
+});
 
 //Audio for game
 
@@ -217,6 +232,7 @@ document.addEventListener("keyup", control);
 //mmove down function
 
 function moveDown() {
+  if (!timerId) return;
   undraw();
   currentPosition += width;
   draw();
@@ -258,6 +274,7 @@ function freeze() {
 // move the tetromino left, unless is at the edge or there is blockage
 
 function moveLeft() {
+  if (!timerId) return;
   undraw();
   const isAtLeftEdge = current.some(
     (index) => (currentPosition + index) % width === 0
@@ -279,6 +296,7 @@ function moveLeft() {
 // Move the tetromino right, unless is at the edge or there is blockage
 
 function moveRight() {
+  if (!timerId) return;
   undraw();
 
   const isAtRightEdge = current.some(
@@ -301,6 +319,7 @@ function moveRight() {
 // rotate the tetromino
 
 function rotate() {
+  if (!timerId) return;
   undraw();
   let nextRotation = (currentRotation + 1) % current.length;
   let nextTetromino = theTetrominoes[random][nextRotation];
@@ -378,7 +397,7 @@ startBtn.addEventListener("click", () => {
     timerInterval = setInterval(updateTimer, 1000);
     displayShape();
     backgroundMusic.play();
-    isPaused = false; //Prevent continuous key presses during pause
+    isPaused = false;
   }
 });
 

@@ -23,9 +23,11 @@
 
     <div
       id="gameControls"
-      class="container mx-auto justify-center items-center flex flex-col sm:flex-row sm:items-start"
+      class="container relative mx-auto justify-center items-center flex flex-col sm:flex-row sm:items-start"
     >
-      <div class="mini-grid my-5 sm:order-last sm:ml-5 sm:my-0">
+      <div
+        class="mini-grid my-5 z-10 absolute left-0 top-0 scale-125 sm:scale-100 sm:static sm:order-last sm:ml-5 sm:my-0"
+      >
         <div></div>
         <div></div>
         <div></div>
@@ -44,7 +46,7 @@
         <div></div>
       </div>
 
-      <div class="grid">
+      <div class="grid scale-150 mt-36 sm:mt-0 sm:static sm:scale-100">
         <div></div>
         <div></div>
         <div></div>
@@ -259,7 +261,7 @@
     </div>
 
     <div
-      class="container score mx-auto flex justify-center gap-10 font-bold text-lg my-10"
+      class="container score mx-auto flex justify-center gap-2 font-bold text-2xl mt-10 pt-20 sm:pt-0 sm:gap-10"
     >
       <h3>Score:<span id="score">0</span></h3>
       <p>Level: <span id="level">1</span></p>
@@ -269,18 +271,20 @@
     <div
       class="container flex flex-col justify-center items-center button mx-auto gap-5 my-5 sm:flex-row"
     >
-      <button
-        class="bg-black rounded-full px-5 py-2 text-white shadow-lg shadow-red-300 font-medium hover:opacity-90 hover:scale-95 transition-transform duration-150 ease-in-out"
-        id="start"
-      >
-        Start/Pause
-      </button>
-      <button
-        class="bg-black rounded-full px-5 py-2 text-white shadow-lg shadow-red-300 font-medium hover:opacity-90 hover:scale-95 transition-transform duration-150 ease-in-out"
-        id="startNewGame"
-      >
-        Start New Game
-      </button>
+      <div>
+        <button
+          class="bg-black rounded-md px-5 py-5 text-white text-xl shadow-lg shadow-red-300 font-semibold hover:text-red-200 hover:scale-95 transition-transform duration-150 ease-in-out sm:py-3"
+          id="start"
+        >
+          Start/Pause
+        </button>
+        <button
+          class="bg-black rounded-md px-5 py-5 text-white text-xl shadow-lg shadow-red-300 font-semibold hover:text-red-200 hover:scale-95 transition-transform duration-150 ease-in-out sm:py-3"
+          id="startNewGame"
+        >
+          Start New Game
+        </button>
+      </div>
       <div>
         <label for="volume-control"
           ><i class="fa-solid fa-volume-high"></i>
