@@ -6,7 +6,7 @@ let squares = Array.from(document.querySelectorAll(" .grid div"));
 
 const scoreDisplay = document.getElementById("score");
 
-const startBtn = document.getElementById("start");
+const startBtn = document.querySelectorAll("#start, #start2");
 
 const width = 10;
 
@@ -372,33 +372,37 @@ function displayShape() {
 
 //Add start and pause for the game
 
-startBtn.addEventListener("click", () => {
-  if (isGameOver) {
-    // prevent the start game function if game has ended
-    alert("The game has ended! Start a new game by pressing 'Start New Game'.");
-    return;
-  }
-
-  if (timerId) {
-    // Stop
-    clearInterval(timerId);
-    clearInterval(timerInterval);
-    timerId = null;
-    backgroundMusic.pause();
-    isPaused = true;
-  } else {
-    // Start
-    draw();
-    if (!nextRandom) {
-      nextRandom = Math.floor(Math.random() * theTetrominoes.length);
+startBtn.forEach((startBtn) => {
+  startBtn.addEventListener("click", () => {
+    if (isGameOver) {
+      // prevent the start game function if game has ended
+      alert(
+        "The game has ended! Start a new game by pressing 'Start New Game'."
+      );
+      return;
     }
-    updateGlowColor();
-    timerId = setInterval(moveDown, 1000);
-    timerInterval = setInterval(updateTimer, 1000);
-    displayShape();
-    backgroundMusic.play();
-    isPaused = false;
-  }
+
+    if (timerId) {
+      // Stop
+      clearInterval(timerId);
+      clearInterval(timerInterval);
+      timerId = null;
+      backgroundMusic.pause();
+      isPaused = true;
+    } else {
+      // Start
+      draw();
+      if (!nextRandom) {
+        nextRandom = Math.floor(Math.random() * theTetrominoes.length);
+      }
+      updateGlowColor();
+      timerId = setInterval(moveDown, 1000);
+      timerInterval = setInterval(updateTimer, 1000);
+      displayShape();
+      backgroundMusic.play();
+      isPaused = false;
+    }
+  });
 });
 
 // Functions for tetrominoes move continiously when key is pushed down
