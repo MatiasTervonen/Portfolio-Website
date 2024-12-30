@@ -26,7 +26,7 @@ const colors = ["orange", "red", "purple", "green", "blue"];
 
 // Music
 
-const backgroundMusic = document.getElementById("background-music");
+const backgroundMusic = document.getElementById("backgroundMusic");
 
 const volumeControl = document.getElementById("volumeControl");
 
@@ -123,7 +123,7 @@ grid.addEventListener("touchend", (e) => {
 //Audio for game
 
 const audio = [
-  document.getElementById("background-music"),
+  document.getElementById("backgroundMusic"),
   document.getElementById("full"),
   document.getElementById("gameVoice"),
 ];

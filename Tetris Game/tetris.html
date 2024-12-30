@@ -14,8 +14,10 @@
     <script defer src="/Tetris Game/tetris.js"></script>
   </head>
   <body class="bg-blue-600">
+    <!-- Mobile top bar -->
+
     <div
-      class="container score w-full bg-blue-900 text-white mx-auto flex justify-center gap-5 font-bold text-2xl py-5 sm:pt-0 sm:gap-10"
+      class="container score relative z-50 w-full bg-blue-900 text-white mx-auto flex justify-center gap-5 font-bold text-2xl py-5 sm:hidden sm:pt-0 sm:gap-10"
       style="clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 0 100%)"
     >
       <h3
@@ -48,6 +50,8 @@
         alt="Tetris_Logo"
       />
     </div>
+
+    <!-- GameBoard -->
 
     <div
       id="gameControls"
@@ -288,6 +292,8 @@
       </div>
     </div>
 
+    <!-- Score, Level Time -->
+
     <div
       class="container score mx-auto hidden sm:flex justify-center gap-2 font-bold text-2xl mt-10 pt-20 sm:pt-0 sm:gap-10"
     >
@@ -295,6 +301,8 @@
       <p>Level: <span id="level">1</span></p>
       <p>Time: <span id="timer">00:00</span></p>
     </div>
+
+    <!-- All the buttons -->
 
     <div
       class="container hidden sm:flex flex-col justify-center items-center button mx-auto gap-5 my-5 sm:flex-row"
@@ -328,6 +336,8 @@
       </div>
     </div>
 
+    <!-- Start/pause button for mobile -->
+
     <div
       class="container mt-28 flex flex-col justify-center items-center button mx-auto gap-5 sm:hidden"
     >
@@ -338,6 +348,8 @@
         Start/Pause
       </button>
     </div>
+
+    <!-- LeaderBoard list -->
 
     <div class="flex justify-center mt-6">
       <div
@@ -351,14 +363,14 @@
     <!-- Game music -->
 
     <audio
-      id="background-music"
+      id="backgroundMusic"
       src="/Tetris Game/music/Tetris.mp3"
       loop
     ></audio>
 
     <audio
       id="full"
-      src="/Tetris Game/music/zapsplat_explosion_short_airy_large_002_92191.mp3"
+      src="/Tetris Game/music/small-rock-break-194553.mp3"
     ></audio>
 
     <audio
