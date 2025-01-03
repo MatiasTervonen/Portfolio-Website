@@ -4,7 +4,7 @@ const grid = document.querySelector(" .grid");
 
 let squares = Array.from(document.querySelectorAll(" .grid div"));
 
-const scoreDisplay = document.getElementById("score");
+const scoreDisplay = document.querySelectorAll("#score, #score2");
 
 const startBtn = document.querySelectorAll("#start, #start2");
 
@@ -34,13 +34,13 @@ let savedVolume = localStorage.getItem("volume") || volumeControl.value;
 
 // Level
 
-const levelDisplay = document.getElementById("level");
+const levelDisplay = document.querySelectorAll("#level #level2");
 
 let level = 1;
 
 // Timer
 
-const timerDisplay = document.getElementById("timer");
+const timerDisplay = document.querySelectorAll("#timer, #timer2 ");
 
 let timeElapsed = 0;
 
@@ -470,7 +470,8 @@ function addScore() {
       full.currentTime = 0;
       full.play();
       score += 10;
-      scoreDisplay.innerHTML = score;
+      scoreDisplay.forEach((display) => (display.innerHTML = score));
+
       row.forEach((index) => {
         squares[index].classList.remove("taken");
         squares[index].classList.remove("tetromino");
@@ -560,7 +561,7 @@ function addLevel() {
   if (score >= nextLevelScore) {
     level = level + 1;
     nextLevelScore = nextLevelScore + 100;
-    levelDisplay.innerHTML = level;
+    levelDisplay.forEach((display) => (display.innerHTML = level));
   }
 }
 
@@ -570,9 +571,10 @@ function updateTimer() {
   timeElapsed += 1;
   const minutes = Math.floor(timeElapsed / 60);
   const seconds = timeElapsed % 60;
-  timerDisplay.innerHTML = `${String(minutes).padStart(2, "0")}:${String(
+  const formattedTime = `${String(minutes).padStart(2, "0")}:${String(
     seconds
   ).padStart(2, "0")}`;
+  timerDisplay.forEach((display) => (display.innerHTML = formattedTime));
 }
 
 // Get Leaderboard list from logalStorage

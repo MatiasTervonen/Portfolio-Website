@@ -4,66 +4,123 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/main.css" />
+    <!-- Link SwiperJS CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <!-- Link SwiperJS script -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"
+    ></script>
+
+    <script defer src="/main.js"></script>
     <title>Matias Portfolio</title>
   </head>
   <body class="bg-orange-200">
     <div class="bg-black text-white flex justify-center py-10 text-3xl">
       <header class="header">
-        <h1>
+        <h1 class="">
           Showcasing creativity, passion, and innovation in web development.
         </h1>
       </header>
     </div>
 
-    <!-- Games Section -->
-
-    <div class="flex justify-center m-2">
-      <div
-        class="text-center mt-10 rounded-3xl bg-white border-black border-2 shadow-md py-2 px-5"
-      >
-        <h2 class="text-3xl font-bold pb-5">Games</h2>
-        <a href="/Tetris Game/menu.html">
-          <button
-            class="m-2 bg-black text-white px-5 py-2 rounded-md hover:opacity-90"
-          >
-            Tetris
-          </button>
-        </a>
-        <a href="/Snake Game/snake.html">
-          <button
-            class="m-2 bg-black text-white px-5 py-2 rounded-md hover:opacity-90"
-          >
-            Snake
-          </button>
-        </a>
-        <a href="/breakout game/breakout.html">
-          <button
-            class="m-2 bg-black text-white px-5 py-2 rounded-md hover:opacity-90"
-          >
-            Breakout Game
-          </button>
-        </a>
+    <!-- Slider main container -->
+    <div
+      class="swiper flex flex-col items-center justify-center m-4 fixed inset-x-0 bottom-0"
+    >
+      <div class="order-1 m-10">
+        <h2 class="text-darkBlue text-4xl font-bold font-sans">PORTFOLIO</h2>
       </div>
-    </div>
-
-    <!-- Website Section -->
-
-    <div class="flex justify-center m-2">
-      <div
-        class="text-center mt-10 rounded-3xl bg-white border-black border-2 shadow-md py-2 px-5 shadow-2xl"
-      >
-        <h2 class="text-3xl font-bold pb-5">Websites</h2>
-        <button
-          class="m-2 bg-black text-white px-5 py-2 rounded-md hover:opacity-90"
+      <!-- Additional required wrapper -->
+      <div class="swiper-wrapper order-2 flex justify-center gap-4">
+        <!-- Slides -->
+        <div
+          class="swiper-slide w-48 h-52 flex flex-col items-center p-2 justify-between rounded-xl bg-cyan-100"
         >
-          <a href="https://matiastailwind.netlify.app/">Tailwind</a>
-        </button>
-        <button
-          class="m-2 bg-black text-white px-5 py-2 rounded-md hover:opacity-90"
+          <h2>
+            <img
+              src="/Tetris Game/images/The_Tetris_Company_logo.png"
+              alt="Tetris logo"
+            />
+          </h2>
+          <a href="/Tetris Game/menu.html">
+            <button
+              class="bg-black rounded-md px-5 py-2 text-white text-xl shadow-lg font-semibold hover:text-cyan-200 hover:scale-95 transition-transform duration-150 ease-in-out"
+            >
+              Tetris
+            </button>
+          </a>
+        </div>
+        <div
+          class="swiper-slide w-48 h-52 flex flex-col items-center p-2 justify-between rounded-xl bg-cyan-100"
         >
-          <a href="https://matiasbootstrap.netlify.app/">Bootstrap</a>
-        </button>
+          <h2 class="flex justify-center">
+            <img
+              class="w-2/3"
+              src="/Snake Game/images/Nimetön.png"
+              alt="snake logo"
+            />
+          </h2>
+          <a href="/Snake Game/snake.html">
+            <button
+              class="bg-black rounded-md px-5 py-2 text-white text-xl shadow-lg font-semibold hover:text-cyan-200 hover:scale-95 transition-transform duration-150 ease-in-out"
+            >
+              Snake
+            </button>
+          </a>
+        </div>
+        <div
+          class="swiper-slide w-48 h-52 flex flex-col items-center p-2 justify-between rounded-xl bg-cyan-100"
+        >
+          <h2>Breakout game</h2>
+
+          <a href="/breakout game/breakout.html">
+            <button
+              class="bg-black rounded-md px-5 py-2 text-white text-xl shadow-lg font-semibold hover:text-cyan-200 hover:scale-95 transition-transform duration-150 ease-in-out"
+            >
+              Breakout
+            </button>
+          </a>
+        </div>
+        <div
+          class="swiper-slide w-48 h-52 flex flex-col items-center p-2 justify-between rounded-xl bg-cyan-100"
+        >
+          <h2>Tailwind</h2>
+
+          <a href="https://matiastailwind.netlify.app/">
+            <button
+              class="bg-black rounded-md px-5 py-2 text-white text-xl shadow-lg font-semibold hover:text-cyan-200 hover:scale-95 transition-transform duration-150 ease-in-out"
+            >
+              Tailwind
+            </button>
+          </a>
+        </div>
+        <div
+          class="swiper-slide w-48 h-52 flex flex-col items-center p-2 justify-between rounded-xl bg-cyan-100"
+        >
+          <h2>Bootstrap</h2>
+
+          <a href="https://matiasbootstrap.netlify.app/">
+            <button
+              class="bg-black rounded-md px-5 py-2 text-white text-xl shadow-lg font-semibold hover:text-cyan-200 hover:scale-95 transition-transform duration-150 ease-in-out"
+            >
+              Bootstrap
+            </button>
+          </a>
+        </div>
       </div>
+      <!-- If we need pagination -->
+      <div class="swiper-pagination"></div>
+
+      <!-- If we need navigation buttons -->
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+
+      <!-- If we need scrollbar -->
+      <div class="swiper-scrollbar"></div>
     </div>
   </body>
 </html>
