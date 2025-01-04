@@ -1867,29 +1867,6 @@ video {
   text-shadow: 2px 3px 4px rgba(0, 0, 0, 0.3);
 }
 
-.typewriter {
-  /* Oletusarvoisesti elementti piilotetaan overflow: hidden avulla */
-  overflow: hidden;
-  white-space: nowrap;
-  /* Estää tekstin rivityksen */
-  border-right: 3px solid white;
-  /* Kursorin simulaatio */
-  width: 0;
-  /* Alkutila, josta animaatio aloittaa */
-  animation: typewriter 5s steps(66, end) 1s 1 normal both,
-    /* 5s on uusi kesto */ blink-caret 0.75s step-end infinite;
-}
-
-@keyframes typewriter {
-  from {
-    width: 0;
-  }
-
-  to {
-    width: 100%;
-  }
-}
-
 .hover\:scale-95:hover {
   --tw-scale-x: .95;
   --tw-scale-y: .95;
@@ -1975,3 +1952,4 @@ video {
     padding-top: 0px;
   }
 }
+
