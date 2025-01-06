@@ -57,9 +57,9 @@ let touchStartTime = 0;
 let touchStartX = 0;
 let touchStartY = 0;
 
-// Tallenna alkukoordinaatit, kun kosketus alkaa
+// Save coordinates when touch starts
 grid.addEventListener("touchstart", (e) => {
-  e.preventDefault();
+  e.preventDefault(); // Prevent the default movements like scrolling, page reload etc.. While moving
   const touch = e.touches[0];
   startX = touch.clientX;
   startY = touch.clientY;
@@ -68,41 +68,34 @@ grid.addEventListener("touchstart", (e) => {
   touchStartY = touch.clientY;
 });
 
-// Seuraa sormen liikettä
+// Follow the movement of finger
 grid.addEventListener("touchmove", (e) => {
   const touch = e.touches[0];
   const currentX = touch.clientX;
   const currentY = touch.clientY;
 
-  // Lasketaan liikkeen suunta
+  // Count the direction of move
   const diffX = currentX - startX;
   const diffY = currentY - startY;
 
-  // Tulkitaan liikkeen suunta
+  // Movement direction
   if (Math.abs(diffX) > Math.abs(diffY)) {
-    // Vaakasuuntainen liike
     if (diffX > 30) {
       moveRight();
-      startX = currentX; // Päivitä aloituskohta
+      startX = currentX;
     } else if (diffX < -30) {
       moveLeft();
-      startX = currentX; // Päivitä aloituskohta
+      startX = currentX;
     }
   } else {
-    // Pystysuuntainen liike
     if (diffY > 30) {
       moveDown();
-      startY = currentY; // Päivitä aloituskohta
+      startY = currentY;
     }
   }
 });
 
-// Lopeta liikkeen seuranta, kun kosketus päättyy
-grid.addEventListener("touchend", () => {
-  // Halutessasi voit tehdä jotain kosketuksen päättyessä
-});
-
-// Lisää tuplakosketus pyöräytykselle
+// When you tap screen it rotates Tetromnino
 grid.addEventListener("touchend", (e) => {
   const touchEndTime = new Date().getTime();
   const touchDuration = touchEndTime - touchStartTime;
@@ -114,7 +107,7 @@ grid.addEventListener("touchend", (e) => {
   const diffX = Math.abs(touchEndX - touchStartX);
   const diffY = Math.abs(touchEndY - touchStartY);
 
-  // Jos kosketus on lyhyt ja liike pieni, se tulkitaan pyöräytykseksi
+  // If touch is small and short it is counted as rotate
   if (touchDuration < 200 && diffX < 10 && diffY < 10) {
     rotate();
   }
@@ -233,6 +226,7 @@ document.addEventListener("keyup", control);
 
 function moveDown() {
   if (!timerId) return;
+  if (isAnimating) return;
   undraw();
   currentPosition += width;
   draw();
@@ -242,11 +236,13 @@ function moveDown() {
 // Show the glow of the color that is coming next
 
 function updateGlowColor() {
-  const nextColor = colors[nextRandom]; // Hae seuraavan Tetrimino-väri
+  const nextColor = colors[nextRandom];
   grid.style.boxShadow = `0 0 15px 5px ${nextColor}, 0 0 30px 10px ${nextColor}`;
 }
 
 //freeze function
+
+let isAnimating = false;
 
 function freeze() {
   if (
@@ -257,24 +253,89 @@ function freeze() {
     current.forEach((index) =>
       squares[currentPosition + index].classList.add("taken")
     );
-    //Start new tetromino falling
-    random = nextRandom;
-    nextRandom = Math.floor(Math.random() * theTetrominoes.length);
-    current = theTetrominoes[random][currentRotation];
-    currentPosition = 4;
-    draw();
-    displayShape();
-    addScore();
-    gameOver();
 
-    updateGlowColor();
+    addScore();
+    
+    // Prevent tetromino dropping if full row animation is going, if not continue normally
+
+    if (isAnimating) {
+      setTimeout(() => {
+        random = nextRandom;
+        nextRandom = Math.floor(Math.random() * theTetrominoes.length);
+        current = theTetrominoes[random][currentRotation];
+        currentPosition = 4;
+        draw();
+        displayShape();
+        gameOver();
+        updateGlowColor();
+        isAnimating = false;
+      }, 800);
+    } else {
+      random = nextRandom;
+      nextRandom = Math.floor(Math.random() * theTetrominoes.length);
+      current = theTetrominoes[random][currentRotation];
+      currentPosition = 4;
+      draw();
+      displayShape();
+      gameOver();
+      updateGlowColor();
+    }
   }
 }
 
-// move the tetromino left, unless is at the edge or there is blockage
+//add score
+
+function addScore() {
+  for (let i = 0; i < 199; i += width) {
+    const row = [
+      i,
+      i + 1,
+      i + 2,
+      i + 3,
+      i + 4,
+      i + 5,
+      i + 6,
+      i + 7,
+      i + 8,
+      i + 9,
+    ];
+
+    if (row.every((index) => squares[index].classList.contains("taken"))) {
+      isAnimating = true;
+      full.currentTime = 0;
+      full.play();
+      score += 10;
+      scoreDisplay.forEach((display) => (display.innerHTML = score));
+
+      row.forEach((index) => {
+        squares[index].classList.add("full-row");
+      });
+
+      // Set timeout for animation ending
+      setTimeout(() => {
+        row.forEach((index) => {
+          squares[index].classList.remove("taken");
+          squares[index].classList.remove("tetromino");
+          squares[index].classList.remove("full-row");
+          squares[index].style.backgroundColor = "";
+        });
+        const squaresRemoved = squares.splice(i, width);
+        squares = squaresRemoved.concat(squares);
+        squares.forEach((cell) => grid.appendChild(cell));
+
+        isAnimating = false;
+      }, 800);
+    }
+  }
+  updateSpeedAndMusic();
+  addLevel();
+}
+
+// move the tetromino left, unless it is at the edge or there is blockage
 
 function moveLeft() {
   if (!timerId) return;
+  if (isAnimating) return;
   undraw();
   const isAtLeftEdge = current.some(
     (index) => (currentPosition + index) % width === 0
@@ -297,6 +358,7 @@ function moveLeft() {
 
 function moveRight() {
   if (!timerId) return;
+  if (isAnimating) return;
   undraw();
 
   const isAtRightEdge = current.some(
@@ -320,6 +382,7 @@ function moveRight() {
 
 function rotate() {
   if (!timerId) return;
+  if (isAnimating) return;
   undraw();
   let nextRotation = (currentRotation + 1) % current.length;
   let nextTetromino = theTetrominoes[random][nextRotation];
@@ -331,7 +394,7 @@ function rotate() {
     (index) => (currentPosition + index) % width === width - 1
   );
 
-  // Estä siirtyminen reunan yli
+  // prevent moving over the edge
   if (!isAtLeftEdge && !isAtRightEdge) {
     currentRotation = nextRotation;
     current = nextTetromino;
@@ -448,44 +511,6 @@ document.addEventListener("keyup", (e) => {
     leftIntervalId = null;
   }
 });
-
-//add score
-
-function addScore() {
-  for (let i = 0; i < 199; i += width) {
-    const row = [
-      i,
-      i + 1,
-      i + 2,
-      i + 3,
-      i + 4,
-      i + 5,
-      i + 6,
-      i + 7,
-      i + 8,
-      i + 9,
-    ];
-
-    if (row.every((index) => squares[index].classList.contains("taken"))) {
-      full.currentTime = 0;
-      full.play();
-      score += 10;
-      scoreDisplay.forEach((display) => (display.innerHTML = score));
-
-      row.forEach((index) => {
-        squares[index].classList.remove("taken");
-        squares[index].classList.remove("tetromino");
-        squares[index].style.backgroundColor = "";
-      });
-      const squaresRemoved = squares.splice(i, width);
-      squares = squaresRemoved.concat(squares);
-      squares.forEach((cell) => grid.appendChild(cell));
-    }
-  }
-
-  updateSpeedAndMusic();
-  addLevel();
-}
 
 // Game Over
 
