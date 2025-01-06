@@ -190,6 +190,7 @@ let current = theTetrominoes[random][currentRotation];
 // draw random tetromino and its firts rotation
 
 function draw() {
+  ghostDraw();
   current.forEach((index) => {
     squares[currentPosition + index].classList.add("tetromino");
     squares[currentPosition + index].style.backgroundColor = colors[random];
@@ -199,9 +200,44 @@ function draw() {
 //undraw the Tetromino
 
 function undraw() {
+  undrawGhost();
   current.forEach((index) => {
     squares[currentPosition + index].classList.remove("tetromino");
     squares[currentPosition + index].style.backgroundColor = "";
+  });
+}
+
+// Draw ghost tetromino where it is going to land
+
+function ghostDraw() {
+  let ghostPosition = currentPosition;
+
+  while (
+    !current.some((index) =>
+      squares[ghostPosition + index + width].classList.contains("taken")
+    )
+  ) {
+    ghostPosition += width;
+  }
+
+  current.forEach((index) => {
+    squares[ghostPosition + index].classList.add("ghost-tetromino");
+  });
+}
+
+// undraw ghost tetromino
+
+function undrawGhost() {
+  let ghostPosition = currentPosition;
+  while (
+    !current.some((index) =>
+      squares[ghostPosition + index + width].classList.contains("taken")
+    )
+  ) {
+    ghostPosition += width;
+  }
+  current.forEach((index) => {
+    squares[ghostPosition + index].classList.remove("ghost-tetromino");
   });
 }
 
@@ -253,9 +289,9 @@ function freeze() {
     current.forEach((index) =>
       squares[currentPosition + index].classList.add("taken")
     );
-
+    undrawGhost();
     addScore();
-    
+
     // Prevent tetromino dropping if full row animation is going, if not continue normally
 
     if (isAnimating) {

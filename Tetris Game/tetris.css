@@ -34,6 +34,11 @@
   border-radius: 2px;
 }
 
+.ghost-tetromino {
+  border: 1px solid rgba(211, 211, 211, 0.616);
+  box-shadow: inset 3px 3px 7px rgba(255, 255, 255, 0.267);
+}
+
 .mini-grid {
   margin-left: 50px;
   width: 80px;
