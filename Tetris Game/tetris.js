@@ -441,7 +441,6 @@ function rotate() {
 
 //show up next tetromino in mini grid
 
-const displaySquares = document.querySelectorAll(".mini-grid div");
 const displayWidth = 4;
 let displayIndex = 0;
 
@@ -458,14 +457,22 @@ const upNextTetrominoes = [
 // Display the shape in the mini-grid display
 
 function displayShape() {
-  displaySquares.forEach((square) => {
-    square.classList.remove("tetromino");
-    square.style.backgroundColor = "";
-  });
-  upNextTetrominoes[nextRandom].forEach((index) => {
-    displaySquares[displayIndex + index].classList.add("tetromino");
-    displaySquares[displayIndex + index].style.backgroundColor =
-      colors[nextRandom];
+  const miniGrids = document.querySelectorAll(".mini-grid");
+
+  miniGrids.forEach((grid) => {
+    const displaySquares = grid.querySelectorAll("div");
+    displaySquares.forEach((square) => {
+      square.classList.remove("tetromino");
+      square.style.backgroundColor = "";
+    });
+
+    upNextTetrominoes[nextRandom].forEach((index) => {
+      if (displaySquares[displayIndex + index]) {
+        displaySquares[displayIndex + index].classList.add("tetromino");
+        displaySquares[displayIndex + index].style.backgroundColor =
+          colors[nextRandom];
+      }
+    });
   });
 }
 
