@@ -28,6 +28,8 @@ const colors = ["orange", "red", "purple", "green", "blue"];
 
 const backgroundMusic = document.getElementById("backgroundMusic");
 
+const hit = document.getElementById("hit");
+
 const volumeControl = document.getElementById("volumeControl");
 
 let savedVolume = localStorage.getItem("volume") || volumeControl.value;
@@ -125,6 +127,7 @@ const audio = [
   document.getElementById("backgroundMusic"),
   document.getElementById("full"),
   document.getElementById("gameVoice"),
+  document.getElementById("hit"),
 ];
 
 // Volume control for all game voices
@@ -269,6 +272,7 @@ document.addEventListener("keyup", control);
 function moveDown() {
   if (!timerId) return;
   if (isAnimating) return;
+  if (isAnimatingHit) return;
   undraw();
   currentPosition += width;
   draw();
@@ -285,6 +289,7 @@ function updateGlowColor() {
 //freeze function
 
 let isAnimating = false;
+let isAnimatingHit = false;
 
 function freeze() {
   if (
@@ -292,9 +297,21 @@ function freeze() {
       squares[currentPosition + index + width].classList.contains("taken")
     )
   ) {
-    current.forEach((index) =>
-      squares[currentPosition + index].classList.add("taken")
-    );
+    current.forEach((index) => {
+      let currentSquare = squares[currentPosition + index];
+      squares[currentPosition + index].classList.add("taken");
+      currentSquare.classList.add("hit");
+      isAnimatingHit = true;
+      hit.volume = savedVolume * 0.3;
+      hit.play();
+    });
+
+    setTimeout(() => {
+      current.forEach((index) => {
+        squares[currentPosition + index].classList.remove("hit");
+      });
+    }, 500);
+
     undrawGhost();
     addScore();
 
@@ -313,14 +330,19 @@ function freeze() {
         isAnimating = false;
       }, 800);
     } else {
-      random = nextRandom;
-      nextRandom = Math.floor(Math.random() * theTetrominoes.length);
-      current = theTetrominoes[random][currentRotation];
-      currentPosition = 4;
-      draw();
-      displayShape();
-      gameOver();
-      updateGlowColor();
+      if (isAnimatingHit) {
+        setTimeout(() => {
+          random = nextRandom;
+          nextRandom = Math.floor(Math.random() * theTetrominoes.length);
+          current = theTetrominoes[random][currentRotation];
+          currentPosition = 4;
+          draw();
+          displayShape();
+          gameOver();
+          updateGlowColor();
+          isAnimatingHit = false;
+        }, 500);
+      }
     }
   }
 }
@@ -343,6 +365,7 @@ function addScore() {
     ];
 
     if (row.every((index) => squares[index].classList.contains("taken"))) {
+      hit.volume = 0;
       isAnimating = true;
       full.currentTime = 0;
       full.play();
@@ -365,6 +388,7 @@ function addScore() {
         squares = squaresRemoved.concat(squares);
         squares.forEach((cell) => grid.appendChild(cell));
 
+        isAnimatingHit = false;
         isAnimating = false;
       }, 800);
     }
@@ -378,6 +402,7 @@ function addScore() {
 function moveLeft() {
   if (!timerId) return;
   if (isAnimating) return;
+  if (isAnimatingHit) return;
   undraw();
   const isAtLeftEdge = current.some(
     (index) => (currentPosition + index) % width === 0
@@ -401,6 +426,7 @@ function moveLeft() {
 function moveRight() {
   if (!timerId) return;
   if (isAnimating) return;
+  if (isAnimatingHit) return;
   undraw();
 
   const isAtRightEdge = current.some(
@@ -425,6 +451,7 @@ function moveRight() {
 function rotate() {
   if (!timerId) return;
   if (isAnimating) return;
+  if (isAnimatingHit) return;
   undraw();
   let nextRotation = (currentRotation + 1) % current.length;
   let nextTetromino = theTetrominoes[random][nextRotation];

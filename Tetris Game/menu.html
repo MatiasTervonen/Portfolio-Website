@@ -12,7 +12,7 @@
     ></script>
     <script defer src="/Tetris Game/tetris.js"></script>
   </head>
-  <body class="bg-red-100">
+  <body class="bg-blue-600">
     <div class="gap-10 container mx-auto flex flex-col justify-center my-10">
       <img
         class="h-32 object-contain sm:h-44"
@@ -29,7 +29,9 @@
         </a>
       </div>
 
-      <div class="flex-col mx-auto justify-center text-2xl font-medium">
+      <div
+        class="MovementMenu flex-col mx-auto justify-center text-white text-2xl font-medium p-5 rounded-lg border-2"
+      >
         <h2 class="pb-5">Movement PC/Mobile</h2>
         <div class="flex flex-row items-center">
           <p class="pb-5">Left:</p>
@@ -49,18 +51,25 @@
         <div class="flex flex-row items-center">
           <p class="pb-5">Rotate:</p>
           <i class="fa-solid fa-arrow-up pl-5 pb-5"></i>
+
           <p class="pl-5 pb-5">/ Tap screen</p>
         </div>
       </div>
     </div>
-    <div class="flex justify-center mt-6">
+
+    <!-- Leaderboard list -->
+
+    <div class="flex justify-center mt-6 mb-10">
       <div
-        class="leaderboard text-center rounded-3xl bg-white border-black border-2 shadow-md py-2 px-5"
+        class="leaderboard text-center rounded-xl text-white border-white border-2 shadow-md py-2 px-5"
       >
-        <h2 class="font-bold text-lg py-5">Leaderboard</h2>
+        <div class="flex flex-row justify-center items-center gap-5">
+          <i class="fa-solid fa-crown fa-xl" style="color: #FFD43B;"></i>
+          <h2 class="font-bold text-lg py-5">Leaderboard</h2>
+          <i class="fa-solid fa-crown fa-xl" style="color: #FFD43B;"></i>
+        </div>
         <ul id="leaderboard-list"></ul>
       </div>
     </div>
-
   </body>
 </html>

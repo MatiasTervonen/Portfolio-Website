@@ -57,7 +57,45 @@
   height: 20px;
 }
 
+.leaderboard {
+  background: linear-gradient(50deg, #000000, #333333);
+}
+
 .leaderboard li {
   padding: 10px;
   font-weight: 500;
+  border: 2px solid white;
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
+
+.MovementMenu {
+  background: linear-gradient(50deg, #000000, #333333);
+}
+
+.full-row {
+  animation: blink 0.5s linear 3;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.hit {
+  animation: blink 0.2s linear 0.5;
+}
+
+@keyframes blink {
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
