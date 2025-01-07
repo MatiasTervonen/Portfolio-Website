@@ -48,6 +48,12 @@ let timerInterval;
 
 let timerId;
 
+// Moved leaderboardlist away from game page to menu. Works only when this is before any code
+
+document.addEventListener("DOMContentLoaded", function () {
+  displayLeaderboard();
+});
+
 // Movement for mobile by touching
 
 let startX = 0;
@@ -648,6 +654,17 @@ function updateTimer() {
 
 // Get Leaderboard list from logalStorage
 
+function testAddLeaderboardEntry() {
+  const leaderboardList = document.getElementById("leaderboard-list");
+  if (leaderboardList) {
+    const testEntry = document.createElement("li");
+    testEntry.textContent = "Test Entry - Score: 100, Level: 1, Time: 00:01:30";
+    leaderboardList.appendChild(testEntry);
+  } else {
+    console.log("Leaderboard list element not found.");
+  }
+}
+
 function getLeaderboard() {
   const leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
   return leaderboard;
@@ -679,20 +696,24 @@ function displayLeaderboard() {
 
   leaderboardList.innerHTML = "";
 
-  // add every score to list
-  leaderboard.forEach((entry, index) => {
-    const { score, level, timeElapsed } = entry;
-    const minutes = Math.floor(timeElapsed / 60);
-    const seconds = timeElapsed % 60;
-    const formattedTime = `${String(minutes).padStart(2, "0")}:${String(
-      seconds
-    ).padStart(2, "0")}`;
-    const li = document.createElement("li");
-    li.textContent = `${
-      index + 1
-    }: Score: ${score}, Level: ${level}, Time: ${formattedTime}`;
-    leaderboardList.appendChild(li);
-  });
+  if (leaderboard.length === 0) {
+    leaderboardList.innerHTML = "<li>No scores available</li>";
+  } else {
+    // add every score to list
+    leaderboard.forEach((entry, index) => {
+      const { score, level, timeElapsed } = entry;
+      const minutes = Math.floor(timeElapsed / 60);
+      const seconds = timeElapsed % 60;
+      const formattedTime = `${String(minutes).padStart(2, "0")}:${String(
+        seconds
+      ).padStart(2, "0")}`;
+      const li = document.createElement("li");
+      li.textContent = `${
+        index + 1
+      }: Score: ${score}, Level: ${level}, Time: ${formattedTime}`;
+      leaderboardList.appendChild(li);
+    });
+  }
 }
 document.addEventListener("DOMContentLoaded", displayLeaderboard);
 

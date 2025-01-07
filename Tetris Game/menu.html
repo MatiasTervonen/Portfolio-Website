@@ -4,10 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/Tetris Game/tetris.css" />
+    <title>Tetris menu</title>
     <script
       src="https://kit.fontawesome.com/2273515c74.js"
       crossorigin="anonymous"
     ></script>
+    <script defer src="/Tetris Game/tetris.js"></script>
   </head>
   <body class="bg-red-100">
     <div class="gap-10 container mx-auto flex flex-col justify-center my-10">
@@ -50,5 +53,14 @@
         </div>
       </div>
     </div>
+    <div class="flex justify-center mt-6">
+      <div
+        class="leaderboard text-center rounded-3xl bg-white border-black border-2 shadow-md py-2 px-5"
+      >
+        <h2 class="font-bold text-lg py-5">Leaderboard</h2>
+        <ul id="leaderboard-list"></ul>
+      </div>
+    </div>
+
   </body>
 </html>
