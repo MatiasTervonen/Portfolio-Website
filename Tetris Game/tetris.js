@@ -34,7 +34,7 @@ let savedVolume = localStorage.getItem("volume") || volumeControl.value;
 
 // Level
 
-const levelDisplay = document.querySelectorAll("#level #level2");
+const levelDisplay = document.querySelectorAll("#level, #level2");
 
 let level = 1;
 
@@ -578,6 +578,7 @@ function gameOver() {
     squares.forEach((square) => {
       square.classList.remove("tetromino");
       square.classList.remove("taken");
+      square.classList.remove("ghost-tetromino");
       square.style.backgroundColor = "";
     });
   }

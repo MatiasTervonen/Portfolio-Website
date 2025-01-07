@@ -53,31 +53,8 @@
 
     <!-- GameBoard -->
 
-    <div
-      class="container relative mx-auto justify-center items-center flex flex-col sm:flex-row sm:items-start"
-    >
-      <div
-        class="mini-grid my-5 z-10 absolute left-0 top-0 scale-125 sm:scale-100 sm:static sm:order-last sm:ml-5 sm:my-0"
-      >
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-
-      <div class="grid scale-150 mt-28 sm:mt-0 sm:static sm:scale-100">
+    <div class="container items-start relative mx-auto justify-center flex">
+      <div class="grid sm:static ">
         <div></div>
         <div></div>
         <div></div>
@@ -289,22 +266,51 @@
         <div class="taken"></div>
         <div class="taken"></div>
       </div>
-    </div>
 
-    <!-- Score, Level Time -->
+      <div class="flex-col">
+        <div class="mini-grid">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
 
-    <div
-      class="container score mx-auto hidden sm:flex justify-center gap-2 font-bold text-2xl mt-10 pt-20 sm:pt-0 sm:gap-10"
-    >
-      <h3>Score:<span id="score2">0</span></h3>
-      <p>Level: <span id="level2">1</span></p>
-      <p>Time: <span id="timer2">00:00</span></p>
+        <!-- Score, Level Time -->
+
+        <div
+          class="score hidden sm:flex sm:flex-col font-bold text-md text-cyan-50 p-8 mt-20 ml-2"
+        >
+          <div class="score1 py-1 border-2 mb-2 text-center rounded-lg">
+            <h3>Score: <span id="score2">0</span></h3>
+          </div>
+
+          <div class="score1 py-1 border-2 mb-2 text-center rounded-lg">
+            <p>Level: <span id="level2">1</span></p>
+          </div>
+
+          <div class="score1 py-1 px-3 border-2 text-center rounded-lg">
+            <p>Time: <span id="timer2">00:00</span></p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- All the buttons -->
 
     <div
-      class="container hidden sm:flex flex-col justify-center items-center button mx-auto gap-5 my-5 sm:flex-row"
+      class="container hidden sm:flex flex-col justify-center items-center button mx-auto gap-5 mt-8 sm:flex-row"
     >
       <div>
         <button
@@ -338,7 +344,7 @@
     <!-- Start/pause button for mobile -->
 
     <div
-      class="container relative z-100 mt-28 flex flex-col justify-center items-center button mx-auto gap-5 sm:hidden"
+      class="container relative z-100 mt-5 flex flex-col justify-center items-center button mx-auto gap-5 sm:hidden"
     >
       <button
         class="bg-black rounded-md px-5 py-5 text-white text-xl shadow-lg shadow-red-300 font-semibold hover:text-red-200 hover:scale-95 transition-transform duration-150 ease-in-out sm:py-3"
