@@ -13,53 +13,63 @@
     ></script>
     <script defer src="/Tetris Game/tetris.js"></script>
   </head>
-  <body class="bg-blue-600">
+  <body class="bg-blue-600 z-0">
     <!-- Mobile top bar -->
 
     <div
-      class="container z-50 w-full bg-blue-900 flex justify-center gap-3 font-bold text-md py-8 sm:hidden"
-      style="clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 0 100%)"
+      class="container border-b-4 border-blue-700 relative z-30 w-full bg-blue-900 flex justify-center gap-5 font-bold text-md py-4 sm:hidden"
     >
-      <div class="mini-grid" style="transform: skewY(-3deg)">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+      <div>
+        <div class="mini-grid z-40 mt-5">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+
+        <!-- Start/pause button for mobile -->
+
+        <div
+          class="container absolute right-20 -bottom-4 z-50 flex flex-col items-center button mt-4 sm:hidden"
+        >
+          <button
+            class="bg-black rounded-md px-2 py-1 text-white hover:text-red-200 hover:scale-95 transition-transform duration-150 ease-in-out sm:py-3"
+            id="start2"
+          >
+            <i class="fa-solid fa-pause fa-sm"></i>
+            <i
+              class="fa-solid fa-slash fa-rotate-by fa-sm"
+              style="--fa-rotate-angle: 220deg"
+            ></i>
+            <i class="fa-solid fa-play fa-sm"></i>
+          </button>
+        </div>
       </div>
 
-      <h3
-        class="flex flex-col text-white bg-red-300 rounded-md border-4 p-2 mb-4 border-blue-400"
-        style="transform: skewY(-3deg)"
-      >
-        <p>Score:</p>
-        <span class="text-center bg-red-300" id="score">0</span>
-      </h3>
+      <div class="score sm:flex sm:flex-col font-bold text-sm text-cyan-50">
+        <div class="score1 py-1 border-2 mb-2 text-center rounded-lg">
+          <h3>Score: <span id="score2">0</span></h3>
+        </div>
 
-      <div
-        class="flex flex-col text-white bg-red-300 p-2 rounded-md mb-5 border-4 border-blue-400"
-        style="transform: skewY(-3deg)"
-      >
-        <p>Level:</p>
-        <span class="text-center" id="level">1</span>
-      </div>
-      <div
-        class="flex flex-col text-white bg-red-300 p-2 rounded-md mb-6 border-4 border-blue-400"
-        style="transform: skewY(-3deg)"
-      >
-        <p>Time:</p>
-        <span id="timer">00:00</span>
+        <div class="score1 py-1 border-2 mb-2 text-center rounded-lg">
+          <p>Level: <span id="level2">1</span></p>
+        </div>
+
+        <div class="score1 py-1 px-3 border-2 text-center rounded-lg">
+          <p>Time: <span id="timer2">00:00</span></p>
+        </div>
       </div>
     </div>
 
@@ -73,7 +83,7 @@
     <!-- GameBoard -->
 
     <div
-      class="container mt-2 items-start relative mx-auto justify-center flex sm:mt-0"
+      class="container mt-8 items-start relative mx-auto justify-center flex sm:mt-0"
     >
       <div class="grid">
         <div></div>
@@ -360,19 +370,6 @@
           value="1"
         />
       </div>
-    </div>
-
-    <!-- Start/pause button for mobile -->
-
-    <div
-      class="container relative z-100 mt-5 flex flex-col justify-center items-center button mx-auto gap-5 sm:hidden"
-    >
-      <button
-        class="bg-black rounded-md px-5 py-5 text-white text-xl shadow-lg shadow-red-300 font-semibold hover:text-red-200 hover:scale-95 transition-transform duration-150 ease-in-out sm:py-3"
-        id="start2"
-      >
-        Start/Pause
-      </button>
     </div>
 
     <!-- LeaderBoard list -->
