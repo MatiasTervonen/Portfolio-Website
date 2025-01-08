@@ -66,7 +66,7 @@ let touchStartX = 0;
 let touchStartY = 0;
 
 // Save coordinates when touch starts
-document.addEventListener("touchstart", (e) => {
+grid.addEventListener("touchstart", (e) => {
   e.preventDefault(); // Prevent the default movements like scrolling, page reload etc.. While moving
   const touch = e.touches[0];
   startX = touch.clientX;
