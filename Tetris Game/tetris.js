@@ -66,7 +66,7 @@ let touchStartX = 0;
 let touchStartY = 0;
 
 // Save coordinates when touch starts
-grid.addEventListener("touchstart", (e) => {
+document.addEventListener("touchstart", (e) => {
   e.preventDefault(); // Prevent the default movements like scrolling, page reload etc.. While moving
   const touch = e.touches[0];
   startX = touch.clientX;
@@ -77,7 +77,7 @@ grid.addEventListener("touchstart", (e) => {
 });
 
 // Follow the movement of finger
-grid.addEventListener("touchmove", (e) => {
+document.addEventListener("touchmove", (e) => {
   const touch = e.touches[0];
   const currentX = touch.clientX;
   const currentY = touch.clientY;
@@ -104,7 +104,7 @@ grid.addEventListener("touchmove", (e) => {
 });
 
 // When you tap screen it rotates Tetromnino
-grid.addEventListener("touchend", (e) => {
+document.addEventListener("touchend", (e) => {
   const touchEndTime = new Date().getTime();
   const touchDuration = touchEndTime - touchStartTime;
 
