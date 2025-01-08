@@ -107,24 +107,41 @@
     scale: 120%;
     margin-top: 60px;
   }
+  .mobileTopBar {
+    scale: 120%;
+    margin-top: 10px;
+  }
+ 
 }
 
 @media (min-width: 375px) {
   .mobileGameBoard {
     scale: 130%;
-    margin-top: 75px;
+    margin-top: 95px;
+  }
+  .mobileTopBar {
+    scale: 130%;
+    margin-top: 20px;
   }
 }
 
 @media (min-width: 425px) {
   .mobileGameBoard {
     scale: 150%;
-    margin-top: 115px;
+    margin-top: 155px;
+  }
+  .mobileTopBar {
+    scale: 150%;
+    margin-top: 35px;
   }
 }
 
 @media (min-width: 640px) {
   .mobileGameBoard {
+    scale: 100%;
+    margin-top: 0px;
+  }
+  .mobileTopBar {
     scale: 100%;
     margin-top: 0px;
   }
