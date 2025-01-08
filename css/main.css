@@ -1051,6 +1051,14 @@ video {
   bottom: -2.5rem;
 }
 
+.-bottom-4 {
+  bottom: -1rem;
+}
+
+.-bottom-5 {
+  bottom: -1.25rem;
+}
+
 .-left-96 {
   left: -24rem;
 }
@@ -1119,8 +1127,16 @@ video {
   right: 0.25rem;
 }
 
+.right-10 {
+  right: 2.5rem;
+}
+
 .right-16 {
   right: 4rem;
+}
+
+.right-20 {
+  right: 5rem;
 }
 
 .top-0 {
@@ -1179,20 +1195,12 @@ video {
   top: 1.25rem;
 }
 
-.right-10 {
-  right: 2.5rem;
+.top-16 {
+  top: 4rem;
 }
 
-.-bottom-5 {
-  bottom: -1.25rem;
-}
-
-.-bottom-4 {
-  bottom: -1rem;
-}
-
-.right-20 {
-  right: 5rem;
+.top-14 {
+  top: 3.5rem;
 }
 
 .z-0 {
@@ -2011,12 +2019,12 @@ video {
   border-bottom-width: 1px;
 }
 
-.border-b-4 {
-  border-bottom-width: 4px;
-}
-
 .border-b-2 {
   border-bottom-width: 2px;
+}
+
+.border-b-4 {
+  border-bottom-width: 4px;
 }
 
 .border-black {
@@ -2039,6 +2047,11 @@ video {
   border-color: rgb(59 130 246 / var(--tw-border-opacity, 1));
 }
 
+.border-blue-700 {
+  --tw-border-opacity: 1;
+  border-color: rgb(29 78 216 / var(--tw-border-opacity, 1));
+}
+
 .border-blue-800 {
   --tw-border-opacity: 1;
   border-color: rgb(30 64 175 / var(--tw-border-opacity, 1));
@@ -2057,11 +2070,6 @@ video {
 .border-white {
   --tw-border-opacity: 1;
   border-color: rgb(255 255 255 / var(--tw-border-opacity, 1));
-}
-
-.border-blue-700 {
-  --tw-border-opacity: 1;
-  border-color: rgb(29 78 216 / var(--tw-border-opacity, 1));
 }
 
 .bg-black {
@@ -2263,6 +2271,11 @@ video {
   padding: 2rem;
 }
 
+.px-1 {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+
 .px-10 {
   padding-left: 2.5rem;
   padding-right: 2.5rem;
@@ -2331,11 +2344,6 @@ video {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
-}
-
-.px-1 {
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
 }
 
 .pb-2 {
@@ -2648,6 +2656,10 @@ video {
 }
 
 @media (min-width: 640px) {
+  .sm\:top-0 {
+    top: 0px;
+  }
+
   .sm\:mt-0 {
     margin-top: 0px;
   }
@@ -2662,6 +2674,12 @@ video {
 
   .sm\:h-44 {
     height: 11rem;
+  }
+
+  .sm\:scale-100 {
+    --tw-scale-x: 1;
+    --tw-scale-y: 1;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
 
   .sm\:flex-row {
