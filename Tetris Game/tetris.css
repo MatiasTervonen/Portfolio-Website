@@ -100,4 +100,32 @@
   }
 }
 
+/* Breakpoint for mobile */
 
+@media (min-width: 320px) {
+  .mobileGameBoard {
+    scale: 120%;
+    margin-top: 60px;
+  }
+}
+
+@media (min-width: 375px) {
+  .mobileGameBoard {
+    scale: 130%;
+    margin-top: 75px;
+  }
+}
+
+@media (min-width: 425px) {
+  .mobileGameBoard {
+    scale: 150%;
+    margin-top: 115px;
+  }
+}
+
+@media (min-width: 640px) {
+  .mobileGameBoard {
+    scale: 100%;
+    margin-top: 0px;
+  }
+}
