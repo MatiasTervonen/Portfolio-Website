@@ -126,12 +126,12 @@
 
 @media (min-width: 425px) {
   .mobileGameBoard {
-    scale: 130%;
-    margin-top: 110px;
+    scale: 120%;
+    margin-top: 90px;
   }
   .mobileTopBar {
-    scale: 130%;
-    margin-top: 20px;
+    scale: 120%;
+    margin-top: 15px;
   }
 }
 
