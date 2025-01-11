@@ -73,12 +73,19 @@
   background: linear-gradient(50deg, #000000, #333333);
 }
 
+.button-disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.menu2,
+.menu,
+.gameEnd,
 .nextLevelButton,
 .scoreText,
 .levelText,
 .timeText,
-#start,
-#startNewGame {
+#start {
   font-family: "Russo One", serif;
   font-weight: 400;
   font-style: normal;

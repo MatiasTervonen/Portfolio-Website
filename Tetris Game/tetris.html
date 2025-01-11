@@ -65,7 +65,7 @@
       </div>
 
       <div
-        class="score scoreText sm:flex sm:flex-col font-bold text-sm text-cyan-50"
+        class="score scoreText w-28 font-bold text-sm text-cyan-50"
       >
         <div class="score1 py-1 border-2 mb-2 text-center rounded-lg">
           <h3>Score: <span id="score2">0</span></h3>
@@ -320,6 +320,21 @@
           <button class="slide-from-left">Next Level</button>
           <i class="slide-from-right fa-solid fa-angles-right"></i>
         </div>
+
+        <div class="gameEnd hidden absolute text-white text-xl">
+          <p class="slide-from-left text-center">Game Over</p>
+        </div>
+
+        <div class="menu2 hidden absolute bottom-20">
+          <a href="/Tetris Game/menu.html">
+            <button
+              class="bg-black rounded-md p-3 text-white text-md shadow-md shadow-red-300 font-semibold hover:text-red-200 hover:scale-95 transition-transform duration-150 ease-in-out sm:py-3"
+            >
+              MENU
+              <i class="slide-from-right fa-solid fa-angles-right"></i>
+            </button>
+          </a>
+        </div>
       </div>
 
       <div class="hidden sm:flex sm:flex-col ml-10 w-32">
@@ -376,8 +391,7 @@
         </button>
         <a href="/Tetris Game/menu.html">
           <button
-            class="bg-black rounded-md px-5 py-5 text-white text-xl shadow-lg shadow-red-300 font-semibold hover:text-red-200 hover:scale-95 transition-transform duration-150 ease-in-out sm:py-3"
-            id="startNewGame"
+            class="menu bg-black rounded-md px-5 py-5 text-white text-xl shadow-lg shadow-red-300 font-semibold hover:text-red-200 hover:scale-95 transition-transform duration-150 ease-in-out sm:py-3"
           >
             MENU
           </button>
@@ -422,6 +436,8 @@
       id="levelChange"
       src="/Tetris Game/music/SEP_levelchange.wav"
     ></audio>
+
+    <audio id="gameEndMusic" src="/Tetris Game/music/SEP_gameover.wav"></audio>
 
     <audio id="hit" src="/Tetris Game/music/SEB_fall.wav"></audio>
   </body>

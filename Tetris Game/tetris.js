@@ -36,6 +36,8 @@ const levelChange = document.getElementById("levelChange");
 
 const volumeControl = document.getElementById("volumeControl");
 
+const gameEndMusic = document.getElementById("gameEndMusic");
+
 let savedVolume = localStorage.getItem("volume") || volumeControl.value;
 
 // Level
@@ -123,6 +125,7 @@ document.addEventListener("touchend", (e) => {
   if (touchDuration < 200 && diffX < 10 && diffY < 10) {
     rotate();
   }
+  // If touch is long and down move fast down
 });
 
 //Audio for game
@@ -133,6 +136,7 @@ const audio = [
   document.getElementById("gameVoice"),
   document.getElementById("hit"),
   document.getElementById("levelChange"),
+  document.getElementById("gameEndMusic"),
 ];
 
 // Volume control for all game voices
@@ -563,25 +567,44 @@ document.addEventListener("keyup", (e) => {
 
 // Game Over
 
+const menu2 = document.querySelector(".menu2");
+const gameEnd = document.querySelector(".gameEnd");
+
 function gameOver() {
   if (
     current.some((index) =>
       squares[currentPosition + index].classList.contains("taken")
     )
   ) {
-    gameVoice.play();
     isPaused = true;
     isGameOver = true;
 
+    pauseGame();
     resetGame();
+
+    gameVoice.play();
+    gameEnd.classList.remove("hidden");
+    gameEnd.classList.add("flex");
+
+    menu2.classList.remove("hidden");
+    menu2.classList.add("flex");
+    gameEndMusic.play();
+
+    startBtn.forEach((btn) => {
+      btn.classList.add("button-disabled");
+      btn.disabled = true;
+    });
   }
 }
 
 function resetGame() {
-  timeElapsed--;
-
   squares.forEach((square) => {
-    square.classList.remove("tetromino", "levelCompleted", "hit");
+    square.classList.remove(
+      "tetromino",
+      "levelCompleted",
+      "hit",
+      "ghost-tetromino"
+    );
     square.style.backgroundColor = "";
     if (!square.classList.contains("taken2")) {
       square.classList.remove("taken");
@@ -597,6 +620,13 @@ function resetGame() {
 // Start New Game
 
 function startGame() {
+  if (timerId) {
+    clearInterval(timerId);
+    timerId = null;
+  }
+  if (timerInterval) {
+    clearInterval(timerInterval);
+  }
   draw();
   if (!nextRandom) {
     nextRandom = Math.floor(Math.random() * theTetrominoes.length);
@@ -610,27 +640,30 @@ function startGame() {
 }
 
 function pauseGame() {
-  clearInterval(timerId);
-  clearInterval(timerInterval);
-  timerId = null;
-  timerInterval = null;
+  if (timerId) {
+    clearInterval(timerId);
+    timerId = null;
+  }
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
   backgroundMusic.pause();
   isPaused = true;
 }
-
 // Make the speed of tetromino and music faster every 100 points
 
-let currenInterval = 1000;
+let newInterval = 1000;
 let currentPlaybackRate = 1.0;
 
 function updateSpeedAndMusic() {
-  currenInterval *= 0.8;
+  newInterval *= 0.95;
 
   clearInterval(timerId);
 
-  timerId = setInterval(moveDown, currenInterval);
+  timerId = setInterval(moveDown, newInterval);
 
-  currentPlaybackRate *= 1.2;
+  currentPlaybackRate *= 1.02;
   backgroundMusic.playbackRate = currentPlaybackRate;
 }
 
@@ -638,13 +671,13 @@ function updateSpeedAndMusic() {
 
 const nextLevelButton = document.querySelector(".nextLevelButton");
 const levelText = document.querySelector(".levelText");
-let level1 = 100;
+let level1 = 10;
 
 async function addLevel() {
   if (score >= level1) {
     level++;
     score = 0;
-    level1 += 200;
+    level1 += 10;
     levelDisplay.forEach((display) => (display.innerHTML = level));
     scoreDisplay.forEach((display) => (display.innerHTML = score));
     backgroundMusic.pause();
@@ -655,6 +688,7 @@ async function addLevel() {
     pauseGame();
     await sleep(3000);
     nextLevel();
+    updateLeaderboard();
   }
 }
 
