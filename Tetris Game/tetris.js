@@ -126,6 +126,10 @@ document.addEventListener("touchend", (e) => {
     rotate();
   }
   // If touch is long and down move fast down
+
+  // if (touchDuration > 300 && diffX < 10 && diffY < 10) {
+  //   moveDown();
+  // }
 });
 
 //Audio for game

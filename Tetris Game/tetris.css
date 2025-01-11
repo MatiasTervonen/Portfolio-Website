@@ -181,6 +181,7 @@
 @media (min-width: 320px) {
   .mobileGameBoard {
     scale: 100%;
+    margin-top: 25px;
   }
   .mobileTopBar {
     scale: 100%;
@@ -190,7 +191,7 @@
 @media (min-width: 375px) {
   .mobileGameBoard {
     scale: 110%;
-    margin-top: 50px;
+    margin-top: 55px;
   }
   .mobileTopBar {
     scale: 110%;
@@ -201,7 +202,7 @@
 @media (min-width: 425px) {
   .mobileGameBoard {
     scale: 125%;
-    margin-top: 90px;
+    margin-top: 100px;
   }
   .mobileTopBar {
     scale: 125%;
