@@ -675,13 +675,13 @@ function updateSpeedAndMusic() {
 
 const nextLevelButton = document.querySelector(".nextLevelButton");
 const levelText = document.querySelector(".levelText");
-let level1 = 10;
+let level1 = 50;
 
 async function addLevel() {
   if (score >= level1) {
     level++;
     score = 0;
-    level1 += 10;
+    level1 += 50;
     levelDisplay.forEach((display) => (display.innerHTML = level));
     scoreDisplay.forEach((display) => (display.innerHTML = score));
     backgroundMusic.pause();
