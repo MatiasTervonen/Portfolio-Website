@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 * {
   box-sizing: border-box;
   padding: 0;
@@ -75,8 +73,19 @@
   background: linear-gradient(50deg, #000000, #333333);
 }
 
+.nextLevelButton,
+.scoreText,
+.levelText,
+.timeText,
+#start,
+#startNewGame {
+  font-family: "Russo One", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 .full-row {
-  animation: blink 0.5s linear 3;
+  animation: blink 0.4s linear 2;
 }
 
 @keyframes blink {
@@ -90,7 +99,7 @@
 }
 
 .hit {
-  animation: blink 0.2s linear 0.5;
+  animation: blink 0.2s linear 1;
 }
 
 @keyframes blink {
@@ -99,6 +108,64 @@
   }
   50% {
     opacity: 0;
+  }
+}
+
+.levelCompleted {
+  animation: explode 3s forwards;
+}
+
+@keyframes explode {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(2);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+.slide-from-left,
+.slide-from-right {
+  opacity: 0;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+.slide-from-left {
+  animation-name: slide-from-left;
+  transform: translateX(-100%);
+}
+
+.slide-from-right {
+  animation-name: slide-from-right;
+  transform: translateX(100%);
+}
+
+@keyframes slide-from-left {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-from-right {
+  0% {
+    transform: translateX(100%); /* Alkaa näytön oikealta puolelta */
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0); /* Liikkuu keskelle */
+    opacity: 1;
   }
 }
 
@@ -126,11 +193,11 @@
 
 @media (min-width: 425px) {
   .mobileGameBoard {
-    scale: 120%;
+    scale: 125%;
     margin-top: 90px;
   }
   .mobileTopBar {
-    scale: 120%;
+    scale: 125%;
     margin-top: 15px;
   }
 }

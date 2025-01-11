@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="/css/main.css" />
     <link rel="stylesheet" href="/Tetris Game/tetris.css" />
     <title>Tetris</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=Jersey+15&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Press+Start+2P&family=Russo+One&display=swap"
+      rel="stylesheet"
+    />
     <script
       src="https://kit.fontawesome.com/2273515c74.js"
       crossorigin="anonymous"
@@ -58,7 +64,9 @@
         </div>
       </div>
 
-      <div class="score sm:flex sm:flex-col font-bold text-sm text-cyan-50">
+      <div
+        class="score scoreText sm:flex sm:flex-col font-bold text-sm text-cyan-50"
+      >
         <div class="score1 py-1 border-2 mb-2 text-center rounded-lg">
           <h3>Score: <span id="score2">0</span></h3>
         </div>
@@ -82,222 +90,240 @@
 
     <!-- GameBoard -->
 
-    <div class="container mt-8 relative mx-auto justify-center flex sm:mt-0">
-      <div class="mobileGameBoard grid">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div class="taken"></div>
-        <div class="taken"></div>
-        <div class="taken"></div>
-        <div class="taken"></div>
-        <div class="taken"></div>
-        <div class="taken"></div>
-        <div class="taken"></div>
-        <div class="taken"></div>
-        <div class="taken"></div>
-        <div class="taken"></div>
+    <div
+      class="container mt-8 relative mx-auto justify-center items-center flex sm:mt-0"
+    >
+      <div
+        class="gameContainer relative flex flex-col justify-center items-center"
+      >
+        <div class="mobileGameBoard relative grid">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div class="taken taken2"></div>
+          <div class="taken taken2"></div>
+          <div class="taken taken2"></div>
+          <div class="taken taken2"></div>
+          <div class="taken taken2"></div>
+          <div class="taken taken2"></div>
+          <div class="taken taken2"></div>
+          <div class="taken taken2"></div>
+          <div class="taken taken2"></div>
+          <div class="taken taken2"></div>
+        </div>
+
+        <div class="levelText hidden absolute flex-col text-white text-xl">
+          <p class="slide-from-left text-center">Level</p>
+          <p class="slide-from-right text-center">Completed</p>
+        </div>
+
+        <div
+          class="text-center hidden items-center gap-2 nextLevelButton absolute bottom-20 bg-black rounded-md p-2 text-white text-md shadow-md shadow-red-300 font-semibold hover:text-red-200 hover:scale-95 transition-transform duration-150 ease-in-out"
+        >
+          <button class="slide-from-left">Next Level</button>
+          <i class="slide-from-right fa-solid fa-angles-right"></i>
+        </div>
       </div>
 
-      <div class="hidden sm:flex sm:flex-col">
-        <div class="mini-grid ml-10">
+      <div class="hidden sm:flex sm:flex-col ml-10 w-32">
+        <div class="mini-grid">
           <div></div>
           <div></div>
           <div></div>
@@ -319,18 +345,18 @@
         <!-- Score, Level Time for PC -->
 
         <div
-          class="score hidden sm:flex sm:flex-col font-bold text-md text-cyan-50 p-8 mt-20 ml-2"
+          class="score hidden sm:flex sm:flex-col font-bold text-md text-cyan-50 mt-20"
         >
-          <div class="score1 py-1 border-2 mb-2 text-center rounded-lg">
-            <h3>Score: <span id="score2">0</span></h3>
+          <div class="score1 p-2 border-2 mb-2 text-center rounded-lg">
+            <h3 class="scoreText">Score: <span id="score2">0</span></h3>
           </div>
 
-          <div class="score1 py-1 border-2 mb-2 text-center rounded-lg">
-            <p>Level: <span id="level2">1</span></p>
+          <div class="score1 p-2 border-2 mb-2 text-center rounded-lg">
+            <p class="levelText">Level: <span id="level2">1</span></p>
           </div>
 
-          <div class="score1 py-1 px-3 border-2 text-center rounded-lg">
-            <p>Time: <span id="timer2">00:00</span></p>
+          <div class="score1 p-2 px-3 border-2 text-center rounded-lg">
+            <p class="timeText">Time: <span id="timer2">00:00</span></p>
           </div>
         </div>
       </div>
@@ -348,12 +374,14 @@
         >
           Start/Pause
         </button>
-        <button
-          class="bg-black rounded-md px-5 py-5 text-white text-xl shadow-lg shadow-red-300 font-semibold hover:text-red-200 hover:scale-95 transition-transform duration-150 ease-in-out sm:py-3"
-          id="startNewGame"
-        >
-          Start New Game
-        </button>
+        <a href="/Tetris Game/menu.html">
+          <button
+            class="bg-black rounded-md px-5 py-5 text-white text-xl shadow-lg shadow-red-300 font-semibold hover:text-red-200 hover:scale-95 transition-transform duration-150 ease-in-out sm:py-3"
+            id="startNewGame"
+          >
+            MENU
+          </button>
+        </a>
       </div>
       <div>
         <label for="volume-control"
@@ -388,6 +416,11 @@
     <audio
       id="gameVoice"
       src="/Tetris Game/music/zapsplat_human_male_voice_says_game_over_001_15726.mp3"
+    ></audio>
+
+    <audio
+      id="levelChange"
+      src="/Tetris Game/music/SEP_levelchange.wav"
     ></audio>
 
     <audio id="hit" src="/Tetris Game/music/SEB_fall.wav"></audio>

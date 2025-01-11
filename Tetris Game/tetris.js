@@ -4,6 +4,8 @@ const grid = document.querySelector(" .grid");
 
 let squares = Array.from(document.querySelectorAll(" .grid div"));
 
+let displaySquares = Array.from(document.querySelectorAll(".mini-grid div"));
+
 const scoreDisplay = document.querySelectorAll("#score, #score2");
 
 const startBtn = document.querySelectorAll("#start, #start2");
@@ -29,6 +31,8 @@ const colors = ["orange", "red", "purple", "green", "blue"];
 const backgroundMusic = document.getElementById("backgroundMusic");
 
 const hit = document.getElementById("hit");
+
+const levelChange = document.getElementById("levelChange");
 
 const volumeControl = document.getElementById("volumeControl");
 
@@ -128,6 +132,7 @@ const audio = [
   document.getElementById("full"),
   document.getElementById("gameVoice"),
   document.getElementById("hit"),
+  document.getElementById("levelChange"),
 ];
 
 // Volume control for all game voices
@@ -199,11 +204,12 @@ let current = theTetrominoes[random][currentRotation];
 // draw random tetromino and its firts rotation
 
 function draw() {
-  ghostDraw();
+  if (isAnimating) return;
   current.forEach((index) => {
     squares[currentPosition + index].classList.add("tetromino");
     squares[currentPosition + index].style.backgroundColor = colors[random];
   });
+  ghostDraw();
 }
 
 //undraw the Tetromino
@@ -254,6 +260,7 @@ function undrawGhost() {
 
 function control(e) {
   if (isPaused) return;
+  if (isAnimating) return;
   if (e.keyCode === 37) {
     moveLeft();
   } else if (e.keyCode === 38) {
@@ -272,7 +279,6 @@ document.addEventListener("keyup", control);
 function moveDown() {
   if (!timerId) return;
   if (isAnimating) return;
-  if (isAnimatingHit) return;
   undraw();
   currentPosition += width;
   draw();
@@ -289,9 +295,8 @@ function updateGlowColor() {
 //freeze function
 
 let isAnimating = false;
-let isAnimatingHit = false;
 
-function freeze() {
+async function freeze() {
   if (
     current.some((index) =>
       squares[currentPosition + index + width].classList.contains("taken")
@@ -300,56 +305,43 @@ function freeze() {
     current.forEach((index) => {
       let currentSquare = squares[currentPosition + index];
       squares[currentPosition + index].classList.add("taken");
+      isAnimating = true;
       currentSquare.classList.add("hit");
-      isAnimatingHit = true;
       hit.volume = savedVolume * 0.3;
       hit.play();
     });
 
-    setTimeout(() => {
-      current.forEach((index) => {
-        squares[currentPosition + index].classList.remove("hit");
-      });
-    }, 500);
-
     undrawGhost();
+
+    await sleep(200);
+
+    isAnimating = false;
+
+    current.forEach((index) => {
+      squares[currentPosition + index].classList.remove("hit");
+    });
+
+    random = nextRandom;
+    nextRandom = Math.floor(Math.random() * theTetrominoes.length);
+    current = theTetrominoes[random][currentRotation];
+    currentPosition = 4;
     addScore();
-
-    // Prevent tetromino dropping if full row animation is going, if not continue normally
-
-    if (isAnimating) {
-      setTimeout(() => {
-        random = nextRandom;
-        nextRandom = Math.floor(Math.random() * theTetrominoes.length);
-        current = theTetrominoes[random][currentRotation];
-        currentPosition = 4;
-        draw();
-        displayShape();
-        gameOver();
-        updateGlowColor();
-        isAnimating = false;
-      }, 800);
-    } else {
-      if (isAnimatingHit) {
-        setTimeout(() => {
-          random = nextRandom;
-          nextRandom = Math.floor(Math.random() * theTetrominoes.length);
-          current = theTetrominoes[random][currentRotation];
-          currentPosition = 4;
-          draw();
-          displayShape();
-          gameOver();
-          updateGlowColor();
-          isAnimatingHit = false;
-        }, 500);
-      }
-    }
+    draw();
+    displayShape();
+    gameOver();
+    updateGlowColor();
   }
 }
 
 //add score
 
-function addScore() {
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function addScore() {
+  let rowsCleared = 0;
+
   for (let i = 0; i < 199; i += width) {
     const row = [
       i,
@@ -365,35 +357,40 @@ function addScore() {
     ];
 
     if (row.every((index) => squares[index].classList.contains("taken"))) {
+      rowsCleared++;
+
       hit.volume = 0;
-      isAnimating = true;
       full.currentTime = 0;
       full.play();
-      score += 10;
-      scoreDisplay.forEach((display) => (display.innerHTML = score));
+      isAnimating = true;
 
       row.forEach((index) => {
         squares[index].classList.add("full-row");
       });
 
-      // Set timeout for animation ending
-      setTimeout(() => {
-        row.forEach((index) => {
-          squares[index].classList.remove("taken");
-          squares[index].classList.remove("tetromino");
-          squares[index].classList.remove("full-row");
-          squares[index].style.backgroundColor = "";
-        });
-        const squaresRemoved = squares.splice(i, width);
-        squares = squaresRemoved.concat(squares);
-        squares.forEach((cell) => grid.appendChild(cell));
+      await sleep(500);
 
-        isAnimatingHit = false;
-        isAnimating = false;
-      }, 800);
+      isAnimating = false;
+
+      row.forEach((index) => {
+        squares[index].classList.remove("taken", "tetromino", "full-row");
+        squares[index].style.backgroundColor = "";
+      });
+      const squaresRemoved = squares.splice(i, width);
+      squares = squaresRemoved.concat(squares);
+      squares.forEach((cell) => grid.appendChild(cell));
     }
   }
-  updateSpeedAndMusic();
+  if (rowsCleared == 4) {
+    score += 100;
+  } else if (rowsCleared == 3) {
+    score += 50;
+  } else if (rowsCleared == 2) {
+    score += 30;
+  } else if (rowsCleared == 1) {
+    score += 10;
+  }
+  scoreDisplay.forEach((display) => (display.innerHTML = score));
   addLevel();
 }
 
@@ -402,7 +399,6 @@ function addScore() {
 function moveLeft() {
   if (!timerId) return;
   if (isAnimating) return;
-  if (isAnimatingHit) return;
   undraw();
   const isAtLeftEdge = current.some(
     (index) => (currentPosition + index) % width === 0
@@ -426,7 +422,6 @@ function moveLeft() {
 function moveRight() {
   if (!timerId) return;
   if (isAnimating) return;
-  if (isAnimatingHit) return;
   undraw();
 
   const isAtRightEdge = current.some(
@@ -451,7 +446,6 @@ function moveRight() {
 function rotate() {
   if (!timerId) return;
   if (isAnimating) return;
-  if (isAnimatingHit) return;
   undraw();
   let nextRotation = (currentRotation + 1) % current.length;
   let nextTetromino = theTetrominoes[random][nextRotation];
@@ -490,19 +484,20 @@ const upNextTetrominoes = [
 // Display the shape in the mini-grid display
 
 function displayShape() {
+  displaySquares.forEach((square) => {
+    square.classList.remove("tetromino");
+    square.style.backgroundColor = "";
+  });
+
   const miniGrids = document.querySelectorAll(".mini-grid");
 
   miniGrids.forEach((grid) => {
-    const displaySquares = grid.querySelectorAll("div");
-    displaySquares.forEach((square) => {
-      square.classList.remove("tetromino");
-      square.style.backgroundColor = "";
-    });
+    const gridSquares = Array.from(grid.querySelectorAll("div"));
 
     upNextTetrominoes[nextRandom].forEach((index) => {
-      if (displaySquares[displayIndex + index]) {
-        displaySquares[displayIndex + index].classList.add("tetromino");
-        displaySquares[displayIndex + index].style.backgroundColor =
+      if (gridSquares[displayIndex + index]) {
+        gridSquares[displayIndex + index].classList.add("tetromino");
+        gridSquares[displayIndex + index].style.backgroundColor =
           colors[nextRandom];
       }
     });
@@ -513,33 +508,11 @@ function displayShape() {
 
 startBtn.forEach((startBtn) => {
   startBtn.addEventListener("click", () => {
-    if (isGameOver) {
-      // prevent the start game function if game has ended
-      alert(
-        "The game has ended! Start a new game by pressing 'Start New Game'."
-      );
-      return;
-    }
-
+    if (isAnimating) return;
     if (timerId) {
-      // Stop
-      clearInterval(timerId);
-      clearInterval(timerInterval);
-      timerId = null;
-      backgroundMusic.pause();
-      isPaused = true;
+      pauseGame();
     } else {
-      // Start
-      draw();
-      if (!nextRandom) {
-        nextRandom = Math.floor(Math.random() * theTetrominoes.length);
-      }
-      updateGlowColor();
-      timerId = setInterval(moveDown, 1000);
-      timerInterval = setInterval(updateTimer, 1000);
-      displayShape();
-      backgroundMusic.play();
-      isPaused = false;
+      startGame();
     }
   });
 });
@@ -596,75 +569,123 @@ function gameOver() {
       squares[currentPosition + index].classList.contains("taken")
     )
   ) {
-    scoreDisplay.innerHTML = "Game Over";
-    clearInterval(timerId);
-    clearInterval(timerInterval);
-    backgroundMusic.pause();
     gameVoice.play();
     isPaused = true;
     isGameOver = true;
 
-    updateLeaderboard(score, level, timeElapsed);
-
-    displayLeaderboard();
-
-    // Empty the Mini Grid from all tetrominoes
-    displaySquares.forEach((square) => {
-      square.classList.remove("tetromino");
-      square.style.backgroundColor = "";
-    });
-
-    // Empty the Grid from all tetrominoes
-    squares.forEach((square) => {
-      square.classList.remove("tetromino");
-      square.classList.remove("taken");
-      square.classList.remove("ghost-tetromino");
-      square.style.backgroundColor = "";
-    });
+    resetGame();
   }
 }
 
-// Start New Game button
+function resetGame() {
+  timeElapsed--;
 
-const startNewGame = document.getElementById("startNewGame");
-
-startNewGame.addEventListener("click", () => {
-  location.reload();
-  audio.forEach((audio) => {
-    audio.volume = savedVolume;
+  squares.forEach((square) => {
+    square.classList.remove("tetromino", "levelCompleted", "hit");
+    square.style.backgroundColor = "";
+    if (!square.classList.contains("taken2")) {
+      square.classList.remove("taken");
+    }
   });
+
+  displaySquares.forEach((square) => {
+    square.classList.remove("tetromino");
+    square.style.backgroundColor = "";
+  });
+}
+
+// Start New Game
+
+function startGame() {
+  draw();
+  if (!nextRandom) {
+    nextRandom = Math.floor(Math.random() * theTetrominoes.length);
+  }
+  updateGlowColor();
+  timerId = setInterval(moveDown, 1000);
+  timerInterval = setInterval(updateTimer, 1000);
+  displayShape();
+  backgroundMusic.play();
+  isPaused = false;
+}
+
+function pauseGame() {
+  clearInterval(timerId);
   clearInterval(timerInterval);
-  timeElapsed = 0;
-  timerDisplay.innerHTML = "00:00";
-});
+  timerId = null;
+  timerInterval = null;
+  backgroundMusic.pause();
+  isPaused = true;
+}
 
 // Make the speed of tetromino and music faster every 100 points
 
-let speedLevel = 1;
+let currenInterval = 1000;
+let currentPlaybackRate = 1.0;
 
 function updateSpeedAndMusic() {
-  const newSpeedLevel = Math.floor(score / 100) + 1;
-  if (newSpeedLevel > speedLevel) {
-    speedLevel = newSpeedLevel;
+  currenInterval *= 0.8;
 
-    clearInterval(timerId);
-    const newInterval = 1000 / speedLevel;
-    timerId = setInterval(moveDown, newInterval);
+  clearInterval(timerId);
 
-    backgroundMusic.playbackRate = 1 + (speedLevel - 1) * 0.1;
-  }
+  timerId = setInterval(moveDown, currenInterval);
+
+  currentPlaybackRate *= 1.2;
+  backgroundMusic.playbackRate = currentPlaybackRate;
 }
 
 // Inceare Level points by 1 every 100 Score
 
-let nextLevelScore = 100;
+const nextLevelButton = document.querySelector(".nextLevelButton");
+const levelText = document.querySelector(".levelText");
+let level1 = 100;
 
-function addLevel() {
-  if (score >= nextLevelScore) {
-    level = level + 1;
-    nextLevelScore = nextLevelScore + 100;
+async function addLevel() {
+  if (score >= level1) {
+    level++;
+    score = 0;
+    level1 += 200;
     levelDisplay.forEach((display) => (display.innerHTML = level));
+    scoreDisplay.forEach((display) => (display.innerHTML = score));
+    backgroundMusic.pause();
+    full.pause();
+    hit.pause();
+    isAnimating = true;
+    levelCompletedAnimation();
+    pauseGame();
+    await sleep(3000);
+    nextLevel();
   }
+}
+
+function levelCompletedAnimation() {
+  squares.forEach((square) => {
+    if (square.classList.contains("taken")) {
+      square.classList.add("levelCompleted");
+    }
+  });
+
+  levelText.classList.remove("hidden");
+  levelText.classList.add("flex");
+
+  levelChange.play();
+}
+
+function nextLevel() {
+  nextLevelButton.classList.remove("hidden");
+  nextLevelButton.classList.add("flex");
+
+  nextLevelButton.addEventListener("click", function () {
+    isAnimating = false;
+
+    nextLevelButton.classList.add("hidden");
+    nextLevelButton.classList.remove("flex");
+    levelText.classList.add("hidden");
+    levelText.classList.remove("flex");
+    resetGame();
+    startGame();
+    updateSpeedAndMusic();
+  });
 }
 
 // Timer for the Game Time
