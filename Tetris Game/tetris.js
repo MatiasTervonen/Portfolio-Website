@@ -121,10 +121,10 @@ document.addEventListener("touchend", (e) => {
   const diffX = Math.abs(touchEndX - touchStartX);
   const diffY = Math.abs(touchEndY - touchStartY);
 
-  // // If touch is small and short it is counted as rotate
-  // if (touchDuration < 200 && diffX < 10 && diffY < 10) {
-  //   rotate();
-  // }
+  // If touch is small and short it is counted as rotate
+  if (touchDuration < 200 && diffX < 10 && diffY < 10) {
+    rotate();
+  }
 
   // // If touch short and fast down. Move fast down
 
