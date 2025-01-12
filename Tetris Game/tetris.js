@@ -128,7 +128,7 @@ document.addEventListener("touchend", (e) => {
 
   // If touch short and fast down. Move fast down
 
-  if (diffY > 30 && touchDuration < 200) {
+  if (diffY > 50 && touchDuration < 200) {
     moveDownFast();
   }
 });
