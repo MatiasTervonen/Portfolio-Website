@@ -71,6 +71,9 @@ let touchStartTime = 0;
 let touchStartX = 0;
 let touchStartY = 0;
 
+let longPressTimer;
+let isLongPress = false;
+
 // Save coordinates when touch starts
 grid.addEventListener("touchstart", (e) => {
   e.preventDefault(); // Prevent the default movements like scrolling, page reload etc.. While moving
@@ -80,6 +83,11 @@ grid.addEventListener("touchstart", (e) => {
   touchStartTime = new Date().getTime();
   touchStartX = touch.clientX;
   touchStartY = touch.clientY;
+
+  isLongPress = false; // Alustetaan lippu false-arvoon joka kerta kun kosketus alkaa
+  longPressTimer = setTimeout(() => {
+    isLongPress = true; // Aseta lippu todeksi, jos painallus kestää yli 500 ms
+  }, 1000); // Aseta aika, jonka jälkeen painallusta pidetään pitkänä
 });
 
 // Follow the movement of finger
@@ -127,10 +135,10 @@ document.addEventListener("touchend", (e) => {
   }
 
   // // If touch short and fast down. Move fast down
-
-  // if (diffY > 50 && touchDuration < 200) {
-  //   moveDownFast();
-  // }
+  clearTimeout(longPressTimer); // Peruuttaa ajastimen, jos kosketus päättyy ennen kuin aika umpeutuu
+  if (isLongPress) {
+    moveDownFast(); // Suorita hard drop, jos oli pitkä painallus
+  }
 });
 
 async function moveDownFast() {
