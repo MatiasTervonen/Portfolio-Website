@@ -102,6 +102,8 @@ document.addEventListener("touchmove", (e) => {
 
   // Movement direction
   if (Math.abs(diffX) > Math.abs(diffY)) {
+    clearTimeout(longPressTimer); // Peruuta pitkän painalluksen ajastin sivuttaisliikkeessä
+    isLongPress = false; // Nollaa pitkän painalluksen lippu
     if (diffX > 30) {
       moveRight();
       startX = currentX;
@@ -689,6 +691,7 @@ function startGame() {
   displayShape();
   backgroundMusic.play();
   isPaused = false;
+  isLongPress = false;
 }
 
 function pauseGame() {
