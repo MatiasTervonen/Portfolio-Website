@@ -102,7 +102,7 @@ document.addEventListener("touchmove", (e) => {
 
   // Movement direction
   if (Math.abs(diffX) > Math.abs(diffY)) {
-    if (diffX > 10 && diffY > 10) {
+    if (diffX > 2 && diffY > 2) {
       clearTimeout(longPressTimer); // Peruuta pitkän painalluksen ajastin sivuttaisliikkeessä
       isLongPress = false; // Nollaa pitkän painalluksen lippu
     }
