@@ -91,6 +91,27 @@
   font-style: normal;
 }
 
+.tetromino-falling-fast {
+  transition: transform 0.2s linear;
+}
+
+.tetromino-trail {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: inherit;
+  animation: fadeTrail 0.5s forwards;
+}
+
+@keyframes fadeTrail {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 .full-row {
   animation: blink 0.4s linear 2;
 }

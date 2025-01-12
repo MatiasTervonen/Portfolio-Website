@@ -125,12 +125,50 @@ document.addEventListener("touchend", (e) => {
   if (touchDuration < 200 && diffX < 10 && diffY < 10) {
     rotate();
   }
-  // If touch is long and down move fast down
 
-  // if (touchDuration > 300 && diffX < 10 && diffY < 10) {
-  //   moveDown();
-  // }
+  // If touch short and fast down. Move fast down
+
+  if (diffY > 30 && touchDuration < 200) {
+    moveDownFast();
+  }
 });
+
+async function moveDownFast() {
+  undraw();
+
+  let newPosition = currentPosition;
+  while (
+    !current.some((index) =>
+      squares[newPosition + index + width].classList.contains("taken")
+    )
+  ) {
+    newPosition += width;
+  }
+
+  let position = currentPosition;
+  while (position < newPosition) {
+    current.forEach((index) => {
+      const trailSquare = squares[position + index];
+      const trailDiv = document.createElement("div");
+      trailDiv.style.backgroundColor = colors[random];
+      trailDiv.className = "tetromino-trail";
+      trailSquare.appendChild(trailDiv);
+    });
+    position += width;
+  }
+
+  currentPosition = newPosition;
+  draw();
+  freeze();
+
+  await sleep(500);
+
+  squares.forEach((square) => {
+    while (square.firstChild) {
+      square.removeChild(square.firstChild);
+    }
+  });
+}
 
 //Audio for game
 
@@ -277,6 +315,8 @@ function control(e) {
     moveRight();
   } else if (e.keyCode === 40) {
     moveDown();
+  } else if (e.keyCode === 16) {
+    moveDownFast();
   }
 }
 
@@ -764,7 +804,7 @@ function updateLeaderboard(score, level, timeElapsed) {
   leaderboard.push({ score, level, timeElapsed });
 
   // sort scores by highest scores to down
-  leaderboard.sort((a, b) => b.score - a.score);
+  leaderboard.sort((a, b) => b.level - a.level);
 
   // Show only top 10
   const top10 = leaderboard.slice(0, 10);
