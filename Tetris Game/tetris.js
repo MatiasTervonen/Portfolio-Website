@@ -87,7 +87,7 @@ grid.addEventListener("touchstart", (e) => {
   isLongPress = false; // Alustetaan lippu false-arvoon joka kerta kun kosketus alkaa
   longPressTimer = setTimeout(() => {
     isLongPress = true; // Aseta lippu todeksi, jos painallus kestää yli 500 ms
-  }, 500); // Aseta aika, jonka jälkeen painallusta pidetään pitkänä
+  }, 300); // Aseta aika, jonka jälkeen painallusta pidetään pitkänä
 });
 
 // Follow the movement of finger
