@@ -746,7 +746,7 @@ async function addLevel() {
     pauseGame();
     await sleep(3000);
     nextLevel();
-    updateLeaderboard();
+    updateLeaderboard(score, level, timeElapsed);
   }
 }
 
@@ -818,7 +818,15 @@ function updateLeaderboard(score, level, timeElapsed) {
   leaderboard.push({ score, level, timeElapsed });
 
   // sort scores by highest scores to down
-  leaderboard.sort((a, b) => b.level - a.level);
+  leaderboard.sort((a, b) => {
+    if (b.level !== a.level) {
+      return b.level - a.level;  // Higher levels first
+    } else if (b.score !== a.score) {
+      return b.score - a.score;  // Higher scores first within the same level
+    } else {
+      return a.timeElapsed - b.timeElapsed;  // Lower times first within the same level and score
+    }
+  });
 
   // Show only top 10
   const top10 = leaderboard.slice(0, 10);
