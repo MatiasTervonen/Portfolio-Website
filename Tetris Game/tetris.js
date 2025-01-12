@@ -340,12 +340,18 @@ document.addEventListener("keyup", control);
 function moveDown() {
   if (!timerId) return;
   if (isAnimating) return;
-  undraw();
-  currentPosition += width;
-  draw();
-  freeze();
+  if (
+    !current.some((index) =>
+      squares[currentPosition + index + width].classList.contains("taken")
+    )
+  ) {
+    undraw();
+    currentPosition += width;
+    draw();
+  } else {
+    freeze();
+  }
 }
-
 // Show the glow of the color that is coming next
 
 function updateGlowColor() {
@@ -358,40 +364,34 @@ function updateGlowColor() {
 let isAnimating = false;
 
 async function freeze() {
-  if (
-    current.some((index) =>
-      squares[currentPosition + index + width].classList.contains("taken")
-    )
-  ) {
-    current.forEach((index) => {
-      let currentSquare = squares[currentPosition + index];
-      squares[currentPosition + index].classList.add("taken");
-      isAnimating = true;
-      currentSquare.classList.add("hit");
-      hit.volume = savedVolume * 0.3;
-      hit.play();
-    });
+  current.forEach((index) => {
+    let currentSquare = squares[currentPosition + index];
+    squares[currentPosition + index].classList.add("taken");
+    isAnimating = true;
+    currentSquare.classList.add("hit");
+    hit.volume = savedVolume * 0.3;
+    hit.play();
+  });
 
-    undrawGhost();
+  undrawGhost();
 
-    await sleep(200);
+  await sleep(200);
 
-    isAnimating = false;
+  isAnimating = false;
 
-    current.forEach((index) => {
-      squares[currentPosition + index].classList.remove("hit");
-    });
+  current.forEach((index) => {
+    squares[currentPosition + index].classList.remove("hit");
+  });
 
-    random = nextRandom;
-    nextRandom = Math.floor(Math.random() * theTetrominoes.length);
-    current = theTetrominoes[random][currentRotation];
-    currentPosition = 4;
-    addScore();
-    draw();
-    displayShape();
-    gameOver();
-    updateGlowColor();
-  }
+  random = nextRandom;
+  nextRandom = Math.floor(Math.random() * theTetrominoes.length);
+  current = theTetrominoes[random][currentRotation];
+  currentPosition = 4;
+  addScore();
+  draw();
+  displayShape();
+  gameOver();
+  updateGlowColor();
 }
 
 //add score
@@ -820,11 +820,11 @@ function updateLeaderboard(score, level, timeElapsed) {
   // sort scores by highest scores to down
   leaderboard.sort((a, b) => {
     if (b.level !== a.level) {
-      return b.level - a.level;  // Higher levels first
+      return b.level - a.level; // Higher levels first
     } else if (b.score !== a.score) {
-      return b.score - a.score;  // Higher scores first within the same level
+      return b.score - a.score; // Higher scores first within the same level
     } else {
-      return a.timeElapsed - b.timeElapsed;  // Lower times first within the same level and score
+      return a.timeElapsed - b.timeElapsed; // Lower times first within the same level and score
     }
   });
 
