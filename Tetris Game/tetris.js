@@ -102,8 +102,10 @@ document.addEventListener("touchmove", (e) => {
 
   // Movement direction
   if (Math.abs(diffX) > Math.abs(diffY)) {
-    clearTimeout(longPressTimer); // Peruuta pitkän painalluksen ajastin sivuttaisliikkeessä
-    isLongPress = false; // Nollaa pitkän painalluksen lippu
+    if (diffX > 10 && diffY > 10) {
+      clearTimeout(longPressTimer); // Peruuta pitkän painalluksen ajastin sivuttaisliikkeessä
+      isLongPress = false; // Nollaa pitkän painalluksen lippu
+    }
     if (diffX > 30) {
       moveRight();
       startX = currentX;
@@ -140,6 +142,7 @@ document.addEventListener("touchend", (e) => {
   clearTimeout(longPressTimer); // Peruuttaa ajastimen, jos kosketus päättyy ennen kuin aika umpeutuu
   if (isLongPress) {
     moveDownFast(); // Suorita hard drop, jos oli pitkä painallus
+    isLongPress = false;
   }
 });
 
