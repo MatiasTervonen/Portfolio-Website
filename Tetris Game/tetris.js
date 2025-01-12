@@ -38,6 +38,8 @@ const volumeControl = document.getElementById("volumeControl");
 
 const gameEndMusic = document.getElementById("gameEndMusic");
 
+const tetris = document.getElementById("tetris");
+
 let savedVolume = localStorage.getItem("volume") || volumeControl.value;
 
 // Level
@@ -84,10 +86,10 @@ grid.addEventListener("touchstart", (e) => {
   touchStartX = touch.clientX;
   touchStartY = touch.clientY;
 
-  isLongPress = false; // Alustetaan lippu false-arvoon joka kerta kun kosketus alkaa
+  isLongPress = false;
   longPressTimer = setTimeout(() => {
-    isLongPress = true; // Aseta lippu todeksi, jos painallus kestää yli 500 ms
-  }, 300); // Aseta aika, jonka jälkeen painallusta pidetään pitkänä
+    isLongPress = true;
+  }, 300);
 });
 
 // Follow the movement of finger
@@ -103,8 +105,8 @@ document.addEventListener("touchmove", (e) => {
   // Movement direction
   if (Math.abs(diffX) > Math.abs(diffY)) {
     if (diffX > 2 || diffY > 2) {
-      clearTimeout(longPressTimer); // Peruuta pitkän painalluksen ajastin sivuttaisliikkeessä
-      isLongPress = false; // Nollaa pitkän painalluksen lippu
+      clearTimeout(longPressTimer);
+      isLongPress = false;
     }
     if (diffX > 30) {
       moveRight();
@@ -139,9 +141,9 @@ document.addEventListener("touchend", (e) => {
   }
 
   // // If touch short and fast down. Move fast down
-  clearTimeout(longPressTimer); // Peruuttaa ajastimen, jos kosketus päättyy ennen kuin aika umpeutuu
+  clearTimeout(longPressTimer);
   if (isLongPress) {
-    moveDownFast(); // Suorita hard drop, jos oli pitkä painallus
+    moveDownFast();
     isLongPress = false;
   }
 });
@@ -192,6 +194,7 @@ const audio = [
   document.getElementById("hit"),
   document.getElementById("levelChange"),
   document.getElementById("gameEndMusic"),
+  document.getElementById("tetris"),
 ];
 
 // Volume control for all game voices
@@ -443,13 +446,14 @@ async function addScore() {
     }
   }
   if (rowsCleared == 4) {
-    score += 100;
+    tetris.play();
+    score += 1000;
   } else if (rowsCleared == 3) {
-    score += 50;
+    score += 500;
   } else if (rowsCleared == 2) {
-    score += 30;
+    score += 300;
   } else if (rowsCleared == 1) {
-    score += 10;
+    score += 100;
   }
   scoreDisplay.forEach((display) => (display.innerHTML = score));
   addLevel();
@@ -651,6 +655,7 @@ function gameOver() {
       btn.classList.add("button-disabled");
       btn.disabled = true;
     });
+    updateLeaderboard(score, level, timeElapsed);
   }
 }
 
@@ -729,13 +734,12 @@ function updateSpeedAndMusic() {
 
 const nextLevelButton = document.querySelector(".nextLevelButton");
 const levelText = document.querySelector(".levelText");
-let level1 = 50;
+let level1 = 1000;
 
 async function addLevel() {
   if (score >= level1) {
     level++;
-    score = 0;
-    level1 += 50;
+    level1 += 1000;
     levelDisplay.forEach((display) => (display.innerHTML = level));
     scoreDisplay.forEach((display) => (display.innerHTML = score));
     backgroundMusic.pause();
@@ -746,7 +750,6 @@ async function addLevel() {
     pauseGame();
     await sleep(3000);
     nextLevel();
-    updateLeaderboard(score, level, timeElapsed);
   }
 }
 
@@ -819,12 +822,10 @@ function updateLeaderboard(score, level, timeElapsed) {
 
   // sort scores by highest scores to down
   leaderboard.sort((a, b) => {
-    if (b.level !== a.level) {
-      return b.level - a.level; // Higher levels first
-    } else if (b.score !== a.score) {
-      return b.score - a.score; // Higher scores first within the same level
+    if (b.score !== a.score) {
+      return b.score - a.score; // Higher scores first
     } else {
-      return a.timeElapsed - b.timeElapsed; // Lower times first within the same level and score
+      return a.timeElapsed - b.timeElapsed; // Lower times first if scores are the same
     }
   });
 

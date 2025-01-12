@@ -1758,6 +1758,10 @@ video {
   width: 100vw;
 }
 
+.w-80 {
+  width: 20rem;
+}
+
 .basis-1 {
   flex-basis: 0.25rem;
 }
