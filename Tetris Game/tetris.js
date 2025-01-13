@@ -2,13 +2,15 @@
 
 const grid = document.querySelector(" .grid");
 
+// Array of all divs/squares inside gameboard
+
 let squares = Array.from(document.querySelectorAll(" .grid div"));
+
+// array of all divs/squares indsise displayShape
 
 let displaySquares = Array.from(document.querySelectorAll(".mini-grid div"));
 
-const width = 10;
-
-// Score, Level and Time displays. Start/Pause button
+// Score, Level and Time displays. Start/Pause buttons
 
 const levelDisplay = document.querySelectorAll("#level, #level2");
 
@@ -17,8 +19,6 @@ const scoreDisplay = document.querySelectorAll("#score, #score2");
 const timerDisplay = document.querySelectorAll("#timer, #timer2 ");
 
 const startBtn = document.querySelectorAll("#start, #start2");
-
-let timerId;
 
 // Tetromino Colors
 
@@ -40,7 +40,7 @@ const tetris = document.getElementById("tetris");
 
 let savedVolume = localStorage.getItem("volume") || volumeControl.value;
 
-// async function. When you add await spleep(ms) function stops at the given time and continues after that. This is used with animations.
+// async function. When you add "await spleep(ms)" in function it stops at the given time and continues after that. This is used with animations.
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -52,7 +52,11 @@ document.addEventListener("DOMContentLoaded", function () {
   displayLeaderboard();
 });
 
-//The Tetrominoes
+//The Tetrominoes and rotations. One array is rotation
+
+const width = 10; // width of the gameboard. 10 squares/div elements
+
+// each number represents index in gameboard and shape is drawn to these. from the start of the gameboard.
 
 const lTetromino = [
   [1, width + 1, width * 2 + 1, 2],
@@ -97,47 +101,58 @@ const theTetrominoes = [
   iTetromino,
 ];
 
+// draw random tetromino variables
+
 let currentPosition = 4;
 let currentRotation = 0;
 let nextRandom = 0;
 
-let random = Math.floor(Math.random() * theTetrominoes.length);
+let random = Math.floor(Math.random() * theTetrominoes.length); // pick one random numeber and max is tetromino rotations length
 
-let current = theTetrominoes[random][currentRotation];
+let current = theTetrominoes[random][currentRotation]; // Pick one random tetromino and its first rotation
 
 // draw random tetromino and its firts rotation
 
 function draw() {
-  if (isAnimating) return;
+  if (isAnimating) return; // If animation is happening return
+
+  //  Add tetromino class to all squares/divs where the tetromino should be drawn, with random background color
+
   current.forEach((index) => {
     squares[currentPosition + index].classList.add("tetromino");
     squares[currentPosition + index].style.backgroundColor = colors[random];
   });
-  ghostDraw();
+  ghostDraw(); // Draw ghost tetromino
 }
 
 //undraw the Tetromino
 
 function undraw() {
-  undrawGhost();
+  undrawGhost(); // undraw ghost tetromino
+  // Removwe tetromino class from all squares/divs, and clear background color.
+
   current.forEach((index) => {
     squares[currentPosition + index].classList.remove("tetromino");
     squares[currentPosition + index].style.backgroundColor = "";
   });
 }
 
-// Draw ghost tetromino where it is going to land
+// Draw ghost tetromino where tetromino is going to land
 
 function ghostDraw() {
-  let ghostPosition = currentPosition;
+  let ghostPosition = currentPosition; // Ghost position is same where the tetromino starts
+
+  // Loop through as long as some part of the current tetromino is not touching taken square/div.
 
   while (
     !current.some((index) =>
       squares[ghostPosition + index + width].classList.contains("taken")
     )
   ) {
-    ghostPosition += width;
+    ghostPosition += width; // then add 10 index to next ghost position
   }
+
+  // Add ghost-tetromino class to all squares/divs where the ghost tetromino should be drawn.
 
   current.forEach((index) => {
     squares[ghostPosition + index].classList.add("ghost-tetromino");
@@ -345,26 +360,40 @@ function moveRight() {
 // rotate the tetromino
 
 function rotate() {
-  if (!timerId) return;
-  if (isAnimating) return;
+  if (!timerId || isAnimating) return;
   undraw();
-  let nextRotation = (currentRotation + 1) % current.length;
-  let nextTetromino = theTetrominoes[random][nextRotation];
 
-  const isAtLeftEdge = nextTetromino.some(
-    (index) => (currentPosition + index) % width === 0
-  );
-  const isAtRightEdge = nextTetromino.some(
-    (index) => (currentPosition + index) % width === width - 1
-  );
+  let nextRotation = (currentRotation + 1) % current.length; // Determine the next rotation index
+  let nextTetromino = theTetrominoes[random][nextRotation]; // Get the next rotation shape
 
-  // prevent moving over the edge
-  if (!isAtLeftEdge && !isAtRightEdge) {
+  // Check if the rotation is valid
+
+  const isValid = nextTetromino.some((index) => {
+    const newPosition = currentPosition + index;
+    const position = newPosition % width;
+    const isAtLeftEdge = position === 0;
+    const isAtRightEdge = position === width - 1;
+
+    if (isAtLeftEdge && index % width > 0) {
+      // Checks if it's on the left edge and the part of the tetromino is not the first block
+      return true;
+    }
+    if (isAtRightEdge) {
+      // Checks if any part of the tetromino after rotation will exceed the right edge
+      return nextTetromino.some(
+        (index) => (currentPosition + index) % width === 0
+      );
+    }
+    return false;
+  });
+
+  // Apply the rotation if it's valid
+  if (!isValid) {
     currentRotation = nextRotation;
     current = nextTetromino;
   }
 
-  draw();
+  draw(); //
 }
 
 // Functions for tetrominoes move continiously when key is pushed down
@@ -649,6 +678,9 @@ function resetGame() {
 
 // Start Game. Function that start the tetromino drop
 
+let timerId;
+let timerInterval;
+
 function startGame() {
   if (timerId) {
     clearInterval(timerId);
@@ -762,8 +794,6 @@ function nextLevel() {
 // Timer for the Game Time
 
 let timeElapsed = 0;
-
-let timerInterval;
 
 function updateTimer() {
   timeElapsed += 1;
