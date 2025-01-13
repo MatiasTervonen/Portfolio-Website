@@ -740,9 +740,9 @@ async function addLevel() {
   if (score >= level1) {
     level++;
     level1 += 1000;
+    score = 0;
     levelDisplay.forEach((display) => (display.innerHTML = level));
     scoreDisplay.forEach((display) => (display.innerHTML = score));
-    backgroundMusic.pause();
     full.pause();
     hit.pause();
     isAnimating = true;
