@@ -753,6 +753,7 @@ async function addLevel() {
     levelCompletedAnimation();
     pauseGame();
     await sleep(3000);
+    resetGame();
     nextLevel();
   }
 }
@@ -785,7 +786,6 @@ function nextLevel() {
     nextLevelButton.classList.remove("flex");
     levelText.classList.add("hidden");
     levelText.classList.remove("flex");
-    resetGame();
     startGame();
     updateSpeedAndMusic();
   });
