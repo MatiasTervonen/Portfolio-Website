@@ -199,10 +199,20 @@
 
 /* Breakpoint for mobile */
 
+@media (max-width: 320px) {
+  .mobileGameBoard {
+    scale: 90%;
+    margin-top: -20px;
+  }
+  .mobileTopBar {
+    scale: 100%;
+  }
+}
+
 @media (min-width: 320px) {
   .mobileGameBoard {
-    scale: 100%;
-    margin-top: 25px;
+    scale: 90%;
+    margin-top: -20px;
   }
   .mobileTopBar {
     scale: 100%;
