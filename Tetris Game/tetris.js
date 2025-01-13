@@ -20,7 +20,6 @@ const startBtn = document.querySelectorAll("#start, #start2");
 
 let timerId;
 
-
 // Tetromino Colors
 
 const colors = ["orange", "red", "purple", "green", "blue"];
@@ -197,7 +196,6 @@ async function freeze() {
 }
 
 //add score if you get a full row and score depending how many full rows you get.
-
 
 let score = 0;
 
