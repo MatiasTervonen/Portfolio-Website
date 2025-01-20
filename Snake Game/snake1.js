@@ -138,7 +138,6 @@ document.addEventListener("touchstart", (e) => {
 
 document.addEventListener("touchmove", (e) => {
   e.preventDefault();
-  const touch = e.touches[0];
   const currentX = touch.clientX;
   const currentY = touch.clientY;
 
@@ -259,11 +258,3 @@ function updateTimer() {
     seconds
   ).padStart(2, "0")}`;
 }
-
-function resizeCanvas() {
-  canvas.width = window.innerWidth; // Match the width of the viewport
-}
-
-window.addEventListener("resize", resizeCanvas);
-
-resizeCanvas();

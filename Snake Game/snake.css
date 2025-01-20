@@ -24,29 +24,20 @@
   font-style: normal;
 }
 
-#gameBoard {
-  overflow: hidden;
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
 @media (max-width: 320px) {
   #gameBoard {
-    display: block;
-    width: 100vw;
+    scale: 70%;
   }
 }
 
 @media (max-width: 375px) {
   #gameBoard {
-    display: block;
-    width: 100vw;
+    scale: 90%;
   }
 }
 
 @media (max-width: 425px) {
   #gameBoard {
-    display: block;
-    width: 100vw;
+    scale: 90%;
   }
 }
