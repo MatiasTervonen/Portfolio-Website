@@ -259,3 +259,12 @@ function updateTimer() {
     seconds
   ).padStart(2, "0")}`;
 }
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth; // Match the width of the viewport
+  canvas.height = window.innerHeight; // Match the height of the viewport
+}
+
+window.addEventListener("resize", resizeCanvas);
+
+resizeCanvas();
