@@ -26,7 +26,6 @@
 
 @media (max-width: 320px) {
   #gameBoard {
-    scale: 70%;
     display: block;
     width: 100vw;
     height: 100vh;
@@ -35,7 +34,6 @@
 
 @media (max-width: 375px) {
   #gameBoard {
-    scale: 90%;
     display: block;
     width: 100vw;
     height: 100vh;
@@ -44,7 +42,6 @@
 
 @media (max-width: 425px) {
   #gameBoard {
-    scale: 90%;
     display: block;
     width: 100vw;
     height: 100vh;
