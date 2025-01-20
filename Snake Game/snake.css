@@ -24,6 +24,11 @@
   font-style: normal;
 }
 
+#gameBoard {
+  overflow: hidden;
+  margin: 20px;
+}
+
 @media (max-width: 320px) {
   #gameBoard {
     display: block;

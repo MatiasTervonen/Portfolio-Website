@@ -262,7 +262,6 @@ function updateTimer() {
 
 function resizeCanvas() {
   canvas.width = window.innerWidth; // Match the width of the viewport
-  canvas.height = window.innerHeight; // Match the height of the viewport
 }
 
 window.addEventListener("resize", resizeCanvas);
