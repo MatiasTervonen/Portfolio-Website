@@ -144,19 +144,27 @@ document.addEventListener("pointermove", (e) => {
   const diffX = currentX - startX;
   const diffY = currentY - startY;
 
-  if (direction !== "LEFT" && diffX > 30) {
-    direction = "RIGHT";
-    startX = currentX;
-  } else if (direction !== "RIGHT" && diffX < -30) {
-    direction = "LEFT";
-    startX = currentX;
+  if (diffX > 30) {
+    if (direction !== "LEFT") {
+      direction = "RIGHT";
+      startX = currentX;
+    }
+  } else if (diffX < -30) {
+    if (direction !== "RIGHT") {
+      direction = "LEFT";
+      startX = currentX;
+    }
   } else {
-    if (direction !== "UP" && diffY > 30) {
-      direction = "DOWN";
-      startY = currentY;
-    } else if (direction !== "DOWN" && diffY < -30) {
-      direction = "UP";
-      startY = currentY;
+    if (diffY > 30) {
+      if (direction !== "UP") {
+        direction = "DOWN";
+        startY = currentY;
+      }
+    } else if (diffY < -30) {
+      if (direction !== "DOWN") {
+        direction = "UP";
+        startY = currentY;
+      }
     }
   }
 });
