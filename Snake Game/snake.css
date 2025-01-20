@@ -26,14 +26,14 @@
 
 #gameBoard {
   overflow: hidden;
-  margin: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 @media (max-width: 320px) {
   #gameBoard {
     display: block;
     width: 100vw;
-    height: 100vh;
   }
 }
 
@@ -41,7 +41,6 @@
   #gameBoard {
     display: block;
     width: 100vw;
-    height: 100vh;
   }
 }
 
@@ -49,6 +48,5 @@
   #gameBoard {
     display: block;
     width: 100vw;
-    height: 100vh;
   }
 }
