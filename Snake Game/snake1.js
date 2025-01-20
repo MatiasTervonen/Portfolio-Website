@@ -129,51 +129,43 @@ let startY = 0;
 
 // Movement mobile
 
-document.addEventListener(
-  "touchstart",
-  (e) => {
-    e.preventDefault();
-    const touch = e.touches[0];
-    startX = touch.clientX;
-    startY = touch.clientY;
-  },
-  { passive: false }
-);
+document.addEventListener("touchstart", (e) => {
+  e.preventDefault();
+  const touch = e.touches[0];
+  startX = touch.clientX;
+  startY = touch.clientY;
+});
 
-document.addEventListener(
-  "touchmove",
-  (e) => {
-    e.preventDefault();
-    const touch = e.touches[0];
-    const currentX = touch.clientX;
-    const currentY = touch.clientY;
+document.addEventListener("touchmove", (e) => {
+  e.preventDefault();
+  const touch = e.touches[0];
+  const currentX = touch.clientX;
+  const currentY = touch.clientY;
 
-    // Count the direction of move
-    const diffX = currentX - startX;
-    const diffY = currentY - startY;
+  // Count the direction of move
+  const diffX = currentX - startX;
+  const diffY = currentY - startY;
 
-    if (Math.abs(diffX) > Math.abs(diffY)) {
-      // Horizontal movement
-      if (diffX > 30 && direction !== "LEFT") {
-        direction = "RIGHT";
-        startX = currentX;
-      } else if (diffX < -30 && direction !== "RIGHT") {
-        direction = "LEFT";
-        startX = currentX;
-      }
-    } else {
-      // Vertical movement
-      if (diffY > 30 && direction !== "UP") {
-        direction = "DOWN";
-        startY = currentY;
-      } else if (diffY < -30 && direction !== "DOWN") {
-        direction = "UP";
-        startY = currentY;
-      }
+  if (Math.abs(diffX) > Math.abs(diffY)) {
+    // Horizontal movement
+    if (diffX > 30 && direction !== "LEFT") {
+      direction = "RIGHT";
+      startX = currentX;
+    } else if (diffX < -30 && direction !== "RIGHT") {
+      direction = "LEFT";
+      startX = currentX;
     }
-  },
-  { passive: false }
-);
+  } else {
+    // Vertical movement
+    if (diffY > 30 && direction !== "UP") {
+      direction = "DOWN";
+      startY = currentY;
+    } else if (diffY < -30 && direction !== "DOWN") {
+      direction = "UP";
+      startY = currentY;
+    }
+  }
+});
 
 function updateGame() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
