@@ -3,38 +3,51 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Snake Game</title>
     <link rel="stylesheet" href="/css/main.css" />
     <link rel="stylesheet" href="/Snake Game/snake.css" />
-    <script defer src="/Snake Game/snake.js"></script>
-    <title>Snake</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=Jersey+15&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Press+Start+2P&family=Russo+One&display=swap"
+      rel="stylesheet"
+    />
+    <script defer src="/Snake Game/snake1.js"></script>
   </head>
-  <body class="bg-red-100">
-    <div class="container mx-auto flex justify-center my-5">
-      <img
-        src="/Snake Game/images/Nimetön.png"
-        alt="snake logo"
-        style="width: 200px"
-      />
-    </div>
-
-    <div class="container mx-auto flex justify-center">
-      <canvas id="game-board" width="400" height="400"></canvas>
-    </div>
-
+  <body class="bg-blue-300">
     <div
-      class="container score mx-auto flex justify-center gap-10 font-bold text-lg my-10"
+      class="flex justify-center mb-5 mt-20 gap-10 font-bold text-md text-cyan-50"
     >
-      <h3>Score:<span id="score">0</span></h3>
-      <p>Time: <span id="timer">00:00</span></p>
+      <div class="score p-2 px-4 border-2 mb-2 text-center rounded-lg w-40">
+        <p>Score: <span id="score">0</span></p>
+      </div>
+      <div class="score p-2 px-4 border-2 mb-2 text-center rounded-lg w-40">
+        <p>Timer: <span id="timer">00:00</span></p>
+      </div>
     </div>
 
-    <div class="container mx-auto flex justify-center gap-5 my-5">
-      <button
-        class="bg-black rounded-full px-5 py-2 text-white shadow-lg shadow-red-300 font-medium hover:opacity-90"
-        id="start"
-      >
-        Start/Pause
-      </button>
+    <div class="flex justify-center">
+      <canvas class="border-4 border-slate-500" id="gameBoard"></canvas>
+    </div>
+
+    <div class="flex justify-center mt-10 gap-5">
+      <div>
+        <button
+          id="startBtn"
+          class="bg-black rounded-md px-5 text-white text-xl shadow-lg shadow-red-300 font-semibold hover:text-red-200 hover:scale-95 transition-transform duration-150 ease-in-out py-3"
+        >
+          Start/Pause
+        </button>
+      </div>
+      <div>
+        <a href="/Snake Game/menu.html">
+          <button
+            class="menu bg-black rounded-md px-5 text-white text-xl shadow-lg shadow-red-300 font-semibold hover:text-red-200 hover:scale-95 transition-transform duration-150 ease-in-out py-3"
+          >
+            MENU
+          </button>
+        </a>
+      </div>
     </div>
   </body>
 </html>

@@ -8,6 +8,7 @@
   margin: 0;
 }
 
+
 .grid {
   width: 200px;
   height: 400px;
@@ -208,7 +209,6 @@
     scale: 100%;
   }
 }
-
 
 @media (min-width: 320px) {
   .mobileGameBoard {
