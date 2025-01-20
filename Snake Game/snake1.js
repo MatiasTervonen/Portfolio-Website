@@ -129,16 +129,18 @@ let startY = 0;
 
 // Movement mobile
 
-document.addEventListener("pointerdown", (e) => {
+document.addEventListener("touchstart", (e) => {
   e.preventDefault();
-  startX = e.clientX;
-  startY = e.clientY;
+  const touch = e.touches[0];
+  startX = touch.clientX;
+  startY = touch.clientY;
 });
 
-document.addEventListener("pointermove", (e) => {
+document.addEventListener("touchmove", (e) => {
   e.preventDefault();
-  const currentX = e.clientX;
-  const currentY = e.clientY;
+  const touch = e.touches[0];
+  const currentX = touch.clientX;
+  const currentY = touch.clientY;
 
   // Count the direction of move
   const diffX = currentX - startX;
