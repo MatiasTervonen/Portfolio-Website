@@ -136,6 +136,7 @@ document.addEventListener("pointerdown", (e) => {
 });
 
 document.addEventListener("pointermove", (e) => {
+  e.preventDefault();
   const currentX = e.clientX;
   const currentY = e.clientY;
 

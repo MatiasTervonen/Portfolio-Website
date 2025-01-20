@@ -8,6 +8,10 @@
   padding: 0;
 }
 
+canvas {
+  touch-action: none;
+}
+
 .menu,
 .score,
 #startBtn,
@@ -41,6 +45,3 @@
     scale: 90%;
   }
 }
-
-
-
