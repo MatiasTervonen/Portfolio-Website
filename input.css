@@ -10,8 +10,90 @@
   font-style: normal;
 }
 
+a, button {
+  font-family: "Bowlby One SC", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 .portfolio {
   text-shadow: 2px 3px 4px rgba(0, 0, 0, 0.3);
 }
 
+body {
+  background-color: #000415;
+}
 
+.header {
+  background-color: #000c3d;
+}
+
+/* Card carousell on main page */
+
+.cardContainer {
+  width: 100%;
+  max-width: 1200px;
+  height: 400px;
+  margin: 0 auto;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Default card styles */
+.cardContainer > div {
+  position: absolute;
+  width: 270px;
+  height: 380px;
+  background-color: #262626;
+  border: white solid 3px;
+  transition: transform 0.5s ease, scale 0.5s ease, z-index 0.5s ease;
+}
+
+/* Specific card positions */
+
+/* Center Card */
+.current {
+  scale: 1;
+  z-index: 100;
+  transform: translateX(0);
+}
+
+.rightMiddle {
+  filter: brightness(40%);
+  scale: 0.9;
+  z-index: 90;
+  transform: translateX(150px);
+}
+
+.leftMiddle {
+  filter: brightness(40%);
+  scale: 0.9;
+  z-index: 90;
+  transform: translateX(-150px);
+}
+
+.rightEdge {
+  filter: brightness(40%);
+  scale: 0.8;
+  z-index: 80;
+  transform: translateX(300px);
+}
+
+.leftEdge {
+  filter: brightness(40%);
+  scale: 0.8;
+  z-index: 80;
+  transform: translateX(-300px);
+}
+
+.sliderWrapper img {
+  pointer-events: none; /* Ensure they don't block pointer events */
+  user-select: none; /* Prevent text/image selection */
+}
+
+/* Prevent text selection on buttons */
+.sliderWrapper button {
+  user-select: none; /* Disable text selection */
+  -webkit-user-select: none; /* For Safari */
+  -ms-user-select: none; /* For older IE/Edge */
+}

@@ -138,6 +138,7 @@ document.addEventListener("touchstart", (e) => {
 
 document.addEventListener("touchmove", (e) => {
   e.preventDefault();
+  const touch = e.touches[0];
   const currentX = touch.clientX;
   const currentY = touch.clientY;
 
