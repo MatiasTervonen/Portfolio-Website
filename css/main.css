@@ -1048,8 +1048,20 @@ video {
   margin-top: -9rem;
 }
 
+.-mt-4 {
+  margin-top: -1rem;
+}
+
+.-mt-40 {
+  margin-top: -10rem;
+}
+
 .-mt-48 {
   margin-top: -12rem;
+}
+
+.-mt-5 {
+  margin-top: -1.25rem;
 }
 
 .-mt-52 {
@@ -1222,6 +1234,10 @@ video {
 
 .inline-block {
   display: inline-block;
+}
+
+.inline {
+  display: inline;
 }
 
 .\!flex {
@@ -1473,6 +1489,12 @@ video {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+.scale-90 {
+  --tw-scale-x: .9;
+  --tw-scale-y: .9;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .scale-95 {
   --tw-scale-x: .95;
   --tw-scale-y: .95;
@@ -1603,6 +1625,10 @@ video {
 
 .justify-between {
   justify-content: space-between;
+}
+
+.gap-1 {
+  gap: 0.25rem;
 }
 
 .gap-10 {
@@ -2251,6 +2277,10 @@ video {
   color: rgb(239 68 68 / var(--tw-text-opacity, 1));
 }
 
+.text-transparent {
+  color: transparent;
+}
+
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
@@ -2325,6 +2355,17 @@ video {
 
 .ease-in-out {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
 }
 
 .header {
@@ -2432,6 +2473,54 @@ a {
   /* For Safari */
   -ms-user-select: none;
   /* For older IE/Edge */
+}
+
+/* indicator background color */
+
+.circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: #011257 2px solid;
+}
+
+.bg-white {
+  background-color: white;
+  scale: 1.7;
+}
+
+/* Light animation styling */
+
+.light {
+  position: absolute;
+  top: -11px;
+  /* Adjust to make the light appear outside the button */
+  left: -2px;
+  right: -2px;
+  bottom: -11px;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  background: linear-gradient(
+    80deg,
+    #4f01df,
+    #00ffff,
+    #4f01df
+  );
+  /* Glowing gradient */
+  background-size: 200%;
+  animation: move-around 2s linear infinite;
+}
+
+/* Light animation effect */
+
+@keyframes move-around {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 100% 50%;
+  }
 }
 
 .hover\:scale-95:hover {

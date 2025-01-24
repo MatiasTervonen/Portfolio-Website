@@ -9,13 +9,17 @@
       href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=Jersey+15&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Press+Start+2P&family=Russo+One&display=swap"
       rel="stylesheet"
     />
+    <script
+      src="https://kit.fontawesome.com/2273515c74.js"
+      crossorigin="anonymous"
+    ></script>
     <link rel="stylesheet" href="css/main.css" />
     <script defer src="/main.js"></script>
     <title>Matias Portfolio</title>
   </head>
   <body>
-    <div class="header bg-black flex justify-center py-5">
-      <h1 class="text-2xl text-white">
+    <div class="header flex justify-center py-10">
+      <h1 class="text-3xl text-white">
         Showcasing creativity, passion, and innovation in web development.
       </h1>
     </div>
@@ -25,16 +29,20 @@
 
     <!-- Carousel slider for projects -->
 
-    <div class="sliderWrapper flex justify-center items-center relative -mt-24">
+    <div class="sliderWrapper flex justify-center items-center relative -mt-10">
       <div class="cardContainer flex justify-center relative">
         <div class="current card1 absolute">
           <img class="p-2" src="/pictures/Näyttökuva (1709).png" alt="" />
-          <div class="flex justify-center">
-            <a
-              href="/Tetris Game/menu.html"
-              class="bg-black rounded-md px-5 py-2 text-white text-xl shadow-lg font-semibold hover:text-cyan-200 hover:scale-95 transition-transform duration-150 ease-in-out"
-              >TETRIS
-            </a>
+
+          <div class="flex justify-center mt-3">
+            <div class="inline-block relative">
+              <a
+                href="/Tetris Game/menu.html"
+                class="relative z-10 bg-black rounded-md px-5 py-2 text-white text-xl shadow-lg font-semibold hover:text-cyan-200 hover:scale-95 transition-transform duration-150 ease-in-out"
+                >TETRIS
+              </a>
+              <span class="light z-0"></span>
+            </div>
           </div>
         </div>
         <div class="rightMiddle card2 absolute">
@@ -80,7 +88,19 @@
       </div>
     </div>
 
-    <div class="flex justify-center relative -mt-6">
+    <!-- Scroll indicator for carusell -->
+
+    <div class="flex justify-center">
+      <ul class="indicator flex gap-1">
+        <li class="circle"></li>
+        <li class="circle"></li>
+        <li class="circle"></li>
+        <li class="circle"></li>
+        <li class="circle"></li>
+      </ul>
+    </div>
+
+    <div class="flex justify-center">
       <img src="/pictures/Ellipse 1.png" alt="" />
     </div>
   </body>

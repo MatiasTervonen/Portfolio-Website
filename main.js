@@ -8,11 +8,18 @@ let cardOrder = Array.from(cards);
 let startX = 0; // Tracks the starting pointer position
 let isDragging = false; // To track if the pointer is dragging
 
+// Scroll indicator
+
+const indicator = document.querySelectorAll(".indicator > li ");
+
+let indicatorOrder = Array.from(indicator);
+
 // Add current status always to the card that is first card or active.
 
 function slides() {
   cardOrder.forEach((card, index) => {
     // Remove all possible position-related classes
+
     card.classList.remove(
       "current",
       "rightEdge",
@@ -22,23 +29,48 @@ function slides() {
     );
 
     // Assign classes based on index in the array
+
     if (index === 0) {
       card.classList.add("current"); // Center card
     } else if (index === 1) {
-      card.classList.add("rightMiddle"); // Second card on the right
+      card.classList.add("rightMiddle");
     } else if (index === 4) {
-      card.classList.add("leftMiddle"); // Second card on the left
+      card.classList.add("leftMiddle");
     } else if (index === 2) {
-      card.classList.add("rightEdge"); // Right-most card
+      card.classList.add("rightEdge");
     } else if (index === 3) {
-      card.classList.add("leftEdge"); // Left-most card
+      card.classList.add("leftEdge");
     }
   });
 
+  updateIndicator();
   attachPointerListeners();
 }
 
-slides();
+const centerIndex = Math.floor(indicatorOrder.length / 2);
+
+function updateIndicator() {
+  // Find the active card's index
+  const activeCardIndex = cardOrder.findIndex((card) =>
+    card.classList.contains("current")
+  );
+
+  // Map the active card index to the corresponding indicator index
+  const activeIndicatorIndex =
+    (centerIndex + activeCardIndex) % indicatorOrder.length;
+
+  // Highlight the correct indicator
+  indicatorOrder.forEach((indicator, index) => {
+    if (index === activeIndicatorIndex) {
+      indicator.classList.add("bg-white"); // Highlight the active indicator
+    } else {
+      indicator.classList.remove("bg-white"); // Reset others
+    }
+  });
+}
+
+console.log("Card Order:", cardOrder);
+console.log(indicatorOrder);
 
 // touch and mouse movements
 
@@ -131,6 +163,10 @@ function moveRight() {
   cardOrder.unshift(lastCard); // Add it to the start
 
   // Update the classes based on the new order
+
+  const lastIndicator = indicatorOrder.pop();
+  indicatorOrder.unshift(lastIndicator);
+
   slides();
 }
 
@@ -140,6 +176,10 @@ function moveLeft() {
   cardOrder.push(firstCard); // Add it to the end
 
   // Update the classes based on the new order
+
+  const firstIndicator = indicatorOrder.shift();
+  indicatorOrder.push(firstIndicator);
+
   slides();
 }
 

@@ -4,6 +4,17 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
 .header {
   font-family: "Bowlby One SC", sans-serif;
   font-weight: 400;
@@ -98,4 +109,48 @@ a {
   user-select: none; /* Disable text selection */
   -webkit-user-select: none; /* For Safari */
   -ms-user-select: none; /* For older IE/Edge */
+}
+
+/* indicator background color */
+
+.circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: #011257 2px solid;
+}
+
+.bg-white {
+  background-color: white;
+  scale: 1.7;
+}
+
+/* Light animation styling */
+.light {
+  position: absolute;
+  top: -11px; /* Adjust to make the light appear outside the button */
+  left: -2px;
+  right: -2px;
+  bottom: -11px;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  background: linear-gradient(
+    80deg,
+    #4f01df,
+    #00ffff,
+    #4f01df
+  ); /* Glowing gradient */
+  background-size: 200%;
+
+  animation: move-around 2s linear infinite;
+}
+
+/* Light animation effect */
+@keyframes move-around {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
 }
