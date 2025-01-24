@@ -39,9 +39,9 @@ function slides() {
 }
 
 slides();
-// touch movement
 
-// Attach touchstart and touchmove events to the current card
+// touch and mouse movements
+
 function attachPointerListeners() {
   // Remove previous touch listeners to avoid duplication
   cardOrder.forEach((card) => {
@@ -49,6 +49,10 @@ function attachPointerListeners() {
     card.removeEventListener("pointermove", handlePointerMove);
     card.removeEventListener("pointerup", handlePointerUp);
     card.removeEventListener("pointercancel", handlePointerUp);
+
+    card.removeEventListener("touchstart", handleTouchStart);
+    card.removeEventListener("touchmove", handleTouchMove);
+    card.removeEventListener("touchend", handleTouchEnd);
   });
 
   // Add listeners to the current card
@@ -57,38 +61,67 @@ function attachPointerListeners() {
   currentCard.addEventListener("pointermove", handlePointerMove);
   currentCard.addEventListener("pointerup", handlePointerUp);
   currentCard.addEventListener("pointercancel", handlePointerUp);
+
+  currentCard.addEventListener("touchstart", handleTouchStart);
+  currentCard.addEventListener("touchmove", handleTouchMove);
+  currentCard.addEventListener("touchend", handleTouchEnd);
 }
 
-// Handle pointer down (start of swipe/drag)
-function handlePointerDown(e) {
-  if (!e.isPrimary) return; // Ignore non-primary pointers
-  startX = e.clientX; // Store the starting position
-  isDragging = true; // Mark as dragging
+// Common functions for both pointer and touch
+function startDrag(x) {
+  startX = x;
+  isDragging = true;
 }
 
-// Handle pointer move (swiping/dragging)
-function handlePointerMove(e) {
-  if (!isDragging) return; // Ignore if not dragging
-  const currentX = e.clientX;
-  const diffX = currentX - startX; // Calculate movement
+function endDrag() {
+  isDragging = false;
+  startX = 0;
+}
+
+function moveDrag(currentX) {
+  const diffX = currentX - startX;
 
   if (Math.abs(diffX) > 30) {
-    e.preventDefault(); // Prevent vertical scrolling
-    // Only register significant swipes
     if (diffX > 0) {
-      moveRight(); // Swipe right
+      moveRight();
     } else {
-      moveLeft(); // Swipe left
+      moveLeft();
     }
-    isDragging = false; // End the drag after detecting a swipe
+    isDragging = false;
   }
 }
 
-// Handle pointer up (end of swipe/drag)
+// Pointer event handlers
+function handlePointerDown(e) {
+  if (!e.isPrimary) return;
+  startDrag(e.clientX);
+}
+
+function handlePointerMove(e) {
+  if (!isDragging) return;
+  e.preventDefault(); // Prevent unwanted behaviors
+  moveDrag(e.clientX);
+}
+
 function handlePointerUp(e) {
-  if (!e.isPrimary) return; // Ignore non-primary pointers
-  isDragging = false; // Reset dragging state
-  startX = 0; // Reset start position
+  if (!e.isPrimary) return;
+  endDrag();
+}
+
+// Touch event handlers
+function handleTouchStart(e) {
+  if (e.touches.length > 1) return; // Ignore multi-touch
+  startDrag(e.touches[0].clientX);
+}
+
+function handleTouchMove(e) {
+  if (!isDragging) return;
+  e.preventDefault(); // Prevent unwanted behaviors
+  moveDrag(e.touches[0].clientX);
+}
+
+function handleTouchEnd(e) {
+  endDrag();
 }
 
 function moveRight() {

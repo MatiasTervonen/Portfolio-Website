@@ -2333,7 +2333,8 @@ video {
   font-style: normal;
 }
 
-a, button {
+a,
+button {
   font-family: "Bowlby One SC", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -2422,7 +2423,8 @@ body {
 
 /* Prevent text selection on buttons */
 
-.sliderWrapper button {
+.sliderWrapper button,
+a {
   -moz-user-select: none;
        user-select: none;
   /* Disable text selection */
