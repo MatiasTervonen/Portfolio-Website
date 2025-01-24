@@ -94,6 +94,7 @@ function moveDrag(currentX) {
 // Pointer event handlers
 function handlePointerDown(e) {
   if (!e.isPrimary) return;
+  e.preventDefault();
   startDrag(e.clientX);
 }
 
