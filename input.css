@@ -19,6 +19,13 @@ body {
   font-family: "Bowlby One SC", sans-serif;
   font-weight: 400;
   font-style: normal;
+  background-color: #000c3d;
+}
+
+.aboutMe {
+  background-color: #000c3d;
+  width: 528px;
+  height: 413px;
 }
 
 a,
@@ -34,10 +41,6 @@ button {
 
 body {
   background-color: #000415;
-}
-
-.header {
-  background-color: #000c3d;
 }
 
 /* Card carousell on main page */
@@ -153,4 +156,27 @@ a {
   100% {
     background-position: 100% 50%;
   }
+}
+
+
+/* Breakpoint for mobile */
+
+@media (max-width: 320px) {
+
+}
+
+@media (min-width: 320px) {
+
+}
+
+@media (min-width: 375px) {
+
+}
+
+@media (min-width: 425px) {
+
+}
+
+@media (min-width: 640px) {
+
 }
