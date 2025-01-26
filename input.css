@@ -178,7 +178,7 @@ a {
 @media (min-width: 375px) {
 }
 
-@media (max-width: 625px) {
+@media (max-width: 640px) {
   .current {
     scale: 0.8;
   }
