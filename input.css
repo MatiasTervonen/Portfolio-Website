@@ -10,11 +10,6 @@
   box-sizing: border-box;
 }
 
-html,
-body {
-  height: 100%;
-}
-
 .header {
   font-family: "Bowlby One SC", sans-serif;
   font-weight: 400;
@@ -22,10 +17,18 @@ body {
   background-color: #000c3d;
 }
 
+.text2 {
+  font-family: "Russo One", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 .aboutMe {
   background-color: #000c3d;
-  width: 528px;
-  height: 413px;
+  width: 700px;
+  font-family: "Russo One", serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 a,
@@ -62,6 +65,12 @@ body {
   background-color: #262626;
   border: white solid 3px;
   transition: transform 0.5s ease, scale 0.5s ease, z-index 0.5s ease;
+}
+
+.cardContainer img {
+  width: 260px;
+  height: 309px;
+  object-fit: cover;
 }
 
 /* Specific card positions */
@@ -138,7 +147,7 @@ a {
   border-radius: 6px;
   border: 2px solid transparent;
   background: linear-gradient(
-    80deg,
+    70deg,
     #4f01df,
     #00ffff,
     #4f01df
