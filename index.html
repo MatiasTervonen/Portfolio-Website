@@ -18,20 +18,21 @@
     <title>Matias Portfolio</title>
   </head>
   <body>
-    <div class="flex flex-col min-h-screen">
-      <div class="header flex justify-center py-10">
-        <h1 class="text-3xl text-white px-10">
+    <div class="flex flex-col">
+      <div class="header flex justify-center py-5 sm:py-10">
+        <h1 class="text-xl text-white px-10 sm:text-3xl">
           Showcasing creativity, passion, and innovation in web development.
         </h1>
       </div>
       <div class="flex justify-center">
-        <img src="/pictures/Vector 1.png" alt="" />
+        <img class="hidden sm:block" src="/pictures/Vector 1.png" alt="" />
+        <img class="sm:hidden" src="/pictures/Vector 3.png" alt="" />
       </div>
 
       <!-- Carousel slider for projects -->
 
       <div
-        class="sliderWrapper flex justify-center items-center relative -mt-10"
+        class="sliderWrapper flex justify-center items-center relative -mt-28 sm:-mt-10"
       >
         <div class="cardContainer flex justify-center relative">
           <div class="current card1 absolute">
@@ -93,7 +94,7 @@
 
       <!-- Scroll indicator for carusell -->
 
-      <div class="flex justify-center">
+      <div class="flex justify-center -mt-10 sm:mt-0">
         <ul class="indicator flex gap-1">
           <li class="circle"></li>
           <li class="circle"></li>
@@ -106,14 +107,15 @@
       <!-- Spot light -->
 
       <div class="flex justify-center">
-        <img src="/pictures/Ellipse 1.png" alt="" />
+        <img class="hidden sm:block" src="/pictures/Ellipse 1.png" alt="" />
+        <img class="sm:hidden" src="/pictures/Ellipse 2.png" alt="" />
       </div>
 
       <!-- About Me section -->
 
-      <div class="flex justify-center m-10 ">
+      <div class="flex justify-center mt-10">
         <div class="aboutMe flex justify-center m-10 rounded-xl border-2">
-          <h2 class="text-white font-bold p-5" >About Me</h2>
+          <h2 class="text-white font-bold p-5">About Me</h2>
           <div>
             <p></p>
           </div>
@@ -122,7 +124,7 @@
 
       <!-- Footer -->
 
-      <div class="header flex justify-center gap-5 py-10 bottom-0">
+      <div class="header flex justify-center flex-wrap gap-5 py-10 bottom-0">
         <a href="https://github.com/MatiasTervonen">
           <i
             class="fa-brands fa-square-github fa-2xl"

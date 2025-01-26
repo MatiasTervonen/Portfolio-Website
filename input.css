@@ -158,25 +158,38 @@ a {
   }
 }
 
-
 /* Breakpoint for mobile */
 
 @media (max-width: 320px) {
-
 }
 
 @media (min-width: 320px) {
-
 }
 
 @media (min-width: 375px) {
-
 }
 
-@media (min-width: 425px) {
+@media (max-width: 625px) {
+  .current {
+    scale: 0.8;
+  }
 
+  .rightMiddle {
+    scale: 0.7;
+  }
+
+  .leftMiddle {
+    scale: 0.7;
+  }
+
+  .rightEdge {
+    scale: 0.6;
+  }
+
+  .leftEdge {
+    scale: 0.6;
+  }
 }
 
 @media (min-width: 640px) {
-
 }
