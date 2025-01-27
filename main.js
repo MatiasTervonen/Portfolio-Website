@@ -217,6 +217,7 @@ toggleSwitch.addEventListener("click", () => {
 const menuToggle = document.getElementById("menu-toggle");
 const menuClose = document.getElementById("menu-close");
 const menu = document.getElementById("menu");
+const menuLink = document.querySelectorAll(".menuLink");
 
 // Open menu
 menuToggle.addEventListener("click", () => {
@@ -228,4 +229,10 @@ menuToggle.addEventListener("click", () => {
 menuClose.addEventListener("click", () => {
   menu.classList.remove("open");
   menuClose.classList.add("hidden");
+});
+
+menuLink.forEach((link) => {
+  link.addEventListener("click", () => {
+    menu.classList.remove("open");
+  });
 });
