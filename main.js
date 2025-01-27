@@ -229,11 +229,10 @@ menuToggle.addEventListener("click", () => {
 // Close menu
 menuClose.addEventListener("click", () => {
   menu.classList.add("close");
-
 });
 
 menuLink.forEach((link) => {
   link.addEventListener("click", () => {
-    menu.classList.remove("open");
+    menu.classList.add("close");
   });
 });
