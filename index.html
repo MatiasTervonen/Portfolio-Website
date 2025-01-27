@@ -56,28 +56,21 @@
 
       <!-- Painikeet hamburger menulle. Close ja Open -->
 
-      <div class="flex items-center sm:hidden">
-        <label
-          id="menu-toggle"
-          class="cursor-pointer md:hidden"
-          for="check"
-          class="open-menu"
+      <div id="menu-toggle" class="flex items-center cursor-pointer sm:hidden">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="25"
+          height="25"
+          viewBox="0 0 25 25"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="25"
-            height="25"
-            viewBox="0 0 25 25"
-          >
-            <g fill="#000415" fill-rule="evenodd">
-              <path d="M0 0h25v6H0z" />
+          <g fill="#000415" fill-rule="evenodd">
+            <path d="M0 0h25v6H0z" />
 
-              <path d="M0 9h25v6H0z" />
+            <path d="M0 9h25v6H0z" />
 
-              <path d="M0 18h25v6H0z" />
-            </g>
-          </svg>
-        </label>
+            <path d="M0 18h25v6H0z" />
+          </g>
+        </svg>
       </div>
     </div>
 
@@ -89,8 +82,7 @@
       <div
         class="bg-white text-2xl p-20 gap-5 font-bold flex flex-col px-25 relative"
       >
-        <label
-          for="check"
+        <div
           id="menu-close"
           class="hidden cursor-pointer close-menu z-10 absolute top-2 right-2"
         >
@@ -101,7 +93,7 @@
               d="M17.925.747l2.828 2.828L13.328 11l7.425 7.425-2.828 2.828-7.425-7.425-7.425 7.425-2.828-2.828L7.671 11 .247 3.575 3.075.747 10.5 8.171 17.925.747z"
             />
           </svg>
-        </label>
+        </div>
         <a
           class="hover:scale-95 hover:text-red-400 whitespace-nowrap"
           href="#aboutMe"
