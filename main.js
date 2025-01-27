@@ -65,14 +65,14 @@ function updateIndicator() {
   indicatorOrder.forEach((indicator, index) => {
     if (index === activeIndicatorIndex) {
       if (isLightMode) {
-        indicator.classList.add("bg-black");
-        indicator.classList.remove("bg-white"); // Highlight the active indicator
+        indicator.classList.add("bg-black-indicator");
+        indicator.classList.remove("bg-white-indicator"); // Highlight the active indicator
       } else {
-        indicator.classList.add("bg-white");
-        indicator.classList.remove("bg-black"); // Reset others
+        indicator.classList.add("bg-white-indicator");
+        indicator.classList.remove("bg-black-indicator"); // Reset others
       }
     } else {
-      indicator.classList.remove("bg-white", "bg-black");
+      indicator.classList.remove("bg-white", "bg-black-indicator");
     }
   });
 }

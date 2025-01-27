@@ -216,12 +216,12 @@ a {
   border: #011257 2px solid;
 }
 
-.bg-white {
+.bg-white-indicator {
   background-color: white;
   scale: 1.7;
 }
 
-.bg-black {
+.bg-black-indicator {
   background-color: #000415;
   scale: 1.7;
 }
