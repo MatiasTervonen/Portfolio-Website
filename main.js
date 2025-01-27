@@ -220,7 +220,6 @@ const menu = document.getElementById("menu");
 
 menuToggle.addEventListener("click", () => {
   menu.classList.remove("hidden");
-  menuToggle.classList.add("hidden");
   menuClose.classList.remove("hidden");
 });
 

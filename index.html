@@ -58,20 +58,6 @@
 
       <div class="flex items-center sm:hidden">
         <label
-          for="check"
-          id="menu-close"
-          class="hidden cursor-pointer close-menu z-10"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25">
-            <path
-              fill="#000415"
-              fill-rule="evenodd"
-              d="M17.925.747l2.828 2.828L13.328 11l7.425 7.425-2.828 2.828-7.425-7.425-7.425 7.425-2.828-2.828L7.671 11 .247 3.575 3.075.747 10.5 8.171 17.925.747z"
-            />
-          </svg>
-        </label>
-
-        <label
           id="menu-toggle"
           class="cursor-pointer md:hidden"
           for="check"
@@ -100,7 +86,22 @@
       id="menu"
       class="menu hidden flex text-center items-center flex-col z-10 absolute left-1/2 right-1/2"
     >
-      <div class="bg-white py-10 my-5 gap-5 font-bold flex flex-col px-10">
+      <div
+        class="bg-white py-10 my-5 gap-5 font-bold flex flex-col px-10 relative"
+      >
+        <label
+          for="check"
+          id="menu-close"
+          class="hidden cursor-pointer close-menu z-10 absolute top-2 right-2"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25">
+            <path
+              fill="#000415"
+              fill-rule="evenodd"
+              d="M17.925.747l2.828 2.828L13.328 11l7.425 7.425-2.828 2.828-7.425-7.425-7.425 7.425-2.828-2.828L7.671 11 .247 3.575 3.075.747 10.5 8.171 17.925.747z"
+            />
+          </svg>
+        </label>
         <a
           class="hover:scale-95 hover:text-red-400 whitespace-nowrap"
           href="#aboutMe"
