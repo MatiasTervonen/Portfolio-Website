@@ -72,7 +72,7 @@ function updateIndicator() {
         indicator.classList.remove("bg-black-indicator"); // Reset others
       }
     } else {
-      indicator.classList.remove("bg-white", "bg-black-indicator");
+      indicator.classList.remove("bg-white-indicator", "bg-black-indicator");
     }
   });
 }
