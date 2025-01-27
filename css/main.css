@@ -2856,19 +2856,19 @@ a {
 @media (min-width: 640px) {
 }
 
-.menu {
+.hamburgerMenu {
   transform: translateX(100%);
   transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
   opacity: 0;
 }
 
-.menu.open {
+.hamburgerMenu.open {
   transform: translateX(0);
   opacity: 1;
   animation: moveMenu 0.5s ease-in-out;
 }
 
-.menu.close {
+.hamburgerMenu.close {
   transform: translateY(-100%);
   opacity: 0;
   animation: closeMenu 0.5s ease-in-out;

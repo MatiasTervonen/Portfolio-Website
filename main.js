@@ -229,7 +229,7 @@ menuToggleSwitch.addEventListener("click", () => {
 
 const menuToggle = document.getElementById("menu-toggle");
 const menuClose = document.getElementById("menu-close");
-const menu = document.getElementById("menu");
+const menu = document.getElementById("hamburgerMenu");
 const menuLink = document.querySelectorAll(".menuLink");
 
 // Open menu
