@@ -83,7 +83,7 @@
       class="menu flex text-center items-center flex-col fixed z-50 top-24 left-0 right-0 overflow-hidden"
     >
       <div
-        class="bg-white text-2xl p-20 gap-5 font-bold flex flex-col px-25 relative"
+        class="lightMenu bg-blue-700 text-white text-2xl p-20 gap-5 font-bold flex flex-col px-25 relative"
       >
         <div
           id="menu-close"
@@ -91,7 +91,7 @@
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25">
             <path
-              fill="#000415"
+              fill="currentColor"
               fill-rule="evenodd"
               d="M17.925.747l2.828 2.828L13.328 11l7.425 7.425-2.828 2.828-7.425-7.425-7.425 7.425-2.828-2.828L7.671 11 .247 3.575 3.075.747 10.5 8.171 17.925.747z"
             />
@@ -108,6 +108,15 @@
         ><a class="menuLink hover:scale-95 hover:text-red-400" href="#contact"
           >Contact</a
         >
+        <div class="flex justify-center items-center gap-2">
+          <div class="flex justify-center items-center">
+            <i class="moonMenu fa-regular fa-moon"></i>
+            <img class="sunMenu hidden" src="/pictures/Sun.png" alt="sun" />
+          </div>
+          <div id="menuToggleSwitch" class="relative flex items-center">
+            <div id="menuToggleCircle" class="absolute"></div>
+          </div>
+        </div>
       </div>
     </div>
 

@@ -197,9 +197,13 @@ attachPointerListeners();
 // LightMode button
 
 document.getElementById("toggleSwitch");
+document.getElementById("menuToggleSwitch");
 
 const moon = document.querySelector(".moon");
 const sun = document.querySelector(".sun");
+
+const moonMenu = document.querySelector(".moonMenu");
+const sunMenu = document.querySelector(".sunMenu");
 
 const body = document.body;
 
@@ -208,6 +212,15 @@ toggleSwitch.addEventListener("click", () => {
 
   moon.classList.toggle("hidden");
   sun.classList.toggle("hidden");
+  body.classList.toggle("light-mode");
+  updateIndicator();
+});
+
+menuToggleSwitch.addEventListener("click", () => {
+  menuToggleSwitch.classList.toggle("active");
+
+  moonMenu.classList.toggle("hidden");
+  sunMenu.classList.toggle("hidden");
   body.classList.toggle("light-mode");
   updateIndicator();
 });

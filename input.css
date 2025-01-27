@@ -16,11 +16,13 @@ body {
 
 /* light mode switch */
 
+.sunMenu,
 .sun {
   width: 24px;
   height: 24px;
 }
 
+#menuToggleSwitch,
 #toggleSwitch {
   background-color: #000415;
   width: 60px;
@@ -31,6 +33,7 @@ body {
   cursor: pointer;
 }
 
+#menuToggleCircle,
 #toggleCircle {
   width: 20px;
   height: 20px;
@@ -39,11 +42,13 @@ body {
   transition: left 0.3s ease;
 }
 
+#menuToggleSwitch.active,
 #toggleSwitch.active {
   background-color: white;
   border: 3px solid #000415;
 }
 
+#menuToggleSwitch.active #menuToggleCircle,
 #toggleSwitch.active #toggleCircle {
   left: 32px;
   background-color: #000415;
@@ -92,6 +97,16 @@ body.light-mode .navBar {
 
 body.light-mode .cardContainer > div {
   border: rgb(51, 51, 51) solid 3px;
+}
+
+body.light-mode .lightMenu {
+  background-color: white;
+  color: #000415;
+  border: 1px solid #000415;
+}
+
+body.light-mode .lightClose {
+  color: #000415;
 }
 
 .footer,
