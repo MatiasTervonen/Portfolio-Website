@@ -717,10 +717,6 @@ video {
   left: 0.25rem;
 }
 
-.left-1\/2 {
-  left: 50%;
-}
-
 .left-10 {
   left: 2.5rem;
 }
@@ -787,10 +783,6 @@ video {
 
 .right-1 {
   right: 0.25rem;
-}
-
-.right-1\/2 {
-  right: 50%;
 }
 
 .right-10 {
@@ -1527,6 +1519,10 @@ video {
 
 .w-screen {
   width: 100vw;
+}
+
+.w-3\/4 {
+  width: 75%;
 }
 
 .basis-1 {
@@ -2953,11 +2949,5 @@ a {
   .sm\:text-lg {
     font-size: 1.125rem;
     line-height: 1.75rem;
-  }
-}
-
-@media (min-width: 768px) {
-  .md\:hidden {
-    display: none;
   }
 }

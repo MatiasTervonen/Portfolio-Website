@@ -56,7 +56,10 @@
 
       <!-- Painikeet hamburger menulle. Close ja Open -->
 
-      <div id="menu-toggle" class="flex items-center cursor-pointer sm:hidden">
+      <div
+        id="menu-toggle"
+        class="flex z-20 items-center cursor-pointer sm:hidden"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="25"
@@ -77,10 +80,10 @@
     <!-- hamburger menu -->
     <div
       id="menu"
-      class="menu flex text-center items-center flex-col z-10 absolute left-1/2 right-1/2 top-20"
+      class="menu flex text-center items-center flex-col z-50 relative"
     >
       <div
-        class="bg-white text-2xl p-20 gap-5 font-bold flex flex-col px-25 relative"
+        class="bg-white text-2xl p-20 gap-5 font-bold flex flex-col px-25 fixed"
       >
         <div
           id="menu-close"
