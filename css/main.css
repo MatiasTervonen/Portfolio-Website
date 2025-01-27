@@ -1521,10 +1521,6 @@ video {
   width: 100vw;
 }
 
-.w-3\/4 {
-  width: 75%;
-}
-
 .basis-1 {
   flex-basis: 0.25rem;
 }
