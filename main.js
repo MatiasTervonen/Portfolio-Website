@@ -221,14 +221,15 @@ const menuLink = document.querySelectorAll(".menuLink");
 
 // Open menu
 menuToggle.addEventListener("click", () => {
+  menu.classList.remove("close");
   menu.classList.add("open");
   menuClose.classList.remove("hidden");
 });
 
 // Close menu
 menuClose.addEventListener("click", () => {
-  menu.classList.remove("open");
-  menuClose.classList.add("hidden");
+  menu.classList.add("close");
+
 });
 
 menuLink.forEach((link) => {
