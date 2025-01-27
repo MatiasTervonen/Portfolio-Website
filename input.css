@@ -292,3 +292,26 @@ a {
 
 @media (min-width: 640px) {
 }
+
+.menu {
+  transform: translateX(100%);
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  opacity: 0;
+}
+
+.menu.open {
+  transform: translateX(0);
+  opacity: 1;
+  animation: moveMenu 0.5s ease-in-out;
+}
+
+@keyframes moveMenu {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

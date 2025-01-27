@@ -218,13 +218,14 @@ const menuToggle = document.getElementById("menu-toggle");
 const menuClose = document.getElementById("menu-close");
 const menu = document.getElementById("menu");
 
+// Open menu
 menuToggle.addEventListener("click", () => {
-  menu.classList.remove("hidden");
+  menu.classList.add("open");
   menuClose.classList.remove("hidden");
 });
 
+// Close menu
 menuClose.addEventListener("click", () => {
+  menu.classList.remove("open");
   menuClose.classList.add("hidden");
-  menu.classList.add("hidden");
-  menuToggle.classList.remove("hidden");
 });
