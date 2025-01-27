@@ -18,230 +18,341 @@
     <title>Matias Portfolio</title>
   </head>
   <body>
-    <div class="flex flex-col">
-      <div class="header flex justify-center py-5 sm:py-10">
-        <h1 class="text-xl text-white px-10 sm:text-3xl">
-          Showcasing creativity, passion, and innovation in web development.
-        </h1>
-      </div>
-      <div class="flex justify-center z-10">
-        <img class="hidden sm:block" src="/pictures/Vector 1.png" alt="" />
-        <img class="sm:hidden" src="/pictures/Vector 3.png" alt="" />
-      </div>
+    <!-- Header -->
 
-      <div class="flex justify-center text-white relative z-0">
-        <p class="text2 absolute px-5 -top-16 text-sm sm:text-lg sm:-top-20">
-          Projects I have built or am currently working on.
-        </p>
-      </div>
+    <div
+      class="header text-white flex justify-center mx-auto items-center py-5 sm:py-10"
+    >
+      <h1 class="text-xl px-10 sm:text-3xl">
+        Showcasing creativity, passion, and innovation in web development.
+      </h1>
+    </div>
 
-      <!-- Carousel slider for projects -->
+    <!-- Navbar -->
 
-      <div
-        class="sliderWrapper flex justify-center items-center relative -mt-20 sm:-mt-10"
-      >
-        <div class="cardContainer flex justify-center relative">
-          <!-- Card 1 -->
-
-          <div class="current card1 absolute">
-            <div>
-              <div class="flex justify-center">
-                <img
-                  class="p-2"
-                  src="/pictures/Näyttökuva (1709).png"
-                  alt="Tetris Game"
-                />
-              </div>
-            </div>
-
-            <div class="flex justify-center mt-3">
-              <div class="inline-block relative">
-                <a
-                  href="/Tetris Game/menu.html"
-                  class="relative z-10 bg-black rounded-md px-5 py-2 text-white text-xl shadow-lg font-semibold hover:text-cyan-200 hover:scale-95 transition-transform duration-150 ease-in-out"
-                  >TETRIS
-                </a>
-                <span class="light z-0"></span>
-              </div>
-            </div>
+    <div
+      class="navBar flex justify-end items-center bg-blue-900 text-white pr-10 p-1 relative"
+    >
+      <div class="items-center pr-10 hidden sm:flex">
+        <div class="flex gap-10 pr-10">
+          <a class="hover:scale-95 hover:text-red-400" href="#aboutMe"
+            >About Me</a
+          ><a class="hover:scale-95 hover:text-red-400" href="#workHistory"
+            >Work History</a
+          ><a class="hover:scale-95 hover:text-red-400" href="#contact"
+            >Contact</a
+          >
+        </div>
+        <div class="flex justify-center items-center">
+          <div class="mr-2">
+            <i class="moon fa-regular fa-moon fa-xl"></i>
+            <img class="sun hidden" src="/pictures/Sun.png" alt="sun" />
           </div>
+        </div>
+        <div id="toggleSwitch" class="relative flex items-center">
+          <div id="toggleCircle" class="absolute"></div>
+        </div>
+      </div>
 
-          <!-- Card 2 -->
+      <!-- Painikeet hamburger menulle. Close ja Open -->
 
-          <div class="rightMiddle card2 absolute">
+      <div class="flex items-center sm:hidden">
+        <label
+          for="check"
+          id="menu-close"
+          class="hidden cursor-pointer close-menu z-10"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25">
+            <path
+              fill="#000415"
+              fill-rule="evenodd"
+              d="M17.925.747l2.828 2.828L13.328 11l7.425 7.425-2.828 2.828-7.425-7.425-7.425 7.425-2.828-2.828L7.671 11 .247 3.575 3.075.747 10.5 8.171 17.925.747z"
+            />
+          </svg>
+        </label>
+
+        <label
+          id="menu-toggle"
+          class="cursor-pointer md:hidden"
+          for="check"
+          class="open-menu"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="25"
+            height="25"
+            viewBox="0 0 25 25"
+          >
+            <g fill="#000415" fill-rule="evenodd">
+              <path d="M0 0h25v6H0z" />
+
+              <path d="M0 9h25v6H0z" />
+
+              <path d="M0 18h25v6H0z" />
+            </g>
+          </svg>
+        </label>
+      </div>
+    </div>
+
+    <!-- hamburger menu -->
+    <div
+      id="menu"
+      class="menu hidden flex text-center items-center flex-col z-10 absolute left-1/2 right-1/2"
+    >
+      <div class="bg-white py-10 my-5 gap-5 font-bold flex flex-col px-10">
+        <a
+          class="hover:scale-95 hover:text-red-400 whitespace-nowrap"
+          href="#aboutMe"
+          >About Me</a
+        ><a
+          class="hover:scale-95 hover:text-red-400 whitespace-nowrap"
+          href="#workHistory"
+          >Work History</a
+        ><a class="hover:scale-95 hover:text-red-400" href="#contact"
+          >Contact</a
+        >
+      </div>
+    </div>
+
+    <!-- Spot light -->
+
+    <div class="flex justify-center z-10">
+      <img class="hidden sm:block" src="/pictures/Vector 1.png" alt="" />
+      <img class="sm:hidden" src="/pictures/Vector 3.png" alt="" />
+    </div>
+
+    <div class="topTextCarousel flex justify-center text-white relative z-0">
+      <p class="text2 absolute px-5 -top-16 text-sm sm:text-lg sm:-top-20">
+        Projects I have built or am currently working on.
+      </p>
+    </div>
+
+    <!-- Carousel slider for projects -->
+
+    <div
+      class="z-0 sliderWrapper flex justify-center items-center relative -mt-20 sm:-mt-10"
+    >
+      <div class="cardContainer flex justify-center relative">
+        <!-- Card 1 -->
+
+        <div class="current card1 absolute">
+          <div>
             <div class="flex justify-center">
               <img
                 class="p-2"
-                src="/pictures/Snake Game.png"
-                alt="Snake Game"
+                src="/pictures/Näyttökuva (1709).png"
+                alt="Tetris Game"
               />
             </div>
-            <div class="flex justify-center mt-3">
-              <div class="inline-block relative">
-                <a
-                  href="/Snake Game/menu.html"
-                  class="relative z-10 bg-black rounded-md px-5 py-2 text-white text-xl shadow-lg font-semibold hover:text-cyan-200 hover:scale-95 transition-transform duration-150 ease-in-out"
-                >
-                  SNAKE
-                </a>
-                <span class="light z-0"></span>
-              </div>
-            </div>
           </div>
 
-          <!-- Card 3 -->
-
-          <div class="rightMiddle card2 absolute">
-            <div class="flex justify-center">
-              <img
-                class="p-2"
-                src="/pictures/Näyttökuva (1733).png"
-                alt="Snake Game"
-              />
-            </div>
-            <div class="flex justify-center mt-3">
-              <div class="inline-block relative">
-                <a
-                  href="https://matiastailwind.netlify.app/"
-                  class="relative z-10 bg-black rounded-md px-5 py-2 text-white text-xl shadow-lg font-semibold hover:text-cyan-200 hover:scale-95 transition-transform duration-150 ease-in-out"
-                >
-                  WEBSITE
-                </a>
-                <span class="light z-0"></span>
-              </div>
+          <div class="flex justify-center mt-5">
+            <div class="inline-block relative">
+              <a
+                href="/Tetris Game/menu.html"
+                class="relative z-10 bg-black rounded-md px-5 py-2 text-white text-xl font-semibold hover:text-cyan-200"
+                >TETRIS
+              </a>
+              <span class="light z-0"></span>
             </div>
           </div>
+        </div>
 
-          <!-- Card 4 -->
+        <!-- Card 2 -->
 
-          <div class="leftEdge card4 absolute">
-            <img class="p-2" src="/pictures/Näyttökuva (1733).png" alt="" />
-            <div class="flex justify-center">
-              <button
-                class="bg-black rounded-md px-5 py-2 text-white text-xl shadow-lg font-semibold hover:text-cyan-200 hover:scale-95 transition-transform duration-150 ease-in-out"
+        <div class="rightMiddle card2 absolute">
+          <div class="flex justify-center">
+            <img class="p-2" src="/pictures/Snake Game.png" alt="Snake Game" />
+          </div>
+          <div class="flex justify-center mt-5">
+            <div class="inline-block relative">
+              <a
+                href="/Snake Game/menu.html"
+                class="relative z-10 bg-black rounded-md px-5 py-2 text-white text-xl font-semibold hover:text-cyan-200"
               >
-                card44
-              </button>
+                SNAKE
+              </a>
+              <span class="light z-0"></span>
             </div>
           </div>
+        </div>
 
-          <!-- Card 5 -->
+        <!-- Card 3 -->
 
-          <div class="leftMiddle card5 absolute">
-            <img class="p-2" src="/pictures/Näyttökuva (1733).png" alt="" />
-            <div class="flex justify-center">
-              <button
-                class="bg-black rounded-md px-5 py-2 text-white text-xl shadow-lg font-semibold hover:text-cyan-200 hover:scale-95 transition-transform duration-150 ease-in-out"
+        <div class="rightEdge card2 absolute">
+          <div class="flex justify-center">
+            <img
+              class="p-2"
+              src="/pictures/Näyttökuva (1733).png"
+              alt="Snake Game"
+            />
+          </div>
+          <div class="flex justify-center mt-5">
+            <div class="inline-block relative">
+              <a
+                href="https://matiastailwind.netlify.app/"
+                class="relative z-10 bg-black rounded-md px-5 py-2 text-white text-xl font-semibold hover:text-cyan-200"
               >
-                card5
-              </button>
+                WEBSITE
+              </a>
+              <span class="light z-0"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+
+        <div class="leftEdge card2 absolute">
+          <div class="flex justify-center">
+            <img
+              class="p-2"
+              src="/pictures/Näyttökuva (1733).png"
+              alt="Snake Game"
+            />
+          </div>
+          <div class="flex justify-center mt-5">
+            <div class="inline-block relative">
+              <a
+                href="https://matiastailwind.netlify.app/"
+                class="relative z-10 bg-black rounded-md px-5 py-2 text-white text-xl font-semibold hover:text-cyan-200"
+              >
+                SOON
+              </a>
+              <span class="light z-0"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+
+        <div class="leftMiddle card2 absolute">
+          <div class="flex justify-center">
+            <img
+              class="p-2"
+              src="/pictures/Näyttökuva (1733).png"
+              alt="Snake Game"
+            />
+          </div>
+          <div class="flex justify-center mt-5">
+            <div class="inline-block relative">
+              <a
+                href="https://matiastailwind.netlify.app/"
+                class="relative z-10 bg-black rounded-md px-5 py-2 text-white text-xl font-semibold hover:text-cyan-200"
+              >
+                SOON
+              </a>
+              <span class="light z-0"></span>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Scroll indicator for carusell -->
+    <!-- Scroll indicator for carusell -->
 
-      <div class="flex justify-center -mt-10 sm:mt-0">
-        <ul class="indicator flex gap-1">
-          <li class="circle"></li>
-          <li class="circle"></li>
-          <li class="circle"></li>
-          <li class="circle"></li>
-          <li class="circle"></li>
-        </ul>
-      </div>
+    <div class="indicatorLight flex justify-center -mt-10 sm:mt-0">
+      <ul class="indicator flex gap-1">
+        <li class="circle"></li>
+        <li class="circle"></li>
+        <li class="circle"></li>
+        <li class="circle"></li>
+        <li class="circle"></li>
+      </ul>
+    </div>
 
-      <!-- Spot light -->
+    <!-- Spot light -->
 
-      <div class="flex justify-center">
-        <img class="hidden sm:block" src="/pictures/Ellipse 1.png" alt="" />
-        <img class="sm:hidden" src="/pictures/Ellipse 2.png" alt="" />
-      </div>
+    <div class="flex justify-center">
+      <img class="hidden sm:block" src="/pictures/Ellipse 1.png" alt="" />
+      <img class="sm:hidden" src="/pictures/Ellipse 2.png" alt="" />
+    </div>
 
-      <!-- About Me section -->
+    <!-- About Me section -->
 
-      <div class="flex justify-center my-24 mx-5">
-        <div class="aboutMe flex flex-col justify-center rounded-xl border-2">
-          <h2 class="text-white text-xl font-bold text-center pt-10">
-            About Me
-          </h2>
-          <div class="p-10 text-white">
-            <p>
-              I’m Matias Tervonen, a 35-year-old from Lohja, Finland, with
-              expertise in warehouse management, logistics, and construction.
-              <br />
-              <br />
+    <div class="flex flex-col justify-center items-center mt-32 mb-32 mx-10">
+      <div
+        id="aboutMe"
+        class="aboutMe text-white flex flex-col justify-center rounded-xl border-2 mb-32"
+      >
+        <h2 class="text-xl font-bold text-center pt-10">About Me</h2>
+        <div class="p-5 pt-10 sm:p-10">
+          <p>
+            I’m Matias Tervonen, a 35-year-old from Lohja, Finland, with
+            expertise in warehouse management, logistics, and construction.
+            <br />
+            <br />
 
-              Over the past four years, I’ve developed a strong interest in
-              technology and web development, completing Python basics at
-              Helsinki University and currently studying software development at
-              Salon Region Vocational College. <br /><br>
+            Over the past four years, I’ve developed a strong interest in
+            technology and web development, completing Python basics at Helsinki
+            University and currently studying software development at Salon
+            Region Vocational College. <br /><br />
 
-              My career is driven by a strong work ethic, attention to detail,
-              and adaptability. I excel in organizing tasks, working under
-              pressure, and delivering quality results. In my free time, I enjoy
-              the gym, learning new skills, and staying updated on technology
-              trends.
-            </p>
-          </div>
+            My career is driven by a strong work ethic, attention to detail, and
+            adaptability. I excel in organizing tasks, working under pressure,
+            and delivering quality results. In my free time, I enjoy the gym,
+            learning new skills, and staying updated on technology trends.
+          </p>
         </div>
       </div>
 
       <!-- Work history section -->
 
-      <div class="flex justify-center mb-24 mx-5">
-        <div class="aboutMe flex flex-col justify-center rounded-xl border-2">
-          <h2 class="text-white text-xl font-bold text-center pt-10">
-            Work History
-          </h2>
-          <div class="p-10 text-white">
-            07/2024- <br />
-            Learning web developement Salon Region Vocational College
-            <br /><br />
-            06/2019 - 07/2024 Measurement Operator, Nlight Oy <br />
-            Quality assurance of optical fibers using manual and semi-automatic
-            measurement devices. <br />
-            <br />
-            09/2010 - 10/2018 Warehouse Worker, Driver, MM-Yritysrakentaja Oy
-            <br />
-            <br />
-            06/2009 - 08/2010 Logistics Worker, Inex Partners <br />
-            <br />
-            01/2008 - 06/2008 Construction Worker, ISS Palvelut Oy <br />
-            Performed general construction tasks in the Helsinki metropolitan
-            area. <br />
-            <br />
+      <div
+        id="workHistory"
+        class="workHistory text-white flex flex-col justify-center z-1 rounded-xl border-2"
+      >
+        <h2 class="text-xl font-bold text-center pt-10">Work History</h2>
+        <div class="p-5 pt-10 sm:p-10">
+          07/2024- <br />
+          Learning web developement Salon Region Vocational College
+          <br /><br />
+          06/2019 - 07/2024 Measurement Operator, Nlight Oy <br />
+          Quality assurance of optical fibers using manual and semi-automatic
+          measurement devices. <br />
+          <br />
+          09/2010 - 10/2018 Warehouse Worker, Driver, MM-Yritysrakentaja Oy
+          <br />
+          <br />
+          06/2009 - 08/2010 Logistics Worker, Inex Partners <br />
+          <br />
+          01/2008 - 06/2008 Construction Worker, ISS Palvelut Oy <br />
+          Performed general construction tasks in the Helsinki metropolitan
+          area. <br />
+          <br />
 
-            01/2003 - 10/2007 Construction Worker, Warehouse Worker,
-            Salesperson, Inter Rauta Oy <br />
-            Worked for approximately two years at a large new construction
-            project, handling various tasks such as rebar installation and
-            painting. Also worked in the hardware store warehouse and as a
-            cashier.
-          </div>
+          01/2003 - 10/2007 Construction Worker, Warehouse Worker, Salesperson,
+          Inter Rauta Oy <br />
         </div>
       </div>
+    </div>
 
-      <!-- Footer -->
+    <!-- Work history section -->
 
-      <div class="header flex justify-center flex-wrap gap-5 py-10 px-5 bottom-0">
-        <a href="https://github.com/MatiasTervonen">
-          <i
-            class="fa-brands fa-square-github fa-2xl"
-            style="color: #ffffff"
-          ></i>
-        </a>
-        <a href="https://x.com/Layer100Crypto">
-          <i
-            class="fa-brands fa-square-x-twitter fa-2xl"
-            style="color: #f7f7f7"
-          ></i>
-        </a>
-        <a class="text-white" href="mailto:matias.tervonen@hotmail.com">
-          MATIAS.TERVONEN@HOTMAIL.COM
-        </a>
-      </div>
+    <!-- Footer -->
+
+    <div
+      id="contact"
+      class="footer text-white flex justify-center flex-wrap gap-5 py-10 px-5 bottom-0"
+    >
+      <a
+        class="hover:scale-95 hover:text-red-400"
+        href="https://github.com/MatiasTervonen"
+      >
+        <i class="fa-brands fa-square-github fa-2xl"></i>
+      </a>
+      <a
+        class="hover:scale-95 hover:text-red-400"
+        href="https://x.com/Layer100Crypto"
+      >
+        <i class="fa-brands fa-square-x-twitter fa-2xl"></i>
+      </a>
+      <a
+        class="hover:scale-95 hover:text-red-400"
+        href="mailto:matias.tervonen@hotmail.com"
+      >
+        <p>MATIAS.TERVONEN@HOTMAIL.COM</p>
+      </a>
     </div>
   </body>
 </html>

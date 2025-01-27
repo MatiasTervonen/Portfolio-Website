@@ -50,6 +50,8 @@ function slides() {
 const centerIndex = Math.floor(indicatorOrder.length / 2);
 
 function updateIndicator() {
+  const isLightMode = document.body.classList.contains("light-mode");
+
   // Find the active card's index
   const activeCardIndex = cardOrder.findIndex((card) =>
     card.classList.contains("current")
@@ -62,9 +64,15 @@ function updateIndicator() {
   // Highlight the correct indicator
   indicatorOrder.forEach((indicator, index) => {
     if (index === activeIndicatorIndex) {
-      indicator.classList.add("bg-white"); // Highlight the active indicator
+      if (isLightMode) {
+        indicator.classList.add("bg-black");
+        indicator.classList.remove("bg-white"); // Highlight the active indicator
+      } else {
+        indicator.classList.add("bg-white");
+        indicator.classList.remove("bg-black"); // Reset others
+      }
     } else {
-      indicator.classList.remove("bg-white"); // Reset others
+      indicator.classList.remove("bg-white", "bg-black");
     }
   });
 }
@@ -185,3 +193,39 @@ function moveLeft() {
 
 slides();
 attachPointerListeners();
+
+// LightMode button
+
+document.getElementById("toggleSwitch");
+
+const moon = document.querySelector(".moon");
+const sun = document.querySelector(".sun");
+
+const body = document.body;
+
+toggleSwitch.addEventListener("click", () => {
+  toggleSwitch.classList.toggle("active");
+
+  moon.classList.toggle("hidden");
+  sun.classList.toggle("hidden");
+  body.classList.toggle("light-mode");
+  updateIndicator();
+});
+
+// hamburger menu
+
+const menuToggle = document.getElementById("menu-toggle");
+const menuClose = document.getElementById("menu-close");
+const menu = document.getElementById("menu");
+
+menuToggle.addEventListener("click", () => {
+  menu.classList.remove("hidden");
+  menuToggle.classList.add("hidden");
+  menuClose.classList.remove("hidden");
+});
+
+menuClose.addEventListener("click", () => {
+  menuClose.classList.add("hidden");
+  menu.classList.add("hidden");
+  menuToggle.classList.remove("hidden");
+});
