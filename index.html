@@ -21,9 +21,9 @@
     <!-- Header -->
 
     <div
-      class="header text-white flex justify-center mx-auto items-center py-5 sm:py-10"
+      class="header flex justify-center items-center text-center p-5 text-white text-xl sm:text-3xl sm:py-10"
     >
-      <h1 class="text-xl px-10 sm:text-3xl">
+      <h1>
         Showcasing creativity, passion, and innovation in web development.
       </h1>
     </div>
@@ -31,7 +31,7 @@
     <!-- Navbar -->
 
     <div
-      class="navBar flex justify-end items-center bg-blue-900 text-white pr-10 p-1 relative"
+      class="navBar flex justify-end items-center pr-10 p-1 bg-blue-900 text-white relative"
     >
       <div class="items-center pr-10 hidden sm:flex">
         <div class="flex gap-10 pr-10">
@@ -83,11 +83,11 @@
       class="hamburgerMenu flex text-center items-center flex-col fixed z-50 top-24 left-0 right-0 overflow-hidden"
     >
       <div
-        class="lightMenu bg-blue-700 text-white text-2xl p-20 gap-5 font-bold flex flex-col px-25 relative"
+        class="lightMenu flex flex-col gap-5 p-20 bg-blue-700 text-white text-2xl font-bold relative"
       >
         <div
           id="menu-close"
-          class="hidden cursor-pointer close-menu z-10 absolute top-2 right-2"
+          class="hidden cursor-pointer close-menu z-10 top-2 right-2 absolute"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25">
             <path
@@ -127,8 +127,8 @@
       <img class="sm:hidden" src="/pictures/Vector 3.png" alt="" />
     </div>
 
-    <div class="topTextCarousel flex justify-center text-white relative z-0">
-      <p class="text2 absolute px-5 -top-16 text-sm sm:text-lg sm:-top-20">
+    <div class="topTextCarousel flex justify-center text-white z-0 relative">
+      <p class="absolute px-5 -top-16 text-sm sm:text-lg sm:-top-20">
         Projects I have built or am currently working on.
       </p>
     </div>
@@ -275,13 +275,15 @@
 
     <!-- About Me section -->
 
-    <div class="flex flex-col justify-center items-center mt-32 mb-32 mx-10">
+    <div class="flex justify-center px-4 my-32">
       <div
         id="aboutMe"
-        class="aboutMe text-white flex flex-col justify-center rounded-xl border-2 mb-32"
+        class="aboutMe flex flex-col text-white rounded-xl border-2"
       >
-        <h2 class="text-xl font-bold text-center pt-10">About Me</h2>
-        <div class="p-5 pt-10 sm:p-10">
+        <h2 class="aboutMeheader text-xl font-bold text-center pt-10">
+          About Me
+        </h2>
+        <div class="aboutMeText p-5 pt-10 sm:p-10">
           <p>
             I’m Matias Tervonen, a 35-year-old from Lohja, Finland, with
             expertise in warehouse management, logistics, and construction.
@@ -300,15 +302,19 @@
           </p>
         </div>
       </div>
+    </div>
 
-      <!-- Work history section -->
+    <!-- Work history section -->
 
+    <div class="flex justify-center px-4 mb-32">
       <div
         id="workHistory"
-        class="workHistory text-white flex flex-col justify-center z-1 rounded-xl border-2"
+        class="workHistory flex flex-col text-white rounded-xl border-2"
       >
-        <h2 class="text-xl font-bold text-center pt-10">Work History</h2>
-        <div class="p-5 pt-10 sm:p-10">
+        <h2 class="workHistoryHeader text-xl font-bold text-center pt-10">
+          Work History
+        </h2>
+        <div class="workHistoryText p-5 pt-10 sm:p-10">
           07/2024- <br />
           Learning web developement Salon Region Vocational College
           <br /><br />
@@ -323,7 +329,8 @@
           <br />
           01/2008 - 06/2008 Construction Worker, ISS Palvelut Oy <br />
           Performed general construction tasks in the Helsinki metropolitan
-          area. <br />
+          area.
+          <br />
           <br />
 
           01/2003 - 10/2007 Construction Worker, Warehouse Worker, Salesperson,
@@ -332,13 +339,11 @@
       </div>
     </div>
 
-    <!-- Work history section -->
-
     <!-- Footer -->
 
     <div
       id="contact"
-      class="footer text-white flex justify-center flex-wrap gap-5 py-10 px-5 bottom-0"
+      class="footer flex justify-center flex-wrap gap-5 text-white py-10 px-5 bottom-0"
     >
       <a
         class="hover:scale-95 hover:text-red-400"
@@ -353,7 +358,7 @@
         <i class="fa-brands fa-square-x-twitter fa-2xl"></i>
       </a>
       <a
-        class="hover:scale-95 hover:text-red-400"
+        class="mail hover:scale-95 hover:text-red-400"
         href="mailto:matias.tervonen@hotmail.com"
       >
         <p>MATIAS.TERVONEN@HOTMAIL.COM</p>

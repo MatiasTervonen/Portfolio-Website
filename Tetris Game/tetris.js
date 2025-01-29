@@ -180,20 +180,21 @@ function undrawGhost() {
 let isAnimating = false;
 
 async function freeze() {
+  if (isAnimating) return;
+  isAnimating = true;
+
   current.forEach((index) => {
     let currentSquare = squares[currentPosition + index];
     squares[currentPosition + index].classList.add("taken");
-    isAnimating = true;
     currentSquare.classList.add("hit");
-    hit.volume = savedVolume * 0.3;
-    hit.play();
   });
+
+  hit.volume = savedVolume * 0.3;
+  hit.play();
 
   undrawGhost();
 
   await sleep(200);
-
-  isAnimating = false;
 
   current.forEach((index) => {
     squares[currentPosition + index].classList.remove("hit");
@@ -203,6 +204,9 @@ async function freeze() {
   nextRandom = Math.floor(Math.random() * theTetrominoes.length);
   current = theTetrominoes[random][currentRotation];
   currentPosition = 4;
+
+  isAnimating = false;
+
   addScore();
   draw();
   displayShape();
@@ -297,6 +301,7 @@ document.addEventListener("keyup", control);
 function moveDown() {
   if (!timerId) return;
   if (isAnimating) return;
+
   if (
     !current.some((index) =>
       squares[currentPosition + index + width].classList.contains("taken")
@@ -723,13 +728,13 @@ let newInterval = 1000;
 let currentPlaybackRate = 1.0;
 
 function updateSpeedAndMusic() {
-  newInterval *= 0.95;
+  newInterval = Math.max(newInterval * 0.95, 100); // Limit to a minimum of 100ms
 
   clearInterval(timerId);
 
   timerId = setInterval(moveDown, newInterval);
 
-  currentPlaybackRate *= 1.02;
+  currentPlaybackRate = Math.min(currentPlaybackRate / 0.99, 2.5);
   backgroundMusic.playbackRate = currentPlaybackRate;
 }
 

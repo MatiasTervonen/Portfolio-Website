@@ -1026,6 +1026,11 @@ video {
   margin-right: 2.5rem;
 }
 
+.mx-2 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
 .mx-5 {
   margin-left: 1.25rem;
   margin-right: 1.25rem;
@@ -1054,6 +1059,11 @@ video {
 .my-24 {
   margin-top: 6rem;
   margin-bottom: 6rem;
+}
+
+.my-32 {
+  margin-top: 8rem;
+  margin-bottom: 8rem;
 }
 
 .my-5 {
@@ -2541,6 +2551,23 @@ body {
   background-color: #000415;
 }
 
+.footer,
+.header {
+  font-family: "Bowlby One SC", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  background-color: #000c3d;
+}
+
+.workHistory,
+.aboutMe {
+  background-color: #000c3d;
+  max-width: 700px;
+  font-family: "Russo One", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 /* light mode switch */
 
 .sunMenu,
@@ -2636,24 +2663,7 @@ body.light-mode .lightClose {
   color: #000415;
 }
 
-.footer,
-.header {
-  font-family: "Bowlby One SC", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  background-color: #000c3d;
-}
-
-.text2 {
-  font-family: "Russo One", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.workHistory,
-.aboutMe {
-  background-color: #000c3d;
-  max-width: 700px;
+.topTextCarousel {
   font-family: "Russo One", serif;
   font-weight: 400;
   font-style: normal;
@@ -2818,44 +2828,6 @@ a {
   }
 }
 
-/* For workHistory animation */
-
-/* Breakpoint for mobile */
-
-@media (max-width: 320px) {
-}
-
-@media (min-width: 320px) {
-}
-
-@media (min-width: 375px) {
-}
-
-@media (max-width: 640px) {
-  .current {
-    scale: 0.8;
-  }
-
-  .rightMiddle {
-    scale: 0.7;
-  }
-
-  .leftMiddle {
-    scale: 0.7;
-  }
-
-  .rightEdge {
-    scale: 0.6;
-  }
-
-  .leftEdge {
-    scale: 0.6;
-  }
-}
-
-@media (min-width: 640px) {
-}
-
 .hamburgerMenu {
   transform: translateX(100%);
   transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
@@ -2895,6 +2867,85 @@ a {
   100% {
     transform: translateY(-100%);
     opacity: 0;
+  }
+}
+
+/* Breakpoints for mobile */
+
+@media (max-width: 640px) {
+  .current {
+    scale: 0.8;
+  }
+
+  .rightMiddle {
+    scale: 0.7;
+  }
+
+  .leftMiddle {
+    scale: 0.7;
+  }
+
+  .rightEdge {
+    scale: 0.6;
+  }
+
+  .leftEdge {
+    scale: 0.6;
+  }
+}
+
+@media (max-width: 387px) {
+  .current {
+    scale: 0.7;
+  }
+
+  .rightMiddle {
+    scale: 0.6;
+  }
+
+  .leftMiddle {
+    scale: 0.6;
+  }
+
+  .rightEdge {
+    scale: 0.5;
+  }
+
+  .leftEdge {
+    scale: 0.5;
+  }
+
+  .indicatorLight {
+    margin-top: -60px;
+  }
+
+  .topTextCarousel {
+    text-align: center;
+  }
+
+  .header {
+    font-size: 16px;
+  }
+
+  #menu-toggle,
+  #menu-close {
+    width: 20px;
+    height: 20px;
+  }
+
+  .aboutMeheader,
+  .workHistoryHeader {
+    font-size: 16px;
+  }
+
+  .aboutMeText,
+  .workHistoryText,
+  .mail {
+    font-size: 13px;
+  }
+
+  .lightMenu {
+    padding: 40px;
   }
 }
 
