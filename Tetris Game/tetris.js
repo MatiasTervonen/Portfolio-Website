@@ -830,14 +830,16 @@ function getLeaderboard() {
 
 // Update Leaderboard with new scores
 function updateLeaderboard(score, level, timeElapsed) {
-  const leaderboard = getLeaderboard();
+  let leaderboard = getLeaderboard();
 
   // Update current game scores to list
   leaderboard.push({ score, level, timeElapsed });
 
-  // sort scores by highest scores to down
+  // sort levels by highest level to down
   leaderboard.sort((a, b) => {
-    if (b.score !== a.score) {
+    if (b.level !== a.level) {
+      return b.level - a.level;
+    } else if (b.score !== a.score) {
       return b.score - a.score; // Higher scores first
     } else {
       return a.timeElapsed - b.timeElapsed; // Lower times first if scores are the same
@@ -845,10 +847,10 @@ function updateLeaderboard(score, level, timeElapsed) {
   });
 
   // Show only top 10
-  const top10 = leaderboard.slice(0, 10);
+  leaderboard = leaderboard.slice(0, 10);
 
   // save the updated list to logal storage
-  localStorage.setItem("leaderboard", JSON.stringify(top10));
+  localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
 
   displayLeaderboard();
 }
