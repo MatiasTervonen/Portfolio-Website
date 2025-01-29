@@ -237,6 +237,7 @@ body {
   #progresBar {
     scale: 90%;
     margin-top: -20px;
+    margin-left: -1px;
   }
 }
 
@@ -251,6 +252,7 @@ body {
   #progresBar {
     scale: 90%;
     margin-top: -20px;
+    margin-left: -1px;
   }
 }
 
@@ -266,6 +268,7 @@ body {
   #progresBar {
     scale: 115%;
     margin-top: 55px;
+    margin-left: 27px;
   }
 }
 
@@ -281,6 +284,7 @@ body {
   #progresBar {
     scale: 130%;
     margin-top: 100px;
+    margin-left: 45px;
   }
 }
 
@@ -296,6 +300,7 @@ body {
   #progresBar {
     scale: 100%;
     margin-top: 0px;
+    margin-left: 10px;
   }
 }
 

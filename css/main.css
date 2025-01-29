@@ -2100,10 +2100,6 @@ video {
   --tw-bg-opacity: 0.6;
 }
 
-.bg-\[url\(\'\'\)\] {
-  background-image: url('');
-}
-
 .bg-gradient-to-b {
   background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
 }
@@ -2519,11 +2515,6 @@ video {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-.shadow-red-300 {
-  --tw-shadow-color: #fca5a5;
-  --tw-shadow: var(--tw-shadow-colored);
-}
-
 .shadow-blue-300 {
   --tw-shadow-color: #93c5fd;
   --tw-shadow: var(--tw-shadow-colored);
@@ -2531,6 +2522,11 @@ video {
 
 .shadow-blue-950 {
   --tw-shadow-color: #172554;
+  --tw-shadow: var(--tw-shadow-colored);
+}
+
+.shadow-red-300 {
+  --tw-shadow-color: #fca5a5;
   --tw-shadow: var(--tw-shadow-colored);
 }
 
