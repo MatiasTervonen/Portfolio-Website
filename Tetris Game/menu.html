@@ -13,98 +13,116 @@
     <script defer src="/Tetris Game/tetris.js"></script>
   </head>
   <body class="bg-blue-600">
-    <div class="gap-10 container mx-auto flex flex-col justify-center my-10">
+    <!-- Tetris image -->
+
+    <div class="flex justify-center my-10">
       <img
         class="h-32 object-contain sm:h-44"
         src="/Tetris Game/images/The_Tetris_Company_logo.png"
         alt="Tetris logo"
       />
-      <div class="flex justify-center">
-        <a href="/Tetris Game/tetris.html">
-          <button
-            class="bg-black rounded-md px-10 py-5 text-white text-4xl shadow-lg shadow-red-300 font-semibold hover:text-red-200 hover:scale-95 transition-transform duration-150 ease-in-out"
-          >
-            START GAME
-          </button>
-        </a>
-      </div>
-
-      <div
-        class="MovementMenu flex-col mx-auto justify-center text-white text-2xl font-medium p-5 rounded-lg border-2"
-      >
-        <h2 class="pb-5">Movement PC/Mobile</h2>
-        <div class="flex flex-row items-center">
-          <p class="pb-5">Left:</p>
-          <i class="fa-solid fa-arrow-left pl-5 pb-5"></i>
-          <p class="pl-5 pb-5">/ Swipe left</p>
-        </div>
-        <div class="flex flex-row items-center">
-          <p class="pb-5">Right:</p>
-          <i class="fa-solid fa-arrow-right pl-5 pb-5"></i>
-          <p class="pl-5 pb-5">/ Swipe right</p>
-        </div>
-        <div class="flex flex-row items-center">
-          <p class="pb-5">Down:</p>
-          <i class="fa-solid fa-arrow-down pl-5 pb-5"></i>
-          <p class="pl-5 pb-5">/ Swipe down</p>
-        </div>
-        <div class="flex flex-row items-center">
-          <p class="pb-5">Rotate:</p>
-          <i class="fa-solid fa-arrow-up pl-5 pb-5"></i>
-
-          <p class="pl-5 pb-5">/ Tap screen</p>
-        </div>
-        <div class="flex flex-row items-center">
-          <p class="pb-5">Hard-drop:</p>
-          <p class="pl-5 pb-5">Shift / Press 0.3sec</p>
-        </div>
-      </div>
-
-      <div
-        class="MovementMenu flex-col mx-auto justify-center w-80 text-white text-xl font-medium p-5 rounded-lg border-2"
-      >
-        <h2 class="pb-5">Score / Level</h2>
-        <div class="flex flex-row items-center">
-          <p class="pb-5">Single Line Clear: 100 points</p>
-        </div>
-        <div class="flex flex-row items-center">
-          <p class="pb-5">Double Line Clear: 300 points</p>
-        </div>
-        <div class="flex flex-row items-center">
-          <p class="pb-5">Triple Line Clear: 500 points</p>
-        </div>
-        <div class="flex flex-row items-center">
-          <p class="pb-5">
-            Tetris Clear: (Clearing four lines at once) 1000 points
-          </p>
-        </div>
-        <div class="flex flex-row items-center">
-          <p class="pb-5">
-            Level Up: Score 1000 points to reach Level 2, each new level
-            requires 1000 more points than the last.
-          </p>
-        </div>
-        <div>
-          <p>
-            Tetrominoes fall faster with each level, increasing the challenge as
-            you advance. Level up to test your skills against quicker drops!
-          </p>
-        </div>
-      </div>
     </div>
 
-    <!-- Leaderboard list -->
+    <!-- Start game button -->
 
-    <div class="flex justify-center mt-6 mb-10">
-      <div
-        class="leaderboard text-center rounded-xl text-white border-white border-2 shadow-md py-2 px-5"
+    <div class="flex justify-center mb-10">
+      <a
+        class="menuStartBtn bg-black rounded-md p-5 text-white text-3xl shadow-lg shadow-red-300 font-semibold hover:text-red-200 hover:scale-95 transition-transform duration-150 ease-in-out"
+        href="/Tetris Game/tetris.html"
       >
-        <div class="flex flex-row justify-center items-center gap-5">
-          <i class="fa-solid fa-crown fa-xl" style="color: #ffd43b"></i>
-          <h2 class="font-bold text-lg py-5">Leaderboard</h2>
-          <i class="fa-solid fa-crown fa-xl" style="color: #ffd43b"></i>
+        START GAME
+      </a>
+    </div>
+
+    <!-- Momevement quide -->
+
+    <div class="wrapper mx-auto px-2">
+      <div class="flex justify-center mb-10">
+        <div
+          class="movementMenu flex flex-col gap-5 p-5 text-white text-xl font-medium rounded-lg border-2"
+        >
+          <h2 class="font-bold">Movement PC / Mobile</h2>
+          <div class="flex flex-row items-center">
+            <p>Left:</p>
+            <i class="fa-solid fa-arrow-left pl-4"></i>
+            <p class="px-2">/</p>
+            <p>Swipe left</p>
+          </div>
+          <div class="flex flex-row items-center">
+            <p>Right:</p>
+            <i class="fa-solid fa-arrow-right pl-4"></i>
+            <p class="px-2">/</p>
+            <p>Swipe right</p>
+          </div>
+          <div class="flex flex-row items-center">
+            <p>Down:</p>
+            <i class="fa-solid fa-arrow-down pl-5"></i>
+            <p class="px-2">/</p>
+            <p>Swipe down</p>
+          </div>
+          <div class="flex flex-row items-center">
+            <p>Rotate:</p>
+            <i class="fa-solid fa-arrow-up pl-5"></i>
+            <p class="px-2">/</p>
+            <p>Tap screen</p>
+          </div>
+          <div class="flex flex-row items-center">
+            <p>Hard-drop:</p>
+            <p class="pl-5">Shift</p>
+            <p class="px-2">/</p>
+            <p>Press 0.3sec</p>
+          </div>
         </div>
-        <ul id="leaderboard-list"></ul>
+      </div>
+
+      <!-- Score / Level  -->
+
+      <div class="flex justify-center mb-10">
+        <div
+          class="levelMenu flex flex-col p-5 gap-5 text-white text-xl font-medium rounded-lg border-2"
+        >
+          <h2 class="font-bold">Score / Level</h2>
+          <div>
+            <p>Single Line Clear: 100 points</p>
+          </div>
+          <div>
+            <p>Double Line Clear: 300 points</p>
+          </div>
+          <div>
+            <p>Triple Line Clear: 500 points</p>
+          </div>
+          <div>
+            <p>Tetris Clear: (Clearing four lines at once) 1000 points</p>
+          </div>
+          <div>
+            <p>
+              Level Up: Score 1000 points to reach Level 2, each new level
+              requires 1000 more points than the last.
+            </p>
+          </div>
+          <div>
+            <p>
+              Tetrominoes fall faster with each level, increasing the challenge
+              as you advance. Level up to test your skills against quicker
+              drops!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Leaderboard list -->
+
+      <div class="flex justify-center my-10">
+        <div
+          class="leaderboard text-center rounded-xl text-white border-white border-2 shadow-md py-2 px-5"
+        >
+          <div class="flex flex-row justify-center items-center gap-5">
+            <i class="fa-solid fa-crown fa-xl" style="color: #ffd43b"></i>
+            <h2 class="font-bold text-lg py-5">Leaderboard</h2>
+            <i class="fa-solid fa-crown fa-xl" style="color: #ffd43b"></i>
+          </div>
+          <ul id="leaderboard-list"></ul>
+        </div>
       </div>
     </div>
   </body>
