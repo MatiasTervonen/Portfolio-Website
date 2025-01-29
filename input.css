@@ -239,8 +239,9 @@ a {
 }
 
 .bg-black-indicator {
+  
   background-color: #000415;
-  scale: 1.7;
+  scale: 1.3;
 }
 
 /* Light animation for buttons styling */
