@@ -212,6 +212,7 @@ async function freeze() {
   displayShape();
   gameOver();
   updateGlowColor();
+  updateGlowColorProgresbar();
 }
 
 //add score if you get a full row and score depending how many full rows you get.
@@ -263,12 +264,16 @@ async function addScore() {
   if (rowsCleared == 4) {
     tetris.play();
     score += 1000;
+    fillProgresBar(canvas, 1);
   } else if (rowsCleared == 3) {
     score += 500;
+    fillProgresBar(canvas, 0.5);
   } else if (rowsCleared == 2) {
     score += 300;
+    fillProgresBar(canvas, 0.3);
   } else if (rowsCleared == 1) {
     score += 100;
+    fillProgresBar(canvas, 0.1);
   }
   scoreDisplay.forEach((display) => (display.innerHTML = score));
   addLevel();
@@ -606,13 +611,6 @@ function displayShape() {
   });
 }
 
-// Show the glow of the color that is coming next
-
-function updateGlowColor() {
-  const nextColor = colors[nextRandom];
-  grid.style.boxShadow = `0 0 15px 5px ${nextColor}, 0 0 30px 10px ${nextColor}`;
-}
-
 //Add start and pause for the game
 
 startBtn.forEach((startBtn) => {
@@ -699,6 +697,7 @@ function startGame() {
     nextRandom = Math.floor(Math.random() * theTetrominoes.length);
   }
   updateGlowColor();
+  updateGlowColorProgresbar();
   timerId = setInterval(moveDown, 1000);
   timerInterval = setInterval(updateTimer, 1000);
   displayShape();
@@ -786,6 +785,10 @@ function nextLevel() {
 
   nextLevelButton.addEventListener("click", function () {
     isAnimating = false;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    currentFillPercentage = 0;
+    targetFillPercentage = 0;
 
     nextLevelButton.classList.add("hidden");
     nextLevelButton.classList.remove("flex");
@@ -922,3 +925,65 @@ volumeControl.addEventListener("input", (event) => {
     audio.volume = savedVolume;
   });
 });
+
+// Progresbar that fills when gets score
+
+const canvas = document.getElementById("progresBar");
+const ctx = canvas.getContext("2d");
+
+let currentFillPercentage = 0;
+let targetFillPercentage = 0;
+let animationSpeed = 0.005;
+
+function fillProgresBar(canvas, additionalPercentage) {
+  canvas.getContext("2d");
+
+  // Scale down progress increase based on current level
+  const adjustedPercentage = additionalPercentage / level;
+
+  targetFillPercentage += adjustedPercentage;
+
+  if (targetFillPercentage > 1) {
+    targetFillPercentage = 1;
+  }
+
+  animateProgressBar();
+}
+
+//  animation that slowly fills the progresbar
+function animateProgressBar() {
+  if (currentFillPercentage < targetFillPercentage) {
+    currentFillPercentage += animationSpeed;
+
+    if (currentFillPercentage > targetFillPercentage) {
+      currentFillPercentage = targetFillPercentage;
+    }
+
+    drawProgressBar();
+    requestAnimationFrame(animateProgressBar);
+  }
+}
+
+// Draw progresBar
+function drawProgressBar() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height); // Tyhjennä vanha
+
+  const fillHeight = canvas.height * currentFillPercentage;
+  const y = canvas.height - fillHeight;
+  const nextColor = colors[nextRandom];
+
+  ctx.fillStyle = nextColor;
+  ctx.fillRect(0, y, canvas.width, fillHeight);
+}
+
+// Show the glow of the color that is coming next
+
+function updateGlowColorProgresbar() {
+  const nextColor = colors[nextRandom];
+  progresBar.style.boxShadow = `0 0px 5px 4px ${nextColor}, 0 0 5px 4px ${nextColor}`;
+}
+
+function updateGlowColor() {
+  const nextColor = colors[nextRandom];
+  grid.style.boxShadow = `0 0 5px 4px ${nextColor}, 0 0 5px 4px ${nextColor}`;
+}
