@@ -462,66 +462,57 @@ let longPressTimer;
 let isLongPress = false;
 
 // Save coordinates when touch starts
-document.addEventListener(
-  "touchstart",
-  (e) => {
-    e.preventDefault(); // Prevent the default movements like scrolling, page reload etc.. While moving
-    if (isPaused) return;
-    const touch = e.touches[0];
-    startX = touch.clientX;
-    startY = touch.clientY;
-    touchStartTime = new Date().getTime();
-    touchStartX = touch.clientX;
-    touchStartY = touch.clientY;
+document.addEventListener("touchstart", (e) => {
+  e.preventDefault(); // Prevent the default movements like scrolling, page reload etc.. While moving
+  if (isPaused) return;
+  const touch = e.touches[0];
+  startX = touch.clientX;
+  startY = touch.clientY;
+  touchStartTime = new Date().getTime();
+  touchStartX = touch.clientX;
+  touchStartY = touch.clientY;
 
-    isLongPress = false;
-    longPressTimer = setTimeout(() => {
-      isLongPress = true;
-    }, 300);
-  },
-  { passive: false }
-);
+  isLongPress = false;
+  longPressTimer = setTimeout(() => {
+    isLongPress = true;
+  }, 300);
+});
 
 // Follow the movement of finger
-document.addEventListener(
-  "touchmove",
-  (e) => {
-    e.preventDefault();
-    if (isPaused) return;
-    const touch = e.touches[0];
-    const currentX = touch.clientX;
-    const currentY = touch.clientY;
+document.addEventListener("touchmove", (e) => {
+  e.preventDefault();
+  if (isPaused) return;
+  const touch = e.touches[0];
+  const currentX = touch.clientX;
+  const currentY = touch.clientY;
 
-    // Count the direction of move
-    const diffX = currentX - startX;
-    const diffY = currentY - startY;
+  // Count the direction of move
+  const diffX = currentX - startX;
+  const diffY = currentY - startY;
 
-    // Movement direction
-    if (Math.abs(diffX) > Math.abs(diffY)) {
-      if (diffX > 2 || diffY > 2) {
-        clearTimeout(longPressTimer);
-        isLongPress = false;
-      }
-      if (diffX > 30) {
-        moveRight();
-        startX = currentX;
-      } else if (diffX < -30) {
-        moveLeft();
-        startX = currentX;
-      }
-    } else {
-      if (diffY > 30) {
-        moveDown();
-        startY = currentY;
-      }
+  // Movement direction
+  if (Math.abs(diffX) > Math.abs(diffY)) {
+    if (diffX > 2 || diffY > 2) {
+      clearTimeout(longPressTimer);
+      isLongPress = false;
     }
-  },
-  { passive: false }
-);
+    if (diffX > 30) {
+      moveRight();
+      startX = currentX;
+    } else if (diffX < -30) {
+      moveLeft();
+      startX = currentX;
+    }
+  } else {
+    if (diffY > 30) {
+      moveDown();
+      startY = currentY;
+    }
+  }
+});
 
 // When you tap screen it rotates Tetromnino
 document.addEventListener("touchend", (e) => {
-  e.preventDefault();
   if (isPaused) return;
   const touchEndTime = new Date().getTime();
   const touchDuration = touchEndTime - touchStartTime;
