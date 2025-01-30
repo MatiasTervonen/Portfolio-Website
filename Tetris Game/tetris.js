@@ -972,7 +972,7 @@ function drawProgressBar() {
   const y = canvas.height - fillHeight;
   const nextColor = colors[nextRandom];
 
-  ctx.fillStyle = nextColor;
+  ctx.fillStyle = "blue";
   ctx.fillRect(0, y, canvas.width, fillHeight);
 }
 
