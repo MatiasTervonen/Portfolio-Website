@@ -6,6 +6,12 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=Jersey+15&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Press+Start+2P&family=Russo+One&display=swap");
 
+html,
+body {
+  overscroll-behavior: none; /* Prevent pull-to-refresh */
+  touch-action: none; /* Block default touch gestures */
+}
+
 .gameBackground {
   width: 450px;
   height: 450px;
@@ -270,6 +276,6 @@ input[type="range"]:active::-webkit-slider-thumb {
 
 @media (max-width: 640px) {
   .gameBackground {
-   width: 300px;
+    width: 300px;
   }
 }
