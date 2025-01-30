@@ -9,7 +9,6 @@
 html,
 body {
   overscroll-behavior: none; /* Prevent pull-to-refresh */
-  touch-action: none; /* Block default touch gestures */
 }
 
 .gameBackground {
