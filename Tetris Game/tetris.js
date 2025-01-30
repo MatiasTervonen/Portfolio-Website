@@ -463,7 +463,7 @@ let longPressTimer;
 let isLongPress = false;
 
 // Save coordinates when touch starts
-grid.addEventListener("touchstart", (e) => {
+document.addEventListener("touchstart", (e) => {
   e.preventDefault(); // Prevent the default movements like scrolling, page reload etc.. While moving
   const touch = e.touches[0];
   startX = touch.clientX;
