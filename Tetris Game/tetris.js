@@ -463,6 +463,7 @@ let isLongPress = false;
 
 // Save coordinates when touch starts
 document.addEventListener("touchstart", (e) => {
+  if (isPaused) return;
   e.preventDefault(); // Prevent the default movements like scrolling, page reload etc.. While moving
   const touch = e.touches[0];
   startX = touch.clientX;
@@ -479,6 +480,7 @@ document.addEventListener("touchstart", (e) => {
 
 // Follow the movement of finger
 document.addEventListener("touchmove", (e) => {
+  if (isPaused) return;
   const touch = e.touches[0];
   const currentX = touch.clientX;
   const currentY = touch.clientY;
@@ -510,6 +512,7 @@ document.addEventListener("touchmove", (e) => {
 
 // When you tap screen it rotates Tetromnino
 document.addEventListener("touchend", (e) => {
+  if (isPaused) return;
   const touchEndTime = new Date().getTime();
   const touchDuration = touchEndTime - touchStartTime;
 
