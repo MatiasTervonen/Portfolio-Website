@@ -19,7 +19,7 @@
     ></script>
     <script defer src="/Tetris Game/tetris.js"></script>
   </head>
-  <body class="z-0 fixed overflow-hidden w-full h-full">
+  <body class="min-h-screen flex flex-col">
     <!-- Mobile top bar -->
 
     <div
@@ -400,14 +400,14 @@
     >
       <div>
         <button
-          class="bg-black rounded-md px-5 py-5 text-white text-xl shadow-md shadow-blue-950 font-semibold hover:text-red-200 hover:scale-95 transition-transform duration-150 ease-in-out sm:py-3"
+          class="bg-black rounded-md px-5 py-5 text-white text-xl shadow-md shadow-blue-950 border-2 border-blue-950 font-semibold hover:text-red-200 hover:scale-95 transition-transform duration-150 ease-in-out sm:py-3"
           id="start"
         >
           Start/Pause
         </button>
         <a href="/Tetris Game/menu.html">
           <button
-            class="menu bg-black rounded-md px-5 py-5 text-white text-xl shadow-md shadow-blue-950 font-semibold hover:text-red-200 hover:scale-95 transition-transform duration-150 ease-in-out sm:py-3"
+            class="menu bg-black rounded-md px-5 py-5 text-white text-xl shadow-md shadow-blue-950 border-2 border-blue-950 font-semibold hover:text-red-200 hover:scale-95 transition-transform duration-150 ease-in-out sm:py-3"
           >
             MENU
           </button>
@@ -458,5 +458,31 @@
     <audio id="tetris" src="/Tetris Game/music/SEP_tetris.wav"></audio>
 
     <audio id="hit" src="/Tetris Game/music/SEB_fall.wav"></audio>
+
+    <!-- Footer -->
+
+    <div
+      id="contact"
+      class="footerTetris flex justify-center items-center flex-wrap gap-2 sm:gap-5 text-white p-3 mt-auto"
+    >
+      <a
+        class="hover:scale-95 hover:text-red-400"
+        href="https://github.com/MatiasTervonen"
+      >
+        <i class="fa-brands fa-square-github fa-xl"></i>
+      </a>
+      <a
+        class="hover:scale-95 hover:text-red-400"
+        href="https://x.com/Layer100Crypto"
+      >
+        <i class="fa-brands fa-square-x-twitter fa-xl"></i>
+      </a>
+      <a
+        class="mail text-xs hover:scale-95 hover:text-red-400"
+        href="mailto:matias.tervonen@hotmail.com"
+      >
+        <p>MATIAS.TERVONEN@HOTMAIL.COM</p>
+      </a>
+    </div>
   </body>
 </html>

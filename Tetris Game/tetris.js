@@ -212,7 +212,6 @@ async function freeze() {
   displayShape();
   gameOver();
   updateGlowColor();
-  updateGlowColorProgresbar();
 }
 
 //add score if you get a full row and score depending how many full rows you get.
@@ -697,7 +696,6 @@ function startGame() {
     nextRandom = Math.floor(Math.random() * theTetrominoes.length);
   }
   updateGlowColor();
-  updateGlowColorProgresbar();
   timerId = setInterval(moveDown, 1000);
   timerInterval = setInterval(updateTimer, 1000);
   displayShape();
@@ -970,18 +968,17 @@ function drawProgressBar() {
 
   const fillHeight = canvas.height * currentFillPercentage;
   const y = canvas.height - fillHeight;
-  const nextColor = colors[nextRandom];
 
-  ctx.fillStyle = "blue";
+  const gradient = ctx.createLinearGradient(0, y, 0, canvas.height);
+
+  gradient.addColorStop(0, "#1E90FF"); // Start color
+  gradient.addColorStop(1, "#00BFFF");
+
+  ctx.fillStyle = gradient;
   ctx.fillRect(0, y, canvas.width, fillHeight);
 }
 
 // Show the glow of the color that is coming next
-
-function updateGlowColorProgresbar() {
-  const nextColor = colors[nextRandom];
-  progresBar.style.boxShadow = `0 0px 5px 4px ${nextColor}, 0 0 5px 4px ${nextColor}`;
-}
 
 function updateGlowColor() {
   const nextColor = colors[nextRandom];
