@@ -16,6 +16,8 @@ body {
   height: 450px;
   border-radius: 10px;
   border: #09205f 5px solid;
+  background-image: url("./images/Tetris_tile_background.jpg");
+  background-size: cover;
 }
 
 .footerTetris {

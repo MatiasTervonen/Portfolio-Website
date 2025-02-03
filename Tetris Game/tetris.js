@@ -393,6 +393,11 @@ function rotate() {
         (index) => (currentPosition + index) % width === 0
       );
     }
+
+    if (squares[newPosition]?.classList.contains("taken")) {
+      return true;
+    }
+
     return false;
   });
 
