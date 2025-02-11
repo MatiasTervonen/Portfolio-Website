@@ -33,7 +33,7 @@ function drawSnake() {
   });
 
   if (checkCollision()) {
-    gameOver(); //
+    gameOver();
   }
 }
 
@@ -90,17 +90,21 @@ function addScore() {
 // movement PC
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "ArrowRight" && direction !== "LEFT") {
+  if (event.key === "ArrowRight" && direction !== "LEFT" && !directionChanged) {
     direction = "RIGHT";
+    directionChanged = true;
   }
-  if (event.key === "ArrowLeft" && direction !== "RIGHT") {
+  if (event.key === "ArrowLeft" && direction !== "RIGHT" && !directionChanged) {
     direction = "LEFT";
+    directionChanged = true;
   }
-  if (event.key === "ArrowUp" && direction !== "DOWN") {
+  if (event.key === "ArrowUp" && direction !== "DOWN" && !directionChanged) {
     direction = "UP";
+    directionChanged = true;
   }
-  if (event.key === "ArrowDown" && direction !== "UP") {
+  if (event.key === "ArrowDown" && direction !== "UP" && !directionChanged) {
     direction = "DOWN";
+    directionChanged = true;
   }
 });
 
@@ -173,6 +177,7 @@ function updateGame() {
   drawFood();
   moveSnake();
   drawSnake();
+  directionChanged = false;
 }
 
 function checkCollision() {

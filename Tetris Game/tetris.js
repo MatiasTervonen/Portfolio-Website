@@ -40,6 +40,11 @@ const tetris = document.getElementById("tetris");
 
 let savedVolume = localStorage.getItem("volume") || volumeControl.value;
 
+// pause, gameover
+
+let isPaused;
+let isGameOver;
+
 // async function. When you add "await spleep(ms)" in function it stops at the given time and continues after that. This is used with animations.
 
 function sleep(ms) {
@@ -545,6 +550,7 @@ document.addEventListener("touchend", (e) => {
 // Move Fast Down functio and leave animation behind when falling.
 
 async function moveDownFast() {
+  if (isPaused || isGameOver) return;
   undraw();
 
   let newPosition = currentPosition;
@@ -700,16 +706,22 @@ function startGame() {
   if (timerInterval) {
     clearInterval(timerInterval);
   }
+  // if (autoDropTimeoutId) {
+  //   clearTimeout(autoDropTimeoutId);
+  //   autoDropTimeoutId = null;
+  // }
   draw();
   if (!nextRandom) {
     nextRandom = Math.floor(Math.random() * theTetrominoes.length);
   }
   updateGlowColor();
   timerId = setInterval(moveDown, 1000);
+  // autoDrop();
   timerInterval = setInterval(updateTimer, 1000);
   displayShape();
   backgroundMusic.play();
   isPaused = false;
+  isGameOver = false;
   isLongPress = false;
 }
 
@@ -724,6 +736,11 @@ function pauseGame() {
     clearInterval(timerInterval);
     timerInterval = null;
   }
+  // if (autoDropTimeoutId) {
+  //   clearTimeout(autoDropTimeoutId);
+  //   autoDropTimeoutId = null;
+  // }
+
   backgroundMusic.pause();
   isPaused = true;
 }
@@ -993,3 +1010,12 @@ function updateGlowColor() {
   const nextColor = colors[nextRandom];
   grid.style.boxShadow = `0 0 5px 4px ${nextColor}, 0 0 5px 4px ${nextColor}`;
 }
+
+// Bot that plays the tetris
+
+// let autoDropTimeoutId;
+
+// function autoDrop() {
+//   moveDownFast();
+//   autoDropTimeoutId = setTimeout(autoDrop, 2000); // Adjust the timing to control the speed of the drop
+// }

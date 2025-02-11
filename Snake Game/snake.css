@@ -8,14 +8,15 @@
   padding: 0;
 }
 
-.menu,
+.snakeMovement,
+.snakeMenu,
 .score,
 #startBtn,
 #gameBoard {
   background: linear-gradient(50deg, #000000, #333333);
 }
 
-.menu,
+.snakeMenu,
 .score,
 .timer,
 #startBtn {

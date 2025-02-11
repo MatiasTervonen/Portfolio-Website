@@ -12,9 +12,13 @@
       href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=Jersey+15&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Press+Start+2P&family=Russo+One&display=swap"
       rel="stylesheet"
     />
+    <script
+      src="https://kit.fontawesome.com/2273515c74.js"
+      crossorigin="anonymous"
+    ></script>
     <script defer src="/Snake Game/snake1.js"></script>
   </head>
-  <body class="bg-blue-300">
+  <bod class="min-h-screen flex flex-col">
     <div
       class="flex justify-center mb-5 mt-20 gap-10 font-bold text-md text-cyan-50"
     >
@@ -22,7 +26,7 @@
         <p>Score: <span id="score">0</span></p>
       </div>
       <div class="score p-2 px-4 border-2 mb-2 text-center rounded-lg w-40">
-        <p>Timer: <span id="timer">00:00</span></p>
+        <p>Time: <span id="timer">00:00</span></p>
       </div>
     </div>
 
@@ -34,7 +38,7 @@
       <div>
         <button
           id="startBtn"
-          class="bg-black rounded-md px-5 text-white text-xl shadow-lg shadow-red-300 font-semibold hover:text-red-200 hover:scale-95 transition-transform duration-150 ease-in-out py-3"
+          class="rounded-md px-5 text-white text-xl shadow-sm shadow-red-300 font-semibold hover:text-red-200 hover:scale-95 transition-transform duration-150 ease-in-out py-3"
         >
           Start/Pause
         </button>
@@ -42,12 +46,38 @@
       <div>
         <a href="/Snake Game/menu.html">
           <button
-            class="menu bg-black rounded-md px-5 text-white text-xl shadow-lg shadow-red-300 font-semibold hover:text-red-200 hover:scale-95 transition-transform duration-150 ease-in-out py-3"
+            class="snakeMenu rounded-md px-5 text-white text-xl shadow-sm shadow-red-300 font-semibold hover:text-red-200 hover:scale-95 transition-transform duration-150 ease-in-out py-3"
           >
             MENU
           </button>
         </a>
       </div>
     </div>
-  </body>
+
+    <!-- Footer -->
+
+    <div
+      id="contact"
+      class="footer flex justify-center items-center flex-wrap gap-2 sm:gap-5 text-white p-3 mt-auto"
+    >
+      <a
+        class="hover:scale-95 hover:text-red-400"
+        href="https://github.com/MatiasTervonen"
+      >
+        <i class="fa-brands fa-square-github fa-xl"></i>
+      </a>
+      <a
+        class="hover:scale-95 hover:text-red-400"
+        href="https://x.com/Layer100Crypto"
+      >
+        <i class="fa-brands fa-square-x-twitter fa-xl"></i>
+      </a>
+      <a
+        class="mail text-xs hover:scale-95 hover:text-red-400"
+        href="mailto:matias.tervonen@hotmail.com"
+      >
+        <p>MATIAS.TERVONEN@HOTMAIL.COM</p>
+      </a>
+    </div>
+  </bod>
 </html>
