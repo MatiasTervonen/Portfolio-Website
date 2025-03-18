@@ -1,3 +1,23 @@
+// Function to prevent drag in carousell
+
+function makeCarouselDragSafe(containerSelector) {
+  const container = document.querySelector(containerSelector);
+
+  if (!container) return;
+
+  container.querySelectorAll("img, a, button").forEach((el) => {
+    el.setAttribute("draggable", "false");
+    el.style.webkitUserDrag = "none";
+    el.style.userSelect = "none";
+  });
+
+  container.addEventListener("dragstart", (e) => {
+    e.preventDefault();
+  });
+
+  container.style.touchAction = "pan-y";
+}
+
 // Carousel for card elements
 
 const cards = document.querySelectorAll(".cardContainer > div"); // Select all card elements
@@ -77,9 +97,6 @@ function updateIndicator() {
   });
 }
 
-console.log("Card Order:", cardOrder);
-console.log(indicatorOrder);
-
 // touch and mouse movements
 
 function attachPointerListeners() {
@@ -89,10 +106,6 @@ function attachPointerListeners() {
     card.removeEventListener("pointermove", handlePointerMove);
     card.removeEventListener("pointerup", handlePointerUp);
     card.removeEventListener("pointercancel", handlePointerUp);
-
-    card.removeEventListener("touchstart", handleTouchStart);
-    card.removeEventListener("touchmove", handleTouchMove);
-    card.removeEventListener("touchend", handleTouchEnd);
   });
 
   // Add listeners to the current card
@@ -101,14 +114,6 @@ function attachPointerListeners() {
   currentCard.addEventListener("pointermove", handlePointerMove);
   currentCard.addEventListener("pointerup", handlePointerUp);
   currentCard.addEventListener("pointercancel", handlePointerUp);
-
-  currentCard.addEventListener("touchstart", handleTouchStart, {
-    passive: false,
-  });
-  currentCard.addEventListener("touchmove", handleTouchMove, {
-    passive: false,
-  });
-  currentCard.addEventListener("touchend", handleTouchEnd);
 }
 
 // Common functions for both pointer and touch
@@ -138,35 +143,16 @@ function moveDrag(currentX) {
 // Pointer event handlers
 function handlePointerDown(e) {
   if (!e.isPrimary) return;
-  e.preventDefault();
   startDrag(e.clientX);
 }
 
 function handlePointerMove(e) {
   if (!isDragging) return;
-  e.preventDefault(); // Prevent unwanted behaviors
   moveDrag(e.clientX);
 }
 
 function handlePointerUp(e) {
   if (!e.isPrimary) return;
-  endDrag();
-}
-
-// Touch event handlers
-function handleTouchStart(e) {
-  if (e.touches.length > 1) return; // Ignore multi-touch
-  e.preventDefault();
-  startDrag(e.touches[0].clientX);
-}
-
-function handleTouchMove(e) {
-  if (!isDragging) return;
-  e.preventDefault(); // Prevent unwanted behaviors
-  moveDrag(e.touches[0].clientX);
-}
-
-function handleTouchEnd(e) {
   endDrag();
 }
 
@@ -198,6 +184,10 @@ function moveLeft() {
 
 slides();
 attachPointerListeners();
+
+makeCarouselDragSafe(".cardContainer");
+
+console.log(makeCarouselDragSafe);
 
 // LightMode button
 
