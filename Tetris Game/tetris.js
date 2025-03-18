@@ -64,11 +64,6 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-// Moved leaderboardlist away from game page to menu. Works only when this is before any code
-
-document.addEventListener("DOMContentLoaded", function () {
-  displayLeaderboard();
-});
 
 //The Tetrominoes and rotations. One array is rotation
 
@@ -907,35 +902,6 @@ function updateLeaderboard(score, level, timeElapsed) {
   displayLeaderboard();
 }
 
-// Show leaderboardlist on HTML
-function displayLeaderboard() {
-  const leaderboard = getLeaderboard();
-  const leaderboardList = document.getElementById("leaderboard-list");
-  if (!leaderboardList) return;
-
-  leaderboardList.innerHTML = "";
-
-  if (leaderboard.length === 0) {
-    leaderboardList.innerHTML = "<li>No scores available</li>";
-  } else {
-    // add every score to list
-    leaderboard.forEach((entry, index) => {
-      const { score, level, timeElapsed } = entry;
-      const minutes = Math.floor(timeElapsed / 60);
-      const seconds = timeElapsed % 60;
-      const formattedTime = `${String(minutes).padStart(2, "0")}:${String(
-        seconds
-      ).padStart(2, "0")}`;
-      const li = document.createElement("li");
-      li.textContent = `${
-        index + 1
-      }: Score: ${score}, Level: ${level}, Time: ${formattedTime}`;
-      leaderboardList.appendChild(li);
-    });
-  }
-}
-document.addEventListener("DOMContentLoaded", displayLeaderboard);
-
 // Stop the default page scroll when keys are pushed
 
 document.addEventListener("keydown", function (event) {
@@ -1037,11 +1003,4 @@ function updateGlowColor() {
   grid.style.boxShadow = `0 0 5px 4px ${nextColor}, 0 0 5px 4px ${nextColor}`;
 }
 
-// Bot that plays the tetris
 
-// let autoDropTimeoutId;
-
-// function autoDrop() {
-//   moveDownFast();
-//   autoDropTimeoutId = setTimeout(autoDrop, 2000); // Adjust the timing to control the speed of the drop
-// }
