@@ -57,13 +57,13 @@ let savedVolume = localStorage.getItem("volume") || volumeControl.value;
 
 let isPaused;
 let isGameOver;
+let isStartGame;
 
 // async function. When you add "await spleep(ms)" in function it stops at the given time and continues after that. This is used with animations.
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
-
 
 //The Tetrominoes and rotations. One array is rotation
 
@@ -467,6 +467,12 @@ document.addEventListener("keyup", (e) => {
   }
 });
 
+// function to check UI elements tha should not have preventDefault
+
+function isInteractiveElement(target) {
+  return target.closest("button");
+}
+
 // Movement for mobile by touching
 
 let startX = 0;
@@ -483,7 +489,9 @@ let isLongPress = false;
 document.addEventListener(
   "touchstart",
   (e) => {
-    e.preventDefault(); // Prevent the default movements like scrolling, page reload etc.. While moving
+    if (!isInteractiveElement(e.target)) {
+      e.preventDefault(); // Prevent the default movements like scrolling, page reload etc.. While moving
+    }
     if (isPaused) return;
     const touch = e.touches[0];
     startX = touch.clientX;
@@ -504,7 +512,9 @@ document.addEventListener(
 document.addEventListener(
   "touchmove",
   (e) => {
-    e.preventDefault();
+    if (!isInteractiveElement(e.target)) {
+      e.preventDefault();
+    }
     if (isPaused) return;
     const touch = e.touches[0];
     const currentX = touch.clientX;
@@ -566,7 +576,7 @@ document.addEventListener("touchend", (e) => {
 // Move Fast Down functio and leave animation behind when falling.
 
 async function moveDownFast() {
-  if (isPaused || isGameOver) return;
+  if (isPaused || isGameOver || !isStartGame) return;
   undraw();
 
   let newPosition = currentPosition;
@@ -740,6 +750,7 @@ function startGame() {
   timerInterval = setInterval(updateTimer, 1000);
   displayShape();
   backgroundMusic.play();
+  isStartGame = true;
   isPaused = false;
   isGameOver = false;
   isLongPress = false;
@@ -1002,5 +1013,3 @@ function updateGlowColor() {
   const nextColor = colors[nextRandom];
   grid.style.boxShadow = `0 0 5px 4px ${nextColor}, 0 0 5px 4px ${nextColor}`;
 }
-
-
