@@ -549,6 +549,7 @@ document.addEventListener(
 
 // When you tap screen it rotates Tetromnino
 document.addEventListener("touchend", (e) => {
+  if (isInteractiveElement(e.target)) return;
   if (isPaused) return;
   const touchEndTime = new Date().getTime();
   const touchDuration = touchEndTime - touchStartTime;
