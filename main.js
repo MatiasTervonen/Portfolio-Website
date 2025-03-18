@@ -102,8 +102,12 @@ function attachPointerListeners() {
   currentCard.addEventListener("pointerup", handlePointerUp);
   currentCard.addEventListener("pointercancel", handlePointerUp);
 
-  currentCard.addEventListener("touchstart", handleTouchStart);
-  currentCard.addEventListener("touchmove", handleTouchMove);
+  currentCard.addEventListener("touchstart", handleTouchStart, {
+    passive: false,
+  });
+  currentCard.addEventListener("touchmove", handleTouchMove, {
+    passive: false,
+  });
   currentCard.addEventListener("touchend", handleTouchEnd);
 }
 
@@ -152,6 +156,7 @@ function handlePointerUp(e) {
 // Touch event handlers
 function handleTouchStart(e) {
   if (e.touches.length > 1) return; // Ignore multi-touch
+  e.preventDefault();
   startDrag(e.touches[0].clientX);
 }
 

@@ -1,10 +1,23 @@
 // Gameboard
 
-const grid = document.querySelector(" .grid");
+const grid = document.querySelector(".grid");
+
+// Intitialize gameboard
+
+const gameContainer = document.getElementById("gameBoard");
+
+for (let i = 0; i < 210; i++) {
+  const newDiv = document.createElement("div");
+  gameContainer.appendChild(newDiv);
+  if (i >= 200) {
+    newDiv.classList.add("taken");
+    gameContainer.appendChild(newDiv);
+  }
+}
 
 // Array of all divs/squares inside gameboard
 
-let squares = Array.from(document.querySelectorAll(" .grid div"));
+let squares = Array.from(document.querySelectorAll(".grid div"));
 
 // array of all divs/squares indsise displayShape
 
@@ -472,54 +485,62 @@ let longPressTimer;
 let isLongPress = false;
 
 // Save coordinates when touch starts
-document.addEventListener("touchstart", (e) => {
-  e.preventDefault(); // Prevent the default movements like scrolling, page reload etc.. While moving
-  if (isPaused) return;
-  const touch = e.touches[0];
-  startX = touch.clientX;
-  startY = touch.clientY;
-  touchStartTime = new Date().getTime();
-  touchStartX = touch.clientX;
-  touchStartY = touch.clientY;
+document.addEventListener(
+  "touchstart",
+  (e) => {
+    e.preventDefault(); // Prevent the default movements like scrolling, page reload etc.. While moving
+    if (isPaused) return;
+    const touch = e.touches[0];
+    startX = touch.clientX;
+    startY = touch.clientY;
+    touchStartTime = new Date().getTime();
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
 
-  isLongPress = false;
-  longPressTimer = setTimeout(() => {
-    isLongPress = true;
-  }, 300);
-});
+    isLongPress = false;
+    longPressTimer = setTimeout(() => {
+      isLongPress = true;
+    }, 300);
+  },
+  { passive: false }
+);
 
 // Follow the movement of finger
-document.addEventListener("touchmove", (e) => {
-  e.preventDefault();
-  if (isPaused) return;
-  const touch = e.touches[0];
-  const currentX = touch.clientX;
-  const currentY = touch.clientY;
+document.addEventListener(
+  "touchmove",
+  (e) => {
+    e.preventDefault();
+    if (isPaused) return;
+    const touch = e.touches[0];
+    const currentX = touch.clientX;
+    const currentY = touch.clientY;
 
-  // Count the direction of move
-  const diffX = currentX - startX;
-  const diffY = currentY - startY;
+    // Count the direction of move
+    const diffX = currentX - startX;
+    const diffY = currentY - startY;
 
-  // Movement direction
-  if (Math.abs(diffX) > Math.abs(diffY)) {
-    if (diffX > 2 || diffY > 2) {
-      clearTimeout(longPressTimer);
-      isLongPress = false;
+    // Movement direction
+    if (Math.abs(diffX) > Math.abs(diffY)) {
+      if (diffX > 2 || diffY > 2) {
+        clearTimeout(longPressTimer);
+        isLongPress = false;
+      }
+      if (diffX > 30) {
+        moveRight();
+        startX = currentX;
+      } else if (diffX < -30) {
+        moveLeft();
+        startX = currentX;
+      }
+    } else {
+      if (diffY > 30) {
+        moveDown();
+        startY = currentY;
+      }
     }
-    if (diffX > 30) {
-      moveRight();
-      startX = currentX;
-    } else if (diffX < -30) {
-      moveLeft();
-      startX = currentX;
-    }
-  } else {
-    if (diffY > 30) {
-      moveDown();
-      startY = currentY;
-    }
-  }
-});
+  },
+  { passive: false }
+);
 
 // When you tap screen it rotates Tetromnino
 document.addEventListener("touchend", (e) => {
@@ -674,7 +695,7 @@ function gameOver() {
 // Reset gameboard. Remove all tetromoinos from gameboard, mini display and assigned animations from them.
 
 function resetGame() {
-  squares.forEach((square) => {
+  squares.forEach((square, i) => {
     square.classList.remove(
       "tetromino",
       "levelCompleted",
@@ -684,6 +705,10 @@ function resetGame() {
     square.style.backgroundColor = "";
     if (!square.classList.contains("taken2")) {
       square.classList.remove("taken");
+    }
+
+    if (i >= 200) {
+      square.classList.add("taken");
     }
   });
 
@@ -886,6 +911,7 @@ function updateLeaderboard(score, level, timeElapsed) {
 function displayLeaderboard() {
   const leaderboard = getLeaderboard();
   const leaderboardList = document.getElementById("leaderboard-list");
+  if (!leaderboardList) return;
 
   leaderboardList.innerHTML = "";
 

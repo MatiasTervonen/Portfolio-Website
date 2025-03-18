@@ -46,7 +46,7 @@ body {
   background-color: #000415;
   width: 60px;
   height: 30px;
-  border: 3px solid white;
+  border: 3px solid #f7fafc;
   border-radius: 20px;
   padding: 3px;
   cursor: pointer;
@@ -57,13 +57,13 @@ body {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: white;
+  background-color: #f7fafc;
   transition: left 0.3s ease;
 }
 
 #menuToggleSwitch.active,
 #toggleSwitch.active {
-  background-color: white;
+  background-color: #f7fafc;
   border: 3px solid #000415;
 }
 
@@ -76,12 +76,12 @@ body {
 /* Light Mode */
 
 body.light-mode {
-  background-color: white;
+  background-color: #f7fafc;
   color: black;
 }
 
 body.light-mode .header {
-  background-color: white;
+  background-color: #f7fafc;
   color: #000415;
   border-bottom: 1px solid #000415;
 }
@@ -91,25 +91,25 @@ body.light-mode .topTextCarousel {
 }
 
 body.light-mode .footer {
-  background-color: white;
+  background-color: #f7fafc;
   color: #000415;
   border-top: 1px solid #000415;
 }
 
 body.light-mode .aboutMe {
-  background-color: white;
+  background-color: #f7fafc;
   border: 3px solid black;
   color: black;
 }
 
 body.light-mode .workHistory {
-  background-color: white;
-  border: 3px solid black;
-  color: black;
+  background-color: #f7fafc;
+  border: 3px solid #0f172a;
+  color: #0f172a;
 }
 
 body.light-mode .navBar {
-  background-color: white;
+  background-color: #f7fafc;
   color: #000415;
   border-bottom: 1px solid #000415;
 }
@@ -119,7 +119,7 @@ body.light-mode .cardContainer > div {
 }
 
 body.light-mode .lightMenu {
-  background-color: white;
+  background-color: #f7fafc;
   color: #000415;
   border: 1px solid #000415;
 }
@@ -162,7 +162,7 @@ body.light-mode .lightClose {
   width: 270px;
   height: 380px;
   background-color: #262626;
-  border: white solid 3px;
+  border: #f7fafc solid 3px;
   transition: transform 0.5s ease, scale 0.5s ease, z-index 0.5s ease;
 }
 
@@ -234,7 +234,7 @@ a {
 }
 
 .bg-white-indicator {
-  background-color: white;
+  background-color: #f7fafc;
   scale: 1.7;
 }
 
