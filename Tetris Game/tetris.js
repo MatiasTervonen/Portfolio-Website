@@ -8,7 +8,6 @@ const gameContainer = document.getElementById("gameBoard");
 
 for (let i = 0; i < 210; i++) {
   const newDiv = document.createElement("div");
-  newDiv.classList.add("w-full", "h-full", "aspect-square");
 
   if (i >= 200) {
     newDiv.classList.add("taken");
@@ -206,9 +205,7 @@ async function freeze() {
 
   hit.volume = savedVolume * 0.3;
   hit.play();
-
   undrawGhost();
-
   await sleep(200);
 
   current.forEach((index) => {
@@ -321,20 +318,20 @@ document.addEventListener("keyup", control);
 //mmove down function
 
 function moveDown() {
-  if (!timerId) return;
-  if (isAnimating) return;
+  if (!timerId || isAnimating) return;
 
   if (
-    !current.some((index) =>
+    current.some((index) =>
       squares[currentPosition + index + width].classList.contains("taken")
     )
   ) {
-    undraw();
-    currentPosition += width;
-    draw();
-  } else {
     freeze();
+    return;
   }
+
+  undraw();
+  currentPosition += width;
+  draw();
 }
 
 // move the tetromino left, unless it is at the edge or there is blockage
@@ -448,13 +445,13 @@ document.addEventListener("keydown", (e) => {
     if (!rightIntervalId) {
       rightIntervalId = setInterval(() => {
         moveRight();
-      }, 100);
+      }, 70);
     }
   } else if (e.keyCode === 37) {
     if (!leftIntervalId) {
       leftIntervalId = setInterval(() => {
         moveLeft();
-      }, 100);
+      }, 70);
     }
   }
 });
@@ -487,8 +484,7 @@ let touchStartTime = 0;
 let touchStartX = 0;
 let touchStartY = 0;
 
-let longPressTimer;
-let isLongPress = false;
+let lastMoveTime = 0;
 
 // Save coordinates when touch starts
 document.addEventListener(
@@ -504,11 +500,6 @@ document.addEventListener(
     touchStartTime = new Date().getTime();
     touchStartX = touch.clientX;
     touchStartY = touch.clientY;
-
-    isLongPress = false;
-    longPressTimer = setTimeout(() => {
-      isLongPress = true;
-    }, 300);
   },
   { passive: false }
 );
@@ -521,6 +512,7 @@ document.addEventListener(
       e.preventDefault();
     }
     if (isPaused) return;
+
     const touch = e.touches[0];
     const currentX = touch.clientX;
     const currentY = touch.clientY;
@@ -531,10 +523,6 @@ document.addEventListener(
 
     // Movement direction
     if (Math.abs(diffX) > Math.abs(diffY)) {
-      if (diffX > 2 || diffY > 2) {
-        clearTimeout(longPressTimer);
-        isLongPress = false;
-      }
       if (diffX > 30) {
         moveRight();
         startX = currentX;
@@ -609,10 +597,14 @@ async function moveDownFast() {
   }
 
   currentPosition = newPosition;
-  draw();
-  freeze();
+  current.forEach((index) => {
+    squares[currentPosition + index].classList.add("tetromino");
+    squares[currentPosition + index].style.backgroundColor = colors[random];
+  });
 
-  await sleep(500);
+  await sleep(100);
+
+  await freeze();
 
   squares.forEach((square) => {
     while (square.firstChild) {
