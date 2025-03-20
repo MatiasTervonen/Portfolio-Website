@@ -699,7 +699,7 @@ function gameOver() {
       btn.classList.add("button-disabled");
       btn.disabled = true;
     });
-    updateLeaderboard(score, level, linesCleared, timeElapsed);
+    updateLeaderboard(score, level, linesCleared);
   }
 }
 
@@ -849,7 +849,7 @@ function updateLeaderboard(score, level, linesCleared) {
       return b.level - a.level;
     } else if (b.score !== a.score) {
       return b.score - a.score; // Higher scores first
-    } else if (b.linesCleared !== a.linesCleared) {
+    } else {
       return b.linesCleared - a.linesCleared;
     }
   });
@@ -859,8 +859,6 @@ function updateLeaderboard(score, level, linesCleared) {
 
   // save the updated list to logal storage
   localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
-
-  displayLeaderboard();
 }
 
 // Stop the default page scroll when keys are pushed
@@ -902,6 +900,8 @@ volumeControl.addEventListener("input", (event) => {
     audio.volume = savedVolume;
   });
 });
+
+// Show the glow of the color that is coming next
 
 function updateGlowColor() {
   const nextColor = colors[nextRandom];
@@ -967,5 +967,3 @@ function updateGlowColor() {
 //   ctx.fillStyle = gradient;
 //   ctx.fillRect(0, y, canvas.width, fillHeight);
 // }
-
-// Show the glow of the color that is coming next
