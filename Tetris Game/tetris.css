@@ -46,7 +46,7 @@ body {
   height: 400px;
   display: flex;
   flex-wrap: wrap;
-  background: linear-gradient(50deg, #000000, #333333);
+  background: linear-gradient(50deg, #020617, #333333);
   position: relative;
   animation: glow 2s infinite;
   transition: box-shadow 0.5s ease;
@@ -62,7 +62,7 @@ body {
 #progresBar {
   height: 400px;
   width: 12px;
-  background: linear-gradient(50deg, #000000, #333333);
+  background: linear-gradient(50deg, #020617, #333333);
   animation: glow 2s infinite;
   transition: box-shadow 0.5s ease;
   outline: 4px solid rgb(30, 58, 138);
@@ -71,7 +71,7 @@ body {
 }
 
 .score1 {
-  background: linear-gradient(50deg, #000000, #333333);
+  background: linear-gradient(50deg, #020617, #333333);
 }
 
 .tetromino {
@@ -91,7 +91,7 @@ body {
   height: 80px;
   display: flex;
   flex-wrap: wrap;
-  background: linear-gradient(50deg, #000000, #333333);
+  background: linear-gradient(50deg, #020617, #333333);
   outline: 3px solid rgb(30, 58, 138);
 }
 
@@ -105,7 +105,7 @@ body {
 }
 
 .leaderboard {
-  background: linear-gradient(50deg, #000000, #333333);
+  background: linear-gradient(50deg, #020617, #333333);
 }
 
 .leaderboard li {
@@ -120,7 +120,7 @@ body {
 .leaderboard,
 .levelMenu,
 .movementMenu {
-  background: linear-gradient(50deg, #000000, #333333);
+  background: linear-gradient(50deg, #020617, #333333);
   font-family: "Russo One", serif;
   font-weight: 400;
   font-style: normal;
@@ -278,6 +278,10 @@ input[type="range"]:active::-webkit-slider-thumb {
 
 @media (max-width: 640px) {
   .gameBackground {
-    width: 300px;
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+    border: 0;
+    top: -200px;
   }
 }

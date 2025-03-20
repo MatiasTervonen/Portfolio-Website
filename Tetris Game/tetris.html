@@ -19,11 +19,11 @@
     ></script>
     <script defer src="/Tetris Game/tetris.js"></script>
   </head>
-  <body class="min-h-screen flex flex-col">
+  <body class="flex flex-col min-h-screen">
     <!-- Mobile top bar -->
 
     <div
-      class="mobileTopBar border-b-4 border-blue-900 relative z-30 l bg-blue-900 flex justify-center gap-5 font-bold text-md py-4 sm:hidden"
+      class="mobileTopBar border-b-4 border-blue-900 relative z-30 bg-blue-900 flex justify-center gap-5 font-bold text-md py-4 sm:hidden"
     >
       <div>
         <div class="mini-grid z-40 mt-5">
@@ -64,11 +64,11 @@
         </div>
       </div>
 
-      <div class="score scoreText w-28 font-bold text-sm text-cyan-50">
+      <div class="score scoreText w-28 font-bold text-[16px] text-cyan-50">
         <div
           class="score1 py-1 border-2 border-blue-900 mb-2 text-center rounded-lg"
         >
-          <h3>Score: <span id="score2">0</span></h3>
+          <p>Score: <span id="score2">0</span></p>
         </div>
 
         <div
@@ -76,16 +76,15 @@
         >
           <p>Level: <span id="level2">1</span></p>
         </div>
-
         <div
-          class="score1 py-1 px-3 border-2 border-blue-900 text-center rounded-lg"
+          class="score1 py-1 border-2 border-blue-900 mb-2 text-center rounded-lg"
         >
-          <p>Time: <span id="timer2">00:00</span></p>
+          <p class="linesText">Lines: <span id="lines2">0</span></p>
         </div>
       </div>
     </div>
 
-    <div class="hidden container mx-auto justify-center my-10 sm:flex">
+    <div class="hidden mx-auto justify-center my-10 sm:flex">
       <img
         src="/Tetris Game/images/The_Tetris_Company_logo.png"
         alt="Tetris_Logo"
@@ -96,89 +95,74 @@
 
     <!-- GameBoard -->
 
-    <div
-      class="container mt-8 relative mx-auto justify-center items-center flex sm:mt-0"
-    >
+    <div class="gameBackground mx-auto justify-center flex relative">
       <div
-        class="gameBackground mx-auto justify-center items-center flex px-2 bg-gray-800"
+        class="gameContainer relative flex flex-col justify-center items-center"
       >
-        <div
-          class="gameContainer relative flex flex-col justify-center items-center"
-        >
-          <div id="gameBoard" class="mobileGameBoard relative grid"></div>
+        <div id="gameBoard" class="grid"></div>
 
-          <div class="levelText hidden absolute flex-col text-gray-100 text-xl">
-            <p class="slide-from-left text-center">Level</p>
-            <p class="slide-from-right text-center">Completed</p>
-          </div>
-
-          <div
-            class="text-center hidden items-center gap-2 nextLevelButton absolute bottom-20 bg-slate-950 rounded-md p-2 text-gray-100 text-md shadow-md shadow-blue-950 font-semibold hover:text-red-200 hover:scale-95 transition-transform duration-150 ease-in-out"
-          >
-            <button class="slide-from-left">Next Level</button>
-            <i class="slide-from-right fa-solid fa-angles-right"></i>
-          </div>
-
-          <div class="gameEnd hidden absolute text-gray-100 text-xl">
-            <p class="slide-from-left text-center">Game Over</p>
-          </div>
-
-          <div class="menu2 hidden absolute bottom-20">
-            <a href="/Tetris Game/menu.html">
-              <button
-                class="bg-slate-950 rounded-md p-3 text-gray-100 text-md shadow-md shadow-red-300 font-semibold hover:text-red-200 hover:scale-95 transition-transform duration-150 ease-in-out sm:py-3"
-              >
-                MENU
-                <i class="slide-from-right fa-solid fa-angles-right"></i>
-              </button>
-            </a>
-          </div>
+        <div class="levelText hidden absolute flex-col text-gray-100 text-xl">
+          <p class="slide-from-left text-center">Level</p>
+          <p class="slide-from-right text-center">Completed</p>
         </div>
 
-        <canvas id="progresBar"></canvas>
+        <div class="gameEnd hidden absolute text-gray-100 text-xl">
+          <p class="slide-from-left text-center">Game Over</p>
+        </div>
 
-        <div class="hidden sm:flex sm:flex-col ml-5 mb-24 w-32">
-          <div class="mini-grid">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+        <div class="menu2 hidden absolute left-1/2 translate-x-[-50%] top-[60%]">
+          <a href="/Tetris Game/menu.html">
+            <button
+              class="bg-slate-950 rounded-md p-3 text-gray-100 text-md shadow-lg border-2 border-blue-900 shadow-blue-950 font-semibold hover:text-blue-600 hover:scale-95 transition-transform duration-150 ease-in-out sm:py-3"
+            >
+              MENU
+              <i class="slide-from-right fa-solid fa-angles-right"></i>
+            </button>
+          </a>
+        </div>
+      </div>
+
+      <div class="hidden sm:flex sm:flex-col ml-5 mt-5">
+        <div class="mini-grid">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+
+        <!-- Score, Level Time for PC -->
+
+        <div
+          class="score hidden sm:flex sm:flex-col font-bold text-md text-cyan-50 w-32 mt-16"
+        >
+          <div
+            class="score1 p-2 border-2 border-blue-900 mb-2 text-center rounded-lg"
+          >
+            <h3 class="linesText">Lines: <span id="lines2">0</span></h3>
           </div>
 
-          <!-- Score, Level Time for PC -->
+          <div
+            class="score1 p-2 border-2 border-blue-900 mb-2 text-center rounded-lg"
+          >
+            <h3 class="scoreText">Score: <span id="score2">0</span></h3>
+          </div>
 
           <div
-            class="score hidden sm:flex sm:flex-col font-bold text-md text-cyan-50 mt-20"
+            class="score1 p-2 border-2 border-blue-900 mb-2 text-center rounded-lg"
           >
-            <div
-              class="score1 p-2 border-2 border-blue-900 mb-2 text-center rounded-lg"
-            >
-              <h3 class="scoreText">Score: <span id="score2">0</span></h3>
-            </div>
-
-            <div
-              class="score1 p-2 border-2 border-blue-900 mb-2 text-center rounded-lg"
-            >
-              <p class="levelText">Level: <span id="level2">1</span></p>
-            </div>
-
-            <div
-              class="score1 p-2 px-3 border-2 border-blue-900 text-center rounded-lg"
-            >
-              <p class="timeText">Time: <span id="timer2">00:00</span></p>
-            </div>
+            <p class="levelText">Level: <span id="level2">1</span></p>
           </div>
         </div>
       </div>
@@ -191,14 +175,14 @@
     >
       <div>
         <button
-          class="bg-slate-950 rounded-md px-5 py-5 text-gray-100 text-xl shadow-md shadow-blue-950 border-2 border-blue-950 font-semibold hover:text-red-200 hover:scale-95 transition-transform duration-150 ease-in-out sm:py-3"
+          class="bg-slate-950 rounded-md px-5 py-5 text-gray-100 text-xl shadow-md shadow-blue-950 border-2 border-blue-950 font-semibold hover:text-blue-600 hover:scale-95 transition-transform duration-150 ease-in-out sm:py-3"
           id="start"
         >
           Start/Pause
         </button>
         <a href="/Tetris Game/menu.html">
           <button
-            class="menu bg-slate-950 rounded-md px-5 py-5 text-gray-100 text-xl shadow-md shadow-blue-950 border-2 border-blue-950 font-semibold hover:text-red-200 hover:scale-95 transition-transform duration-150 ease-in-out sm:py-3"
+            class="menu bg-slate-950 rounded-md px-5 py-5 text-gray-100 text-xl shadow-md shadow-blue-950 border-2 border-blue-950 font-semibold hover:text-blue-600 hover:scale-95 transition-transform duration-150 ease-in-out sm:py-3"
           >
             MENU
           </button>
@@ -218,8 +202,6 @@
         />
       </div>
     </div>
-
-    <!-- LeaderBoard list -->
 
     <!-- Game music -->
 
@@ -254,7 +236,7 @@
 
     <div
       id="contact"
-      class="footerTetris flex justify-center items-center flex-wrap gap-2 sm:gap-5 text-gray-100 p-3 mt-auto"
+      class="footerTetris justify-center items-center flex-wrap gap-2 sm:gap-5 text-gray-100 p-3 mt-auto hidden sm:flex"
     >
       <a
         class="hover:scale-95 hover:text-red-400"

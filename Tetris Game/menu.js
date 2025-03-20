@@ -8,7 +8,6 @@ function getLeaderboard() {
 function displayLeaderboard() {
   const leaderboard = getLeaderboard();
 
-
   const leaderboardList = document.getElementById("leaderboard-list");
 
   leaderboardList.innerHTML = "";
@@ -23,19 +22,25 @@ function displayLeaderboard() {
   } else {
     // add every score to list
     leaderboard.forEach((entry, index) => {
-      const { score, level, timeElapsed } = entry;
-      const minutes = Math.floor(timeElapsed / 60);
-      const seconds = timeElapsed % 60;
-      const formattedTime = `${String(minutes).padStart(2, "0")}:${String(
-        seconds
-      ).padStart(2, "0")}`;
+      const { score, level, linesCleared} = entry;
       const li = document.createElement("li");
       li.textContent = `${
         index + 1
-      }: Score: ${score}, Level: ${level}, Time: ${formattedTime}`;
+      }: Score: ${score}, Level: ${level}, Lines: ${linesCleared}`;
       leaderboardList.appendChild(li);
     });
   }
 }
 
 document.addEventListener("DOMContentLoaded", displayLeaderboard);
+
+function clearLeaderboard() {
+  localStorage.removeItem("leaderboard");
+  displayLeaderboard();
+}
+
+document.getElementById("clearLeaderboard").addEventListener("click", () => {
+  if (confirm("Are you sure you want to reset the leaderboard?")) {
+    clearLeaderboard();
+  }
+});

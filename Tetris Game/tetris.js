@@ -8,11 +8,13 @@ const gameContainer = document.getElementById("gameBoard");
 
 for (let i = 0; i < 210; i++) {
   const newDiv = document.createElement("div");
-  gameContainer.appendChild(newDiv);
+  newDiv.classList.add("w-full", "h-full", "aspect-square");
+
   if (i >= 200) {
     newDiv.classList.add("taken");
-    gameContainer.appendChild(newDiv);
   }
+
+  gameContainer.appendChild(newDiv);
 }
 
 // Array of all divs/squares inside gameboard
@@ -29,9 +31,9 @@ const levelDisplay = document.querySelectorAll("#level, #level2");
 
 const scoreDisplay = document.querySelectorAll("#score, #score2");
 
-const timerDisplay = document.querySelectorAll("#timer, #timer2 ");
-
 const startBtn = document.querySelectorAll("#start, #start2");
+
+const linesDisplay = document.querySelectorAll("#lines2");
 
 // Tetromino Colors
 
@@ -230,6 +232,8 @@ async function freeze() {
 //add score if you get a full row and score depending how many full rows you get.
 
 let score = 0;
+let linesCleared = 0;
+let linesToNextLevel = 10;
 
 async function addScore() {
   let rowsCleared = 0;
@@ -250,6 +254,7 @@ async function addScore() {
 
     if (row.every((index) => squares[index].classList.contains("taken"))) {
       rowsCleared++;
+      linesCleared++;
 
       hit.volume = 0;
       full.currentTime = 0;
@@ -275,20 +280,20 @@ async function addScore() {
   }
   if (rowsCleared == 4) {
     tetris.play();
-    score += 1000;
-    fillProgresBar(canvas, 1);
+    score += 1200;
   } else if (rowsCleared == 3) {
-    score += 500;
-    fillProgresBar(canvas, 0.5);
-  } else if (rowsCleared == 2) {
     score += 300;
-    fillProgresBar(canvas, 0.3);
-  } else if (rowsCleared == 1) {
+  } else if (rowsCleared == 2) {
     score += 100;
-    fillProgresBar(canvas, 0.1);
+  } else if (rowsCleared == 1) {
+    score += 40;
   }
   scoreDisplay.forEach((display) => (display.innerHTML = score));
-  addLevel();
+  linesDisplay.forEach((display) => (display.innerHTML = linesCleared));
+
+  if (linesCleared >= level * linesToNextLevel) {
+    await addLevel();
+  }
 }
 
 //Game Movement
@@ -694,7 +699,7 @@ function gameOver() {
       btn.classList.add("button-disabled");
       btn.disabled = true;
     });
-    updateLeaderboard(score, level, timeElapsed);
+    updateLeaderboard(score, level, linesCleared, timeElapsed);
   }
 }
 
@@ -748,7 +753,6 @@ function startGame() {
   updateGlowColor();
   timerId = setInterval(moveDown, 1000);
   // autoDrop();
-  timerInterval = setInterval(updateTimer, 1000);
   displayShape();
   backgroundMusic.play();
   isStartGame = true;
@@ -764,14 +768,6 @@ function pauseGame() {
     clearInterval(timerId);
     timerId = null;
   }
-  if (timerInterval) {
-    clearInterval(timerInterval);
-    timerInterval = null;
-  }
-  // if (autoDropTimeoutId) {
-  //   clearTimeout(autoDropTimeoutId);
-  //   autoDropTimeoutId = null;
-  // }
 
   backgroundMusic.pause();
   isPaused = true;
@@ -783,50 +779,39 @@ let newInterval = 1000;
 let currentPlaybackRate = 1.0;
 
 function updateSpeedAndMusic() {
-  newInterval = Math.max(newInterval * 0.95, 100); // Limit to a minimum of 100ms
+  newInterval = Math.max(newInterval * 0.85, 50); // Limit to a minimum of 100ms
 
   clearInterval(timerId);
 
   timerId = setInterval(moveDown, newInterval);
 
-  currentPlaybackRate = Math.min(currentPlaybackRate / 0.99, 2.5);
+  currentPlaybackRate = Math.min(currentPlaybackRate * 1.1, 3.5);
+
   backgroundMusic.playbackRate = currentPlaybackRate;
 }
 
 // Inceare Level points by 1 every 1000 Score
 
-const nextLevelButton = document.querySelector(".nextLevelButton");
 const levelText = document.querySelector(".levelText");
-let level1 = 1000;
+
 let level = 1;
 
 async function addLevel() {
-  if (score >= level1) {
-    level++;
-    level1 += 1000;
-    score = 0;
-    levelDisplay.forEach((display) => (display.innerHTML = level));
-    scoreDisplay.forEach((display) => (display.innerHTML = score));
-    full.pause();
-    hit.pause();
-    isAnimating = true;
-    levelCompletedAnimation();
-    pauseGame();
-    await sleep(3000);
-    resetGame();
-    nextLevel();
-  }
+  level++;
+  levelDisplay.forEach((display) => (display.innerHTML = level));
+
+  full.pause();
+  hit.pause();
+  backgroundMusic.pause();
+  isAnimating = true;
+  levelCompletedAnimation();
+  await sleep(2000);
+  nextLevel();
 }
 
 // Animation for level completed
 
 function levelCompletedAnimation() {
-  squares.forEach((square) => {
-    if (square.classList.contains("taken")) {
-      square.classList.add("levelCompleted");
-    }
-  });
-
   levelText.classList.remove("hidden");
   levelText.classList.add("flex");
 
@@ -836,51 +821,15 @@ function levelCompletedAnimation() {
 // Go to next level when next level button is pushed and game starts automatically.
 
 function nextLevel() {
-  nextLevelButton.classList.remove("hidden");
-  nextLevelButton.classList.add("flex");
+  isAnimating = false;
 
-  nextLevelButton.addEventListener("click", function () {
-    isAnimating = false;
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    currentFillPercentage = 0;
-    targetFillPercentage = 0;
-
-    nextLevelButton.classList.add("hidden");
-    nextLevelButton.classList.remove("flex");
-    levelText.classList.add("hidden");
-    levelText.classList.remove("flex");
-    startGame();
-    updateSpeedAndMusic();
-  });
-}
-
-// Timer for the Game Time
-
-let timeElapsed = 0;
-
-function updateTimer() {
-  timeElapsed += 1;
-  const minutes = Math.floor(timeElapsed / 60);
-  const seconds = timeElapsed % 60;
-  const formattedTime = `${String(minutes).padStart(2, "0")}:${String(
-    seconds
-  ).padStart(2, "0")}`;
-  timerDisplay.forEach((display) => (display.innerHTML = formattedTime));
+  levelText.classList.add("hidden");
+  levelText.classList.remove("flex");
+  startGame();
+  updateSpeedAndMusic();
 }
 
 // Get Leaderboard list from logalStorage
-
-function testAddLeaderboardEntry() {
-  const leaderboardList = document.getElementById("leaderboard-list");
-  if (leaderboardList) {
-    const testEntry = document.createElement("li");
-    testEntry.textContent = "Test Entry - Score: 100, Level: 1, Time: 00:01:30";
-    leaderboardList.appendChild(testEntry);
-  } else {
-    console.log("Leaderboard list element not found.");
-  }
-}
 
 function getLeaderboard() {
   const leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
@@ -888,11 +837,11 @@ function getLeaderboard() {
 }
 
 // Update Leaderboard with new scores
-function updateLeaderboard(score, level, timeElapsed) {
+function updateLeaderboard(score, level, linesCleared) {
   let leaderboard = getLeaderboard();
 
   // Update current game scores to list
-  leaderboard.push({ score, level, timeElapsed });
+  leaderboard.push({ score, level, linesCleared });
 
   // sort levels by highest level to down
   leaderboard.sort((a, b) => {
@@ -900,8 +849,8 @@ function updateLeaderboard(score, level, timeElapsed) {
       return b.level - a.level;
     } else if (b.score !== a.score) {
       return b.score - a.score; // Higher scores first
-    } else {
-      return a.timeElapsed - b.timeElapsed; // Lower times first if scores are the same
+    } else if (b.linesCleared !== a.linesCleared) {
+      return b.linesCleared - a.linesCleared;
     }
   });
 
@@ -954,63 +903,69 @@ volumeControl.addEventListener("input", (event) => {
   });
 });
 
-// Progresbar that fills when gets score
-
-const canvas = document.getElementById("progresBar");
-const ctx = canvas.getContext("2d");
-
-let currentFillPercentage = 0;
-let targetFillPercentage = 0;
-let animationSpeed = 0.005;
-
-function fillProgresBar(canvas, additionalPercentage) {
-  canvas.getContext("2d");
-
-  // Scale down progress increase based on current level
-  const adjustedPercentage = additionalPercentage / level;
-
-  targetFillPercentage += adjustedPercentage;
-
-  if (targetFillPercentage > 1) {
-    targetFillPercentage = 1;
-  }
-
-  animateProgressBar();
-}
-
-//  animation that slowly fills the progresbar
-function animateProgressBar() {
-  if (currentFillPercentage < targetFillPercentage) {
-    currentFillPercentage += animationSpeed;
-
-    if (currentFillPercentage > targetFillPercentage) {
-      currentFillPercentage = targetFillPercentage;
-    }
-
-    drawProgressBar();
-    requestAnimationFrame(animateProgressBar);
-  }
-}
-
-// Draw progresBar
-function drawProgressBar() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height); // Tyhjennä vanha
-
-  const fillHeight = canvas.height * currentFillPercentage;
-  const y = canvas.height - fillHeight;
-
-  const gradient = ctx.createLinearGradient(0, y, 0, canvas.height);
-
-  gradient.addColorStop(0, "#1E90FF"); // Start color
-  gradient.addColorStop(1, "#00BFFF");
-
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, y, canvas.width, fillHeight);
-}
-
-// Show the glow of the color that is coming next
-
 function updateGlowColor() {
   const nextColor = colors[nextRandom];
   grid.style.boxShadow = `0 0 5px 4px ${nextColor}, 0 0 5px 4px ${nextColor}`;
 }
+
+// // Progresbar that fills when get lines
+
+// const canvas = document.getElementById("progresBar");
+// const ctx = canvas.getContext("2d");
+
+// let currentFillPercentage = 0;
+// let targetFillPercentage = 0;
+// let animationSpeed = 0.005;
+
+// function fillProgresBar() {
+//   // Calculate how many lines have been cleared in the current level cycle
+//   const totalLinesNeeded = level * linesToNextLevel;
+
+//   // If we've just completed a level exactly
+//   if (linesCleared === totalLinesNeeded) {
+//     targetFillPercentage = 1.0; // Set to full
+//   } else if (linesCleared > totalLinesNeeded) {
+//     // We've cleared more lines than needed for the current level
+//     // Calculate how many lines into the next level we are
+//     const extraLines = linesCleared - totalLinesNeeded;
+//     targetFillPercentage = extraLines / linesToNextLevel;
+//   } else {
+//     // Normal case - we're still working on the current level
+//     const linesInCurrentLevel = linesCleared % linesToNextLevel;
+//     targetFillPercentage = linesInCurrentLevel / linesToNextLevel;
+//   }
+
+//   animateProgressBar();
+// }
+
+// //  animation that slowly fills the progresbar
+// function animateProgressBar() {
+//   if (currentFillPercentage < targetFillPercentage) {
+//     currentFillPercentage += animationSpeed;
+
+//     if (currentFillPercentage > targetFillPercentage) {
+//       currentFillPercentage = targetFillPercentage;
+//     }
+
+//     drawProgressBar();
+//     requestAnimationFrame(animateProgressBar);
+//   }
+// }
+
+// // Draw progresBar
+// function drawProgressBar() {
+//   ctx.clearRect(0, 0, canvas.width, canvas.height); // Tyhjennä vanha
+
+//   const fillHeight = canvas.height * currentFillPercentage;
+//   const y = canvas.height - fillHeight;
+
+//   const gradient = ctx.createLinearGradient(0, y, 0, canvas.height);
+
+//   gradient.addColorStop(0, "#1E90FF"); // Start color
+//   gradient.addColorStop(1, "#00BFFF");
+
+//   ctx.fillStyle = gradient;
+//   ctx.fillRect(0, y, canvas.width, fillHeight);
+// }
+
+// Show the glow of the color that is coming next
