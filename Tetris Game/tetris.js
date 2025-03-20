@@ -472,7 +472,7 @@ document.addEventListener("keyup", (e) => {
   }
 });
 
-// function to check UI elements tha should not have preventDefault
+// function to check UI elements that should not have preventDefault
 
 function isInteractiveElement(target) {
   return target.closest("button");
@@ -566,16 +566,18 @@ document.addEventListener("touchend", (e) => {
   const diffX = Math.abs(touchEndX - touchStartX);
   const diffY = Math.abs(touchEndY - touchStartY);
 
-  // If touch is small and short it is counted as rotate
-  if (touchDuration < 200 && diffX < 10 && diffY < 10) {
-    rotate();
-  }
+  // Move down fast if swipe is fast down
 
-  // If touch long, move fast down
-  clearTimeout(longPressTimer);
-  if (isLongPress) {
+  if (diffY > 50 && Math.abs(diffX) < 30 && touchDuration < 300) {
     moveDownFast();
-    isLongPress = false;
+  }
+  // If touch is small and short it is counted as rotate
+  else if (
+    touchDuration < 200 &&
+    Math.abs(diffX) < 10 &&
+    Math.abs(diffY) < 10
+  ) {
+    rotate();
   }
 });
 
