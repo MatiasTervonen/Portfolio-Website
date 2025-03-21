@@ -59,6 +59,7 @@ let savedVolume = localStorage.getItem("volume") || volumeControl.value;
 let isPaused;
 let isGameOver;
 let isStartGame;
+let isAnimating = false;
 
 // async function. When you add "await spleep(ms)" in function it stops at the given time and continues after that. This is used with animations.
 
@@ -125,10 +126,69 @@ let random = Math.floor(Math.random() * theTetrominoes.length); // pick one rand
 
 let current = theTetrominoes[random][currentRotation]; // Pick one random tetromino and its first rotation
 
+// movement loop. requesAnimationFrame
+
+let lastTime = 0; // Pervious time when update happenend
+let dropInterval = 1000; // Drop happens every 1000 ms
+let dropCounter = 0; // Keeps track of how much time has passed since the last drop.
+let animationId; // This stores the id that requestAnimationFrame returns
+let moveLeftCounter;
+let moveRightCounter;
+let moveDownCounter;
+const initialDealy = 120;
+const moveRepeatInterval = 30;
+
+function update(time = 0) {
+  const deltaTime = time - lastTime; // how much time passed since last update
+  lastTime = time; // update last time to the current time for next round
+  dropCounter += deltaTime; // adding up all times till it reaches 1000 ms
+
+  if (keys.left) {
+    moveLeftCounter += deltaTime;
+    if (moveLeftCounter > initialDealy) {
+      moveLeft();
+      moveLeftCounter = initialDealy - moveRepeatInterval;
+    }
+  } else {
+    moveLeftCounter = 0;
+  }
+
+  if (keys.right) {
+    moveRightCounter += deltaTime;
+    if (moveRightCounter > initialDealy) {
+      moveRight();
+      moveRightCounter = initialDealy - moveRepeatInterval;
+    }
+  } else {
+    moveRightCounter = 0;
+  }
+
+  if (keys.down) {
+    moveDownCounter += deltaTime;
+    if (moveDownCounter > initialDealy) {
+      moveDown();
+      moveDownCounter = initialDealy - moveRepeatInterval;
+    }
+  } else {
+    moveDownCounter = 0;
+  }
+
+  if (dropCounter > dropInterval) {
+    // when enough time passes 1000ms it will move down
+    moveDown();
+    dropCounter = 0; // reset the counter and start counting again
+  }
+
+  draw();
+  animationId = requestAnimationFrame(update);
+}
+
 // draw random tetromino and its firts rotation
 
 function draw() {
   if (isAnimating) return; // If animation is happening return
+
+  ghostDraw(); // Draw ghost tetromino
 
   //  Add tetromino class to all squares/divs where the tetromino should be drawn, with random background color
 
@@ -136,7 +196,6 @@ function draw() {
     squares[currentPosition + index].classList.add("tetromino");
     squares[currentPosition + index].style.backgroundColor = colors[random];
   });
-  ghostDraw(); // Draw ghost tetromino
 }
 
 //undraw the Tetromino
@@ -189,9 +248,12 @@ function undrawGhost() {
   });
 }
 
-//freeze function. Freezes the tetromino in its place.
+function undrawAll() {
+  undraw();
+  undrawGhost();
+}
 
-let isAnimating = false;
+//freeze function. Freezes the tetromino in its place.
 
 async function freeze() {
   if (isAnimating) return;
@@ -199,7 +261,7 @@ async function freeze() {
 
   current.forEach((index) => {
     let currentSquare = squares[currentPosition + index];
-    squares[currentPosition + index].classList.add("taken");
+    currentSquare.classList.add("taken");
     currentSquare.classList.add("hit");
   });
 
@@ -295,30 +357,11 @@ async function addScore() {
 
 //Game Movement
 
-// assing functions to keyCodes
-
-function control(e) {
-  if (isPaused) return;
-  if (isAnimating) return;
-  if (e.keyCode === 37) {
-    moveLeft();
-  } else if (e.keyCode === 38) {
-    rotate();
-  } else if (e.keyCode === 39) {
-    moveRight();
-  } else if (e.keyCode === 40) {
-    moveDown();
-  } else if (e.keyCode === 16) {
-    moveDownFast();
-  }
-}
-
-document.addEventListener("keyup", control);
-
 //mmove down function
 
 function moveDown() {
-  if (!timerId || isAnimating) return;
+  if (isAnimating) return;
+  console.log("moveDown:", currentPosition);
 
   if (
     current.some((index) =>
@@ -329,7 +372,7 @@ function moveDown() {
     return;
   }
 
-  undraw();
+  undrawAll();
   currentPosition += width;
   draw();
 }
@@ -337,9 +380,10 @@ function moveDown() {
 // move the tetromino left, unless it is at the edge or there is blockage
 
 function moveLeft() {
-  if (!timerId) return;
   if (isAnimating) return;
-  undraw();
+
+  console.log("moveLeft:", currentPosition);
+  undrawAll();
   const isAtLeftEdge = current.some(
     (index) => (currentPosition + index) % width === 0
   );
@@ -360,9 +404,9 @@ function moveLeft() {
 // Move the tetromino right, unless is at the edge or there is blockage
 
 function moveRight() {
-  if (!timerId) return;
   if (isAnimating) return;
-  undraw();
+  console.log("moveRight:", currentPosition);
+  undrawAll();
 
   const isAtRightEdge = current.some(
     (index) => (currentPosition + index) % width === 9
@@ -384,8 +428,9 @@ function moveRight() {
 // rotate the tetromino
 
 function rotate() {
-  if (!timerId || isAnimating) return;
-  undraw();
+  if (isAnimating) return;
+
+  undrawAll();
 
   let nextRotation = (currentRotation + 1) % current.length; // Determine the next rotation index
   let nextTetromino = theTetrominoes[random][nextRotation]; // Get the next rotation shape
@@ -427,45 +472,45 @@ function rotate() {
 
 // Functions for tetrominoes move continiously when key is pushed down
 
-let downIntervalId;
-let rightIntervalId;
-let leftIntervalId;
-
-//  Down key
+const keys = {
+  left: false,
+  right: false,
+  down: false,
+  rotate: false,
+  moveDownFast: false,
+};
 
 document.addEventListener("keydown", (e) => {
-  if (isPaused) return; //  Prevent continuous key presses during pause
-  if (e.keyCode === 40) {
-    if (!downIntervalId) {
-      downIntervalId = setInterval(() => {
-        moveDown();
-      }, 100);
-    }
-  } else if (e.keyCode === 39) {
-    if (!rightIntervalId) {
-      rightIntervalId = setInterval(() => {
-        moveRight();
-      }, 70);
-    }
-  } else if (e.keyCode === 37) {
-    if (!leftIntervalId) {
-      leftIntervalId = setInterval(() => {
-        moveLeft();
-      }, 70);
-    }
+  if (isPaused || isAnimating) return;
+  if (e.keyCode === 40 && !keys.down) {
+    keys.down = true;
+    moveDown();
+  } else if (e.keyCode === 39 && !keys.right) {
+    moveRight();
+    keys.right = true;
+  } else if (e.keyCode === 37 && !keys.left) {
+    moveLeft();
+    keys.left = true;
+  } else if (e.keyCode === 16) {
+    moveDownFast();
+    keys.moveDownFast = true;
+  } else if (e.keyCode === 38 && !keys.rotate) {
+    keys.rotate = true;
+    rotate();
   }
 });
 
 document.addEventListener("keyup", (e) => {
   if (e.keyCode === 40) {
-    clearInterval(downIntervalId);
-    downIntervalId = null;
+    keys.down = false;
   } else if (e.keyCode === 39) {
-    clearInterval(rightIntervalId);
-    rightIntervalId = null;
+    keys.right = false;
   } else if (e.keyCode === 37) {
-    clearInterval(leftIntervalId);
-    leftIntervalId = null;
+    keys.left = false;
+  } else if (e.keyCode === 16) {
+    keys.moveDownFast = false;
+  } else if (e.keyCode === 38) {
+    keys.rotate = false;
   }
 });
 
@@ -483,8 +528,6 @@ let startY = 0;
 let touchStartTime = 0;
 let touchStartX = 0;
 let touchStartY = 0;
-
-let lastMoveTime = 0;
 
 // Save coordinates when touch starts
 document.addEventListener(
@@ -572,8 +615,9 @@ document.addEventListener("touchend", (e) => {
 // Move Fast Down functio and leave animation behind when falling.
 
 async function moveDownFast() {
-  if (isPaused || isGameOver || !isStartGame) return;
-  undraw();
+  if (isPaused || isGameOver || !isStartGame || isAnimating) return;
+
+  undrawAll();
 
   let newPosition = currentPosition;
   while (
@@ -601,8 +645,6 @@ async function moveDownFast() {
     squares[currentPosition + index].classList.add("tetromino");
     squares[currentPosition + index].style.backgroundColor = colors[random];
   });
-
-  await sleep(100);
 
   await freeze();
 
@@ -656,7 +698,7 @@ function displayShape() {
 startBtn.forEach((startBtn) => {
   startBtn.addEventListener("click", () => {
     if (isAnimating) return;
-    if (timerId) {
+    if (animationId) {
       pauseGame();
     } else {
       startGame();
@@ -675,6 +717,10 @@ function gameOver() {
       squares[currentPosition + index].classList.contains("taken")
     )
   ) {
+    if (animationId) {
+      cancelAnimationFrame(animationId);
+      animationId = null;
+    }
     isPaused = true;
     isGameOver = true;
 
@@ -725,42 +771,31 @@ function resetGame() {
 
 // Start Game. Function that start the tetromino drop
 
-let timerId;
-let timerInterval;
-
 function startGame() {
-  if (timerId) {
-    clearInterval(timerId);
-    timerId = null;
+  if (animationId) {
+    cancelAnimationFrame(animationId);
+    animationId = null;
   }
-  if (timerInterval) {
-    clearInterval(timerInterval);
-  }
-  // if (autoDropTimeoutId) {
-  //   clearTimeout(autoDropTimeoutId);
-  //   autoDropTimeoutId = null;
-  // }
   draw();
   if (!nextRandom) {
     nextRandom = Math.floor(Math.random() * theTetrominoes.length);
   }
   updateGlowColor();
-  timerId = setInterval(moveDown, 1000);
+  requestAnimationFrame(update);
   // autoDrop();
   displayShape();
   backgroundMusic.play();
   isStartGame = true;
   isPaused = false;
   isGameOver = false;
-  isLongPress = false;
 }
 
 //  Pause Game
 
 function pauseGame() {
-  if (timerId) {
-    clearInterval(timerId);
-    timerId = null;
+  if (animationId) {
+    cancelAnimationFrame(animationId);
+    animationId = null;
   }
 
   backgroundMusic.pause();
@@ -769,15 +804,10 @@ function pauseGame() {
 
 // Make the speed of tetromino and music faster when level changes
 
-let newInterval = 1000;
 let currentPlaybackRate = 1.0;
 
 function updateSpeedAndMusic() {
-  newInterval = Math.max(newInterval * 0.85, 50); // Limit to a minimum of 100ms
-
-  clearInterval(timerId);
-
-  timerId = setInterval(moveDown, newInterval);
+  dropInterval = Math.max(dropInterval * 0.85, 50); // Limit to a minimum of 50ms
 
   currentPlaybackRate = Math.min(currentPlaybackRate * 1.1, 3.5);
 
