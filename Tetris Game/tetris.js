@@ -1,5 +1,7 @@
 // Gameboard
 
+applySettings();
+
 const grid = document.querySelector(".grid");
 
 // Intitialize gameboard
@@ -33,6 +35,16 @@ const scoreDisplay = document.querySelectorAll("#score, #score2");
 const startBtn = document.querySelectorAll("#start, #start2");
 
 const linesDisplay = document.querySelectorAll("#lines2");
+
+//  Game performance
+
+const fpsCounter = document.getElementById("fpsCounter");
+
+const frameTimeCounter = document.getElementById("frameTime");
+
+const memoryCounter = document.getElementById("memory");
+
+const logicCounter = document.getElementById("logic");
 
 // Tetromino Colors
 
@@ -126,7 +138,7 @@ let random = Math.floor(Math.random() * theTetrominoes.length); // pick one rand
 
 let current = theTetrominoes[random][currentRotation]; // Pick one random tetromino and its first rotation
 
-// movement loop. requesAnimationFrame
+// Game loop. requesAnimationFrame variables
 
 let lastTime = 0; // Pervious time when update happenend
 let dropInterval = 1000; // Drop happens every 1000 ms
@@ -138,11 +150,33 @@ let moveDownCounter;
 const initialDealy = 120;
 const moveRepeatInterval = 30;
 
+let timeStart = performance.now();
+let frameCount = 0;
+let fps = 0;
+let frameTimes = [];
+
+// Game loop. requesAnimationFrame
+
 function update(time = 0) {
   const deltaTime = time - lastTime; // how much time passed since last update
   lastTime = time; // update last time to the current time for next round
   dropCounter += deltaTime; // adding up all times till it reaches 1000 ms
 
+  performanceMeasurements(time, deltaTime);
+  handleInput(deltaTime);
+
+  if (dropCounter > dropInterval) {
+    // when enough time passes 1000ms it will move down
+    moveDown();
+    dropCounter = 0; // reset the counter and start counting again
+  }
+
+  draw();
+
+  animationId = requestAnimationFrame(update);
+}
+
+function handleInput(deltaTime) {
   if (keys.left) {
     moveLeftCounter += deltaTime;
     if (moveLeftCounter > initialDealy) {
@@ -172,15 +206,40 @@ function update(time = 0) {
   } else {
     moveDownCounter = 0;
   }
+}
 
-  if (dropCounter > dropInterval) {
-    // when enough time passes 1000ms it will move down
-    moveDown();
-    dropCounter = 0; // reset the counter and start counting again
+// Performance measurements
+
+function performanceMeasurements(time, deltaTime) {
+  const logicStart = performance.now();
+
+  frameTimes.push(deltaTime);
+  if (frameTimes.length > 60) {
+    frameTimes.shift();
   }
 
-  draw();
-  animationId = requestAnimationFrame(update);
+  const averageFrameTime = (
+    frameTimes.reduce((a, b) => a + b, 0) / frameTimes.length
+  ).toFixed(1);
+
+  frameCount++;
+  if (time - timeStart >= 1000) {
+    fps = frameCount;
+    frameCount = 0;
+    timeStart = time;
+
+    if (performance.memory) {
+      const usedMB = (performance.memory.usedJSHeapSize / 1048576).toFixed(2);
+      memory.innerHTML = usedMB;
+    }
+  }
+
+  fpsCounter.innerHTML = fps;
+  frameTimeCounter.innerHTML = averageFrameTime;
+  const logicEnd = performance.now();
+
+  const logicTime = (logicEnd - logicStart).toFixed(2);
+  logicCounter.innerHTML = logicTime;
 }
 
 // draw random tetromino and its firts rotation
@@ -361,7 +420,6 @@ async function addScore() {
 
 function moveDown() {
   if (isAnimating) return;
-  console.log("moveDown:", currentPosition);
 
   if (
     current.some((index) =>
@@ -382,7 +440,6 @@ function moveDown() {
 function moveLeft() {
   if (isAnimating) return;
 
-  console.log("moveLeft:", currentPosition);
   undrawAll();
   const isAtLeftEdge = current.some(
     (index) => (currentPosition + index) % width === 0
@@ -405,7 +462,7 @@ function moveLeft() {
 
 function moveRight() {
   if (isAnimating) return;
-  console.log("moveRight:", currentPosition);
+
   undrawAll();
 
   const isAtRightEdge = current.some(
@@ -470,6 +527,49 @@ function rotate() {
   draw(); //
 }
 
+// Move Fast Down functio and leave animation behind when falling.
+
+async function moveDownFast() {
+  if (isPaused || isGameOver || !isStartGame || isAnimating) return;
+
+  undrawAll();
+
+  let newPosition = currentPosition;
+  while (
+    !current.some((index) =>
+      squares[newPosition + index + width].classList.contains("taken")
+    )
+  ) {
+    newPosition += width;
+  }
+
+  let position = currentPosition;
+  while (position < newPosition) {
+    current.forEach((index) => {
+      const trailSquare = squares[position + index];
+      const trailDiv = document.createElement("div");
+      trailDiv.style.backgroundColor = colors[random];
+      trailDiv.className = "tetromino-trail";
+      trailSquare.appendChild(trailDiv);
+    });
+    position += width;
+  }
+
+  currentPosition = newPosition;
+  current.forEach((index) => {
+    squares[currentPosition + index].classList.add("tetromino");
+    squares[currentPosition + index].style.backgroundColor = colors[random];
+  });
+
+  await freeze();
+
+  squares.forEach((square) => {
+    while (square.firstChild) {
+      square.removeChild(square.firstChild);
+    }
+  });
+}
+
 // Functions for tetrominoes move continiously when key is pushed down
 
 const keys = {
@@ -513,12 +613,6 @@ document.addEventListener("keyup", (e) => {
     keys.rotate = false;
   }
 });
-
-// function to check UI elements that should not have preventDefault
-
-function isInteractiveElement(target) {
-  return target.closest("button");
-}
 
 // Movement for mobile by touching
 
@@ -612,49 +706,6 @@ document.addEventListener("touchend", (e) => {
   }
 });
 
-// Move Fast Down functio and leave animation behind when falling.
-
-async function moveDownFast() {
-  if (isPaused || isGameOver || !isStartGame || isAnimating) return;
-
-  undrawAll();
-
-  let newPosition = currentPosition;
-  while (
-    !current.some((index) =>
-      squares[newPosition + index + width].classList.contains("taken")
-    )
-  ) {
-    newPosition += width;
-  }
-
-  let position = currentPosition;
-  while (position < newPosition) {
-    current.forEach((index) => {
-      const trailSquare = squares[position + index];
-      const trailDiv = document.createElement("div");
-      trailDiv.style.backgroundColor = colors[random];
-      trailDiv.className = "tetromino-trail";
-      trailSquare.appendChild(trailDiv);
-    });
-    position += width;
-  }
-
-  currentPosition = newPosition;
-  current.forEach((index) => {
-    squares[currentPosition + index].classList.add("tetromino");
-    squares[currentPosition + index].style.backgroundColor = colors[random];
-  });
-
-  await freeze();
-
-  squares.forEach((square) => {
-    while (square.firstChild) {
-      square.removeChild(square.firstChild);
-    }
-  });
-}
-
 //show up next tetromino in mini grid
 
 const displayWidth = 4;
@@ -725,7 +776,6 @@ function gameOver() {
     isGameOver = true;
 
     pauseGame();
-    resetGame();
 
     gameVoice.play();
     gameEnd.classList.remove("hidden");
@@ -745,29 +795,29 @@ function gameOver() {
 
 // Reset gameboard. Remove all tetromoinos from gameboard, mini display and assigned animations from them.
 
-function resetGame() {
-  squares.forEach((square, i) => {
-    square.classList.remove(
-      "tetromino",
-      "levelCompleted",
-      "hit",
-      "ghost-tetromino"
-    );
-    square.style.backgroundColor = "";
-    if (!square.classList.contains("taken2")) {
-      square.classList.remove("taken");
-    }
+// function resetGame() {
+//   squares.forEach((square, i) => {
+//     square.classList.remove(
+//       "tetromino",
+//       "levelCompleted",
+//       "hit",
+//       "ghost-tetromino"
+//     );
+//     square.style.backgroundColor = "";
+//     if (!square.classList.contains("taken2")) {
+//       square.classList.remove("taken");
+//     }
 
-    if (i >= 200) {
-      square.classList.add("taken");
-    }
-  });
+//     if (i >= 200) {
+//       square.classList.add("taken");
+//     }
+//   });
 
-  displaySquares.forEach((square) => {
-    square.classList.remove("tetromino");
-    square.style.backgroundColor = "";
-  });
-}
+//   displaySquares.forEach((square) => {
+//     square.classList.remove("tetromino");
+//     square.style.backgroundColor = "";
+//   });
+// }
 
 // Start Game. Function that start the tetromino drop
 
@@ -782,7 +832,6 @@ function startGame() {
   }
   updateGlowColor();
   requestAnimationFrame(update);
-  // autoDrop();
   displayShape();
   backgroundMusic.play();
   isStartGame = true;
@@ -823,34 +872,24 @@ let level = 1;
 async function addLevel() {
   level++;
   levelDisplay.forEach((display) => (display.innerHTML = level));
-
+  updateSpeedAndMusic();
   full.pause();
   hit.pause();
   backgroundMusic.pause();
   isAnimating = true;
-  levelCompletedAnimation();
-  await sleep(2000);
-  nextLevel();
+  await levelCompletedAnimation();
+  isAnimating = false;
+  backgroundMusic.play();
 }
 
 // Animation for level completed
 
-function levelCompletedAnimation() {
+async function levelCompletedAnimation() {
   levelText.classList.remove("hidden");
   levelText.classList.add("flex");
-
   levelChange.play();
-}
-
-// Go to next level when next level button is pushed and game starts automatically.
-
-function nextLevel() {
-  isAnimating = false;
-
+  await sleep(2000);
   levelText.classList.add("hidden");
-  levelText.classList.remove("flex");
-  startGame();
-  updateSpeedAndMusic();
 }
 
 // Get Leaderboard list from logalStorage
@@ -898,6 +937,12 @@ document.addEventListener("keydown", function (event) {
   }
 });
 
+// function to check UI elements that should not have preventDefault
+
+function isInteractiveElement(target) {
+  return target.closest("button");
+}
+
 //Audio for game in array. This is for volume control in PC.
 
 const audio = [
@@ -930,6 +975,25 @@ volumeControl.addEventListener("input", (event) => {
 function updateGlowColor() {
   const nextColor = colors[nextRandom];
   grid.style.boxShadow = `0 0 5px 4px ${nextColor}, 0 0 5px 4px ${nextColor}`;
+}
+
+function showStats() {
+  const performance = document.getElementById("performance");
+  performance.classList.remove("hidden");
+}
+
+function hideStats() {
+  const performance = document.getElementById("performance");
+  performance.classList.add("hidden");
+}
+
+function applySettings() {
+  const savedToggle = localStorage.getItem("showPerformanceStats");
+  if (savedToggle === "true") {
+    showStats();
+  } else {
+    hideStats();
+  }
 }
 
 // // Progresbar that fills when get lines

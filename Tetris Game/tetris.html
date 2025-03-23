@@ -17,7 +17,7 @@
       src="https://kit.fontawesome.com/2273515c74.js"
       crossorigin="anonymous"
     ></script>
-    <script defer src="/Tetris Game/tetris.js"></script>
+    <script defer type="module" src="/Tetris Game/tetris.js"></script>
   </head>
   <body class="flex flex-col min-h-screen">
     <!-- Mobile top bar -->
@@ -95,7 +95,7 @@
 
     <!-- GameBoard -->
 
-    <div class="gameBackground mx-auto justify-center flex relative">
+    <div class="gameBackground mx-auto justify-center inline-flex relative p-8">
       <div
         class="gameContainer relative flex flex-col justify-center items-center"
       >
@@ -110,7 +110,9 @@
           <p class="slide-from-left text-center">Game Over</p>
         </div>
 
-        <div class="menu2 hidden absolute left-1/2 translate-x-[-50%] top-[60%]">
+        <div
+          class="menu2 hidden absolute left-1/2 translate-x-[-50%] top-[60%]"
+        >
           <a href="/Tetris Game/menu.html">
             <button
               class="bg-slate-950 rounded-md p-3 text-gray-100 text-md shadow-lg border-2 border-blue-900 shadow-blue-950 font-semibold hover:text-blue-600 hover:scale-95 transition-transform duration-150 ease-in-out sm:py-3"
@@ -122,7 +124,7 @@
         </div>
       </div>
 
-      <div class="hidden sm:flex sm:flex-col ml-5 mt-5">
+      <div class="hidden sm:flex sm:flex-col ml-5">
         <div class="mini-grid">
           <div></div>
           <div></div>
@@ -164,6 +166,14 @@
           >
             <p class="levelText">Level: <span id="level2">1</span></p>
           </div>
+        </div>
+        <div
+          id="performance" class="score1 text-xs w-[155px] border-blue-900 rounded-lg text-yellow-300 padding-2 p-2 border-2"
+        >
+          <p>FPS: <span id="fpsCounter">0</span></p>
+          <p>Frame Time: <span id="frameTime">0</span> ms</p>
+          <p>Memory: <span id="memory">0</span> MB</p>
+          <p>Logic: <span id="logic">0</span></p>
         </div>
       </div>
     </div>

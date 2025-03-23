@@ -12,8 +12,6 @@ body {
 }
 
 .gameBackground {
-  width: 450px;
-  height: 450px;
   border-radius: 10px;
   border: #09205f 5px solid;
   background-image: url("./images/Tetris_tile_background.webp");
@@ -70,6 +68,7 @@ body {
   margin-left: 15px;
 }
 
+.checkStats,
 .score1 {
   background: linear-gradient(50deg, #020617, #333333);
 }
@@ -144,6 +143,8 @@ input[type="range"]:active::-webkit-slider-thumb {
   opacity: 0.5;
 }
 
+.performanceMenuText,
+#performance,
 .menu2,
 .menu,
 .gameEnd,
