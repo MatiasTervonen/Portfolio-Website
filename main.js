@@ -187,7 +187,6 @@ attachPointerListeners();
 
 makeCarouselDragSafe(".cardContainer");
 
-console.log(makeCarouselDragSafe);
 
 // LightMode button
 

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" href="/css/main.css" />
-    <link rel="stylesheet" href="/Tetris Game/tetris.css" />
+    <link rel="stylesheet" href="/tetris/tetris.css" />
     <title>Tetris</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -17,7 +17,7 @@
       src="https://kit.fontawesome.com/2273515c74.js"
       crossorigin="anonymous"
     ></script>
-    <script defer type="module" src="/Tetris Game/tetris.js"></script>
+    <script defer type="module" src="/tetris/tetris.js"></script>
   </head>
   <body class="flex flex-col min-h-screen">
     <!-- Mobile top bar -->
@@ -86,7 +86,7 @@
 
     <div class="hidden mx-auto justify-center my-10 sm:flex">
       <img
-        src="/Tetris Game/images/The_Tetris_Company_logo.png"
+        src="/tetris/images/The_Tetris_Company_logo.png"
         alt="Tetris_Logo"
         width="391"
         height="128"
@@ -95,7 +95,9 @@
 
     <!-- GameBoard -->
 
-    <div class="gameBackground mx-auto justify-center inline-flex relative p-8">
+    <div
+      class="gameBackground mx-auto sm:justify-center sm:inline-flex  p-8"
+    >
       <div
         class="gameContainer relative flex flex-col justify-center items-center"
       >
@@ -113,7 +115,7 @@
         <div
           class="menu2 hidden absolute left-1/2 translate-x-[-50%] top-[60%]"
         >
-          <a href="/Tetris Game/menu.html">
+          <a href="/tetris/menu.html">
             <button
               class="bg-slate-950 rounded-md p-3 text-gray-100 text-md shadow-lg border-2 border-blue-900 shadow-blue-950 font-semibold hover:text-blue-600 hover:scale-95 transition-transform duration-150 ease-in-out sm:py-3"
             >
@@ -191,7 +193,7 @@
         >
           Start/Pause
         </button>
-        <a href="/Tetris Game/menu.html">
+        <a href="/tetris/menu.html">
           <button
             class="menu bg-slate-950 rounded-md px-5 py-5 text-gray-100 text-xl shadow-md shadow-blue-950 border-2 border-blue-950 font-semibold hover:text-blue-600 hover:scale-95 transition-transform duration-150 ease-in-out sm:py-3"
           >
@@ -218,30 +220,30 @@
 
     <audio
       id="backgroundMusic"
-      src="/Tetris Game/music/Tetris.mp3"
+      src="/tetris/music/Tetris.mp3"
       loop
     ></audio>
 
     <audio
       id="full"
-      src="/Tetris Game/music/small-rock-break-194553.mp3"
+      src="/tetris/music/small-rock-break-194553.mp3"
     ></audio>
 
     <audio
       id="gameVoice"
-      src="/Tetris Game/music/zapsplat_human_male_voice_says_game_over_001_15726.mp3"
+      src="/tetris/music/zapsplat_human_male_voice_says_game_over_001_15726.mp3"
     ></audio>
 
     <audio
       id="levelChange"
-      src="/Tetris Game/music/SEP_levelchange.wav"
+      src="/tetris/music/SEP_levelchange.wav"
     ></audio>
 
-    <audio id="gameEndMusic" src="/Tetris Game/music/SEP_gameover.wav"></audio>
+    <audio id="gameEndMusic" src="/tetris/music/SEP_gameover.wav"></audio>
 
-    <audio id="tetris" src="/Tetris Game/music/SEP_tetris.wav"></audio>
+    <audio id="tetris" src="/tetris/music/SEP_tetris.wav"></audio>
 
-    <audio id="hit" src="/Tetris Game/music/SEB_fall.wav"></audio>
+    <audio id="hit" src="/tetris/music/SEB_fall.wav"></audio>
 
     <!-- Footer -->
 

@@ -172,6 +172,7 @@ body.light-mode .lightClose {
   object-fit: cover; /* Crop the image to fill the container */
   width: 255px; /* Optional: Limit max width */
   height: 295px; /* Optional: Limit max height */
+  object-position: top;
 }
 
 /* Specific card positions */
@@ -225,6 +226,10 @@ a {
 }
 
 /* indicator background color */
+
+.indicator li {
+  cursor: pointer;
+}
 
 .circle {
   width: 10px;
