@@ -3,11 +3,15 @@
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
-    "build": "tailwind -i ./input.css -o ./css/main.css",
-    "watch": "tailwind -i ./input.css -o ./css/main.css --watch"
+    "build": "npx @tailwindcss/cli -i ./input.css -o ./css/main.css",
+    "watch": "npx @tailwindcss/cli -i ./input.css -o ./css/output.css --watch"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.12",
+    "tailwindcss": "^4.1.12"
+  }
 }
