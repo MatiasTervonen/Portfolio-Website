@@ -70,7 +70,7 @@ function slides() {
 const centerIndex = Math.floor(indicatorOrder.length / 2);
 
 function updateIndicator() {
-  const isLightMode = document.body.classList.contains("light-mode");
+  const isDarkMode = document.documentElement.classList.contains("dark");
 
   // Find the active card's index
   const activeCardIndex = cardOrder.findIndex((card) =>
@@ -84,12 +84,12 @@ function updateIndicator() {
   // Highlight the correct indicator
   indicatorOrder.forEach((indicator, index) => {
     if (index === activeIndicatorIndex) {
-      if (isLightMode) {
-        indicator.classList.add("bg-black-indicator");
-        indicator.classList.remove("bg-white-indicator"); // Highlight the active indicator
-      } else {
+      if (isDarkMode) {
         indicator.classList.add("bg-white-indicator");
-        indicator.classList.remove("bg-black-indicator"); // Reset others
+        indicator.classList.remove("bg-black-indicator"); // Highlight the active indicator
+      } else {
+        indicator.classList.add("bg-black-indicator");
+        indicator.classList.remove("bg-white-indicator"); // Reset others
       }
     } else {
       indicator.classList.remove("bg-white-indicator", "bg-black-indicator");
@@ -187,35 +187,18 @@ attachPointerListeners();
 
 makeCarouselDragSafe(".cardContainer");
 
-
 // LightMode button
 
-document.getElementById("toggleSwitch");
-document.getElementById("menuToggleSwitch");
-
-const moon = document.querySelector(".moon");
-const sun = document.querySelector(".sun");
-
-const moonMenu = document.querySelector(".moonMenu");
-const sunMenu = document.querySelector(".sunMenu");
-
-const body = document.body;
+const toggleSwitch = document.getElementById("toggleSwitch");
+const menuToggleSwitch = document.getElementById("menuToggleSwitch");
 
 toggleSwitch.addEventListener("click", () => {
-  toggleSwitch.classList.toggle("active");
-
-  moon.classList.toggle("hidden");
-  sun.classList.toggle("hidden");
-  body.classList.toggle("light-mode");
+  document.documentElement.classList.toggle("dark");
   updateIndicator();
 });
 
 menuToggleSwitch.addEventListener("click", () => {
-  menuToggleSwitch.classList.toggle("active");
-
-  moonMenu.classList.toggle("hidden");
-  sunMenu.classList.toggle("hidden");
-  body.classList.toggle("light-mode");
+  document.documentElement.classList.toggle("dark");
   updateIndicator();
 });
 

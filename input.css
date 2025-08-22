@@ -1,169 +1,18 @@
 @import "tailwindcss";
 
-body {
-  background-color: #000415;
-}
+@custom-variant dark (&:where(.dark, .dark *));
 
-.footer,
-.header {
-  font-family: "Bowlby One SC", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  background-color: #000c3d;
-}
-
-.workHistory,
-.aboutMe {
-  background-color: #000c3d;
-  max-width: 700px;
+.font-primary {
   font-family: "Russo One", serif;
   font-weight: 400;
   font-style: normal;
 }
 
-/* light mode switch */
-
-.sunMenu,
-.sun {
-  width: 24px;
-  height: 24px;
-}
-
-#menuToggleSwitch,
-#toggleSwitch {
-  background-color: #000415;
-  width: 60px;
-  height: 30px;
-  border: 3px solid #f7fafc;
-  border-radius: 20px;
-  padding: 3px;
-  cursor: pointer;
-}
-
-#menuToggleCircle,
-#toggleCircle {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: #f7fafc;
-  transition: left 0.3s ease;
-}
-
-#menuToggleSwitch.active,
-#toggleSwitch.active {
-  background-color: #f7fafc;
-  border: 3px solid #000415;
-}
-
-#menuToggleSwitch.active #menuToggleCircle,
-#toggleSwitch.active #toggleCircle {
-  left: 32px;
-  background-color: #000415;
-}
-
-/* Light Mode */
-
-body.light-mode {
-  background-color: #f7fafc;
-  color: black;
-}
-
-body.light-mode .header {
-  background-color: #f7fafc;
-  color: #000415;
-  border-bottom: 1px solid #000415;
-}
-
-body.light-mode .topTextCarousel {
-  color: #000415;
-}
-
-body.light-mode .footer {
-  background-color: #f7fafc;
-  color: #000415;
-  border-top: 1px solid #000415;
-}
-
-body.light-mode .aboutMe {
-  background-color: #f7fafc;
-  border: 3px solid black;
-  color: black;
-}
-
-body.light-mode .workHistory {
-  background-color: #f7fafc;
-  border: 3px solid #0f172a;
-  color: #0f172a;
-}
-
-body.light-mode .navBar {
-  background-color: #f7fafc;
-  color: #000415;
-  border-bottom: 1px solid #000415;
-}
-
-body.light-mode .cardContainer > div {
-  border: rgb(51, 51, 51) solid 3px;
-}
-
-body.light-mode .lightMenu {
-  background-color: #f7fafc;
-  color: #000415;
-  border: 1px solid #000415;
-}
-
-body.light-mode .lightClose {
-  color: #000415;
-}
-
-.topTextCarousel {
-  font-family: "Russo One", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.menuLink,
-.cardButton {
+.font-secondary {
   font-family: "Bowlby One SC", sans-serif;
   font-weight: 400;
   font-style: normal;
 }
-
-.portfolio {
-  text-shadow: 2px 3px 4px rgba(0, 0, 0, 0.3);
-}
-
-/* Card carousell on main page */
-
-.cardContainer {
-  width: 100%;
-  max-width: 1200px;
-  height: 400px;
-  margin: 0 auto;
-  align-items: center;
-  overflow: hidden;
-}
-
-/* Default card styles */
-.cardContainer > div {
-  position: absolute;
-  width: 270px;
-  height: 380px;
-  background-color: #262626;
-  border: #f7fafc solid 3px;
-  transition: transform 0.5s ease, scale 0.5s ease, z-index 0.5s ease;
-}
-
-.cardContainer img {
-  width: 100%; /* Scale the image to the container width */
-  height: auto; /* Maintain aspect ratio */
-  object-fit: cover; /* Crop the image to fill the container */
-  width: 255px; /* Optional: Limit max width */
-  height: 295px; /* Optional: Limit max height */
-  object-position: top;
-}
-
-/* Specific card positions */
 
 /* Center Card */
 .current {
@@ -215,25 +64,14 @@ a {
 
 /* indicator background color */
 
-.indicator li {
-  cursor: pointer;
-}
-
-.circle {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: #011257 2px solid;
-}
-
 .bg-white-indicator {
   background-color: #f7fafc;
-  scale: 1.7;
+  scale: 1.4;
 }
 
 .bg-black-indicator {
   background-color: #000415;
-  scale: 1.3;
+  scale: 1.4;
 }
 
 /* Light animation for buttons styling */
@@ -305,7 +143,7 @@ a {
   }
 }
 
-/* Breakpoints for mobile */
+/* Breakpoints for mobile/ scale cards smaller */
 
 @media (max-width: 640px) {
   .current {
@@ -348,36 +186,5 @@ a {
 
   .leftEdge {
     scale: 0.5;
-  }
-
-  .indicatorLight {
-    margin-top: -60px;
-  }
-  .topTextCarousel {
-    text-align: center;
-  }
-
-  .header {
-    font-size: 16px;
-  }
-
-  #menu-toggle,
-  #menu-close {
-    width: 20px;
-    height: 20px;
-  }
-
-  .aboutMeheader,
-  .workHistoryHeader {
-    font-size: 16px;
-  }
-
-  .aboutMeText,
-  .workHistoryText,
-  .mail {
-    font-size: 13px;
-  }
-  .lightMenu {
-    padding: 40px;
   }
 }
