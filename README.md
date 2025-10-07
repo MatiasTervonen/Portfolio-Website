@@ -1,14 +1,14 @@
-# 🌐 My Portfolio site
+# My Portfolio site
 
 Personal portfolio website - showcasing my projects, skills and experience.
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - Framework: -
 - Styling: Tailwind CSS
 - Languages: javascript, CSS, HTML
 - Hosted: Netlify
 
-## 🚀 Link to website
+## Link to website
 
-- 🌐 [Personal portfolio website](https://matiastervonen.netlify.app/)
+- [Personal portfolio website](https://matiastervonen.com/)
